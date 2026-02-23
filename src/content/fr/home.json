@@ -1,0 +1,105 @@
+{
+    "hero": {
+        "title": "Télédiffusion de Mauritanie (TDM-SA)",
+        "subtitle": "La TDM a pour mission principale d’assurer, à titre exclusif, la diffusion et l’émission des programmes des opérateurs de communication audiovisuelle.",
+        "cta": {
+            "services": "Services Techniques",
+            "data": "Portail Data",
+            "live": "Direct & Streaming"
+        }
+    },
+    "stats": {
+        "title": "TDM en chiffres",
+        "items": [
+            {
+                "id": "sites",
+                "value": "120+",
+                "label": "Sites de diffusion"
+            },
+            {
+                "id": "channels",
+                "value": "15",
+                "label": "Chaînes TV"
+            },
+            {
+                "id": "radios",
+                "value": "24",
+                "label": "Stations Radio"
+            },
+            {
+                "id": "projects",
+                "value": "8",
+                "label": "Projets en cours"
+            }
+        ]
+    },
+    "services": {
+        "title": "Nos Services Numériques",
+        "items": [
+            {
+                "id": "tv",
+                "title": "Télédiffusion terrestre et satellitaire",
+                "description": "Fournir des services de télédiffusion numérique de haute qualité au public."
+            },
+            {
+                "id": "radio",
+                "title": "Radiodiffusion (FM)",
+                "description": "Couverture complète des radios nationales et locales pour toutes les wilayas."
+            },
+            {
+                "id": "data",
+                "title": "Services de transmission de données",
+                "description": "Connecter les institutions médiatiques à des réseaux de données sécurisés."
+            },
+            {
+                "id": "archive",
+                "title": "Archivage Numérique",
+                "description": "Conservation et numérisation du patrimoine audiovisuel national."
+            }
+        ]
+    },
+    "news": {
+        "title": "Actualités & Activités",
+        "items": [
+            {
+                "id": "1",
+                "date": "2024-02-15",
+                "title": "Lancement du streaming des radios et télévisions",
+                "summary": "Une étape majeure pour renforcer la présence numérique nationale."
+            },
+            {
+                "id": "2",
+                "date": "2024-02-10",
+                "title": "Installation d'une station de diffusion à Tanaha",
+                "summary": "Extension de la couverture FM dans les zones rurales isolées."
+            },
+            {
+                "id": "3",
+                "date": "2024-02-05",
+                "title": "Formation technique pour les ingénieurs médias",
+                "summary": "Session intensive sur les nouvelles technologies de diffusion."
+            }
+        ],
+        "more": "Voir plus"
+    },
+    "quickLinks": {
+        "title": "Liens Rapides",
+        "items": [
+            {
+                "id": "tenders",
+                "title": "Marchés Publics",
+                "path": "/tenders"
+            },
+            {
+                "id": "projects",
+                "title": "Grands Projets",
+                "path": "/projects"
+            },
+            {
+                "id": "legislation",
+                "title": "Législation et Références",
+                "path": "/about#legislation"
+            }
+        ]
+    }
+}

@@ -1,0 +1,15 @@
+{
+    "title": "Projets Stratégiques",
+    "items": [
+        {
+            "id": "digital-transition",
+            "title": "Transition vers la TNT",
+            "description": "Projet national visant à moderniser l'infrastructure de diffusion télévisuelle du système analogique vers le numérique, garantissant une meilleure qualité et plus de chaînes."
+        },
+        {
+            "id": "fm-expansion",
+            "title": "Extension du réseau FM",
+            "description": "Renforcement de la couverture radio pour inclure toutes les zones reculées et les points de passage frontaliers, assurant le service public à tous les citoyens."
+        }
+    ]
+}

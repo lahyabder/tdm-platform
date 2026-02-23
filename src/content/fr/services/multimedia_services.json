@@ -1,0 +1,50 @@
+{
+  "title": "Hébergement et Location d'Infrastructures",
+  "definition": "La TDM permet aux opérateurs de télécommunications d'héberger leurs équipements sur ses pylônes nationaux avec toutes les garanties de sécurité et d'énergie.",
+  "audience": {
+    "title": "Public cible",
+    "items": [
+      "Opérateurs de télécommunications mobiles",
+      "Services gouvernementaux (Réseaux privés)",
+      "Médias (Hébergement de studios et émetteurs)"
+    ]
+  },
+  "steps": {
+    "title": "Comment bénéficier du service",
+    "items": [
+      {
+        "step": 1,
+        "title": "Demande de visite technique",
+        "description": "Identification du pylône souhaité et de l'espace nécessaire."
+      },
+      {
+        "step": 2,
+        "title": "Étude de charge et d'impact",
+        "description": "Vérification par l'ingénierie de la capacité portante et de la non-interférence."
+      },
+      {
+        "step": 3,
+        "title": "Signature du contrat",
+        "description": "Convention incluant la maintenance, l'énergie et le gardiennage."
+      }
+    ]
+  },
+  "documents": {
+    "title": "Modèles de contrats",
+    "items": [
+      {
+        "title": "Liste des prix de location de pylônes",
+        "url": "#"
+      }
+    ]
+  },
+  "faq": {
+    "title": "Questions fréquentes",
+    "items": [
+      {
+        "question": "L'énergie est-elle garantie ?",
+        "answer": "Oui, tous nos sites sont équipés de systèmes d’énergie redondants (groupes électrogènes et batteries)."
+      }
+    ]
+  }
+}

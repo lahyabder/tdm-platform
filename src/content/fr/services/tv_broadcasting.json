@@ -1,0 +1,58 @@
+{
+  "title": "Services de Diffusion TV Numérique et Satellitaire",
+  "definition": "Nous assurons la diffusion des chaînes de télévision nationales et privées via le réseau de Télévision Numérique Terrestre (TNT) et par satellite (Nilesat).",
+  "audience": {
+    "title": "Public cible",
+    "items": [
+      "Bouquet de télévision public national",
+      "Chaînes de télévision privées autorisées",
+      "Institutions souhaitant une diffusion satellitaire spécialisée"
+    ]
+  },
+  "steps": {
+    "title": "Comment bénéficier du service",
+    "items": [
+      {
+        "step": 1,
+        "title": "Agrément légal",
+        "description": "Obtenir une autorisation de diffusion auprès de la HAPA et des autorités compétentes."
+      },
+      {
+        "step": 2,
+        "title": "Liaison technique",
+        "description": "Établir une liaison (Fibre ou IP) entre les studios de la chaîne et le centre de diffusion de la TDM."
+      },
+      {
+        "step": 3,
+        "title": "Multiplexage et Diffusion",
+        "description": "Intégration du signal dans le bouquet numérique national ou satellitaire et démarrage de la diffusion."
+      }
+    ]
+  },
+  "documents": {
+    "title": "Documents techniques",
+    "items": [
+      {
+        "title": "Cahier des charges TNT Mauritanie",
+        "url": "#"
+      },
+      {
+        "title": "Procédures de raccordement satellitaire",
+        "url": "#"
+      }
+    ]
+  },
+  "faq": {
+    "title": "Questions fréquentes",
+    "items": [
+      {
+        "question": "Quel est l'avantage du passage à la TNT ?",
+        "answer": "La TNT offre une meilleure qualité d'image, plus de chaînes et une utilisation plus efficace du spectre radioélectrique."
+      },
+      {
+        "question": "La TDM assure-t-elle le streaming en ligne ?",
+        "answer": "Oui, nous avons lancé un portail de streaming (OTT) pour permettre l'accès aux chaînes nationales via internet."
+      }
+    ]
+  }
+}

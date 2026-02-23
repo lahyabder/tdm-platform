@@ -1,0 +1,58 @@
+{
+  "title": "Services de Radiodiffusion (FM)",
+  "definition": "La TDM assure la diffusion des stations de radio nationales et privées sur tout le territoire mauritanien via son réseau FM, garantissant une large couverture et une qualité sonore optimale.",
+  "audience": {
+    "title": "Public cible",
+    "items": [
+      "Radio Mauritanie et ses déclinaisons régionales",
+      "Stations de radio commerciales privées autorisées",
+      "Radios communautaires et de proximité"
+    ]
+  },
+  "steps": {
+    "title": "Comment bénéficier du service",
+    "items": [
+      {
+        "step": 1,
+        "title": "Obtention de la licence",
+        "description": "L'opérateur doit d'abord obtenir une licence d'exploitation auprès de la HAPA (Haute Autorité de la Presse et de l'Audiovisuel)."
+      },
+      {
+        "step": 2,
+        "title": "Étude technique",
+        "description": "Nos équipes effectuent une étude technique pour déterminer la fréquence optimale et le site de diffusion le plus adapté."
+      },
+      {
+        "step": 3,
+        "title": "Signature du contrat",
+        "description": "Une fois les conditions techniques remplies, une convention de diffusion est signée pour le démarrage effectif de l'émission."
+      }
+    ]
+  },
+  "documents": {
+    "title": "Documents et téléchargements",
+    "items": [
+      {
+        "title": "Formulaire de demande de service FM",
+        "url": "#"
+      },
+      {
+        "title": "Spécifications techniques des équipements",
+        "url": "#"
+      }
+    ]
+  },
+  "faq": {
+    "title": "Questions fréquentes",
+    "items": [
+      {
+        "question": "La TDM couvre-t-elle les zones frontalières ?",
+        "answer": "Oui, la sécurisation de la diffusion dans les zones frontalières est une priorité pour garantir l'accès à l'information nationale."
+      },
+      {
+        "question": "Comment sont calculés les frais de diffusion ?",
+        "answer": "Les tarifs dépendent de la puissance d'émission, de la zone géographique et de la portée de couverture souhaitée."
+      }
+    ]
+  }
+}

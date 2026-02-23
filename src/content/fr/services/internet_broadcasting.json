@@ -1,0 +1,50 @@
+{
+  "title": "Diffusion par Internet (Streaming OTT)",
+  "definition": "Une plateforme nationale de streaming OTT permettant au public de suivre les radios et télévisions nationales partout dans le monde via mobile et web.",
+  "audience": {
+    "title": "Public cible",
+    "items": [
+      "Public mauritanien local et à l'étranger",
+      "Diaspora mauritanienne",
+      "Chercheurs de contenu audiovisuel national fiable"
+    ]
+  },
+  "steps": {
+    "title": "Comment y accéder",
+    "items": [
+      {
+        "step": 1,
+        "title": "Visite du portail officiel",
+        "description": "Accès au portail de streaming en direct géré par la TDM."
+      },
+      {
+        "step": 2,
+        "title": "Choix du média",
+        "description": "Sélection parmi les chaînes TV (El Mauritania, Parlementaire, etc.) et les stations radio."
+      },
+      {
+        "step": 3,
+        "title": "Suivi adaptatif",
+        "description": "Ajustement automatique de la qualité du flux en fonction de la vitesse internet."
+      }
+    ]
+  },
+  "documents": {
+    "title": "Liens utiles",
+    "items": [
+      {
+        "title": "Portail streaming - TDM Live",
+        "url": "/live"
+      }
+    ]
+  },
+  "faq": {
+    "title": "Questions fréquentes",
+    "items": [
+      {
+        "question": "Le service est-il gratuit ?",
+        "answer": "Oui, le streaming des chaînes publiques est un service gratuit ouvert à tous."
+      }
+    ]
+  }
+}

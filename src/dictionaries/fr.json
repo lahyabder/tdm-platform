@@ -1,0 +1,27 @@
+{
+    "common": {
+        "welcome": "Bienvenue",
+        "dashboard": "Tableau de bord",
+        "home": "Accueil",
+        "switchLang": "العربية"
+    },
+    "home": {
+        "title": "Bienvenue sur la plateforme TDM",
+        "subtitle": "Cette plateforme est une démo construite avec Next.js et Tailwind CSS."
+    },
+    "admin": {
+        "title": "Tableau de bord administrateur",
+        "users": "Utilisateurs",
+        "settings": "Paramètres",
+        "stats": "Statistiques",
+        "totalUsers": "Total des utilisateurs",
+        "activeProjects": "Projets actifs",
+        "revenue": "Revenus"
+    },
+    "table": {
+        "name": "Nom",
+        "email": "E-mail",
+        "role": "Rôle",
+        "status": "Statut"
+    }
+}

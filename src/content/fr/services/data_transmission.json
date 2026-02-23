@@ -1,0 +1,50 @@
+{
+  "title": "Services de Transmission de Données",
+  "definition": "La TDM offre un réseau intégré de transmission de données et d'interconnexion pour les institutions médiatiques, garantissant une livraison sécurisée et haut débit du contenu.",
+  "audience": {
+    "title": "Public cible",
+    "items": [
+      "Institutions médiatiques publiques et privées",
+      "Agences gouvernementales liées à la diffusion",
+      "Opérateurs de télécommunications et FAI"
+    ]
+  },
+  "steps": {
+    "title": "Comment bénéficier du service",
+    "items": [
+      {
+        "step": 1,
+        "title": "Demande technique",
+        "description": "Définition des points d'interconnexion, de la capacité de transmission et de la durée."
+      },
+      {
+        "step": 2,
+        "title": "Levée de site",
+        "description": "Vérification de la disponibilité de l'infrastructure (pylônes, fibre optique) sur les sites de liaison."
+      },
+      {
+        "step": 3,
+        "title": "Activation de la liaison",
+        "description": "Installation des équipements et sécurisation du transit de données sous surveillance du NOC."
+      }
+    ]
+  },
+  "documents": {
+    "title": "Documents",
+    "items": [
+      {
+        "title": "Spécifications techniques du réseau",
+        "url": "#"
+      }
+    ]
+  },
+  "faq": {
+    "title": "Questions fréquentes",
+    "items": [
+      {
+        "question": "Le service est-il disponible dans toutes les wilayas ?",
+        "answer": "Oui, notre réseau de transmission couvre toutes les capitales régionales et les villes majeures."
+      }
+    ]
+  }
+}

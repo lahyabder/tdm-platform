@@ -1,0 +1,27 @@
+{
+    "common": {
+        "welcome": "مرحباً",
+        "dashboard": "لوحة التحكم",
+        "home": "الرئيسية",
+        "switchLang": "Français"
+    },
+    "home": {
+        "title": "مرحباً بكم في منصة TDM",
+        "subtitle": "هذه المنصة تجريبية ومبنية باستخدام Next.js و Tailwind CSS."
+    },
+    "admin": {
+        "title": "لوحة تحكم المسؤول",
+        "users": "المستخدمين",
+        "settings": "الإعدادات",
+        "stats": "الإحصائيات",
+        "totalUsers": "إجمالي المستخدمين",
+        "activeProjects": "المشاريع النشطة",
+        "revenue": "الإيرادات"
+    },
+    "table": {
+        "name": "الاسم",
+        "email": "البريد الإلكتروني",
+        "role": "الدور",
+        "status": "الحالة"
+    }
+}
