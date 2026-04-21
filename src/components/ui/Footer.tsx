@@ -45,7 +45,7 @@ export function Footer({ locale, dict }: { locale: string; dict: any }) {
                             © {currentYear} TDM. {locale === 'ar' ? 'جميع الحقوق محفوظة.' : 'Tous droits réservés.'}
                         </p>
                         <p className="text-xs text-slate-400 font-medium">
-                            {locale === 'ar' ? 'تصميم وبرمجة' : 'Conçu et développé par'} <a href="https://lahy.space" target="_blank" rel="noopener noreferrer" className="text-brand-green hover:underline font-bold transition-all">lahy</a>
+                            {locale === 'ar' ? 'تصميم وبرمجة' : 'Conçu et développé par'} <a href="https://afrikyia.com" target="_blank" rel="noopener noreferrer" className="text-brand-green hover:underline font-bold transition-all">afrikyia</a>
                         </p>
                     </div>
                     <div className="flex gap-4">
