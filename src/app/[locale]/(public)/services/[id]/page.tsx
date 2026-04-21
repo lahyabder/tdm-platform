@@ -19,8 +19,9 @@ export default async function ServiceDetailPage({
         <main className="min-h-screen bg-slate-50 pb-24">
             {/* 1. Header / Definition */}
             <section className="bg-slate-900 pt-24 pb-32 text-white relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-slate-900 to-brand-green/20"></div>
-                <div className="absolute bottom-0 w-full h-1 bg-gradient-to-r from-brand-green via-brand-yellow to-brand-red"></div>
+                <img src={`/${id}.jpg`} alt={content.title} className="absolute inset-0 w-full h-full object-cover opacity-50 mix-blend-overlay" />
+                <div className="absolute inset-0 bg-gradient-to-br from-slate-900/80 to-brand-green/40"></div>
+                <div className="absolute bottom-0 w-full h-1 bg-gradient-to-r from-brand-green via-brand-yellow to-brand-red z-10"></div>
                 <div className="max-w-4xl mx-auto px-6 relative z-10 text-center">
                     <Link href={`/${locale}/services`} className="inline-block text-brand-green hover:text-white font-medium mb-8 text-sm opacity-80 transition-colors">
                         &larr; {locale === 'ar' ? 'العودة للخدمات' : 'Retour aux services'}

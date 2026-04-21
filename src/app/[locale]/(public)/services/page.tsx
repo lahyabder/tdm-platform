@@ -18,18 +18,35 @@ export default async function ServicesPage({
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {content.items.map((item: any) => (
-                    <Link key={item.id} href={`/${locale}/services/${item.id}`} className="block">
-                        <div className="bg-white p-6 rounded-sm shadow-sm border border-slate-200 hover:border-brand-green hover:shadow-md transition-all group h-full cursor-pointer relative overflow-hidden">
-                            <div className="absolute top-0 left-0 w-1 h-0 bg-brand-green transition-all duration-300 group-hover:h-full"></div>
-                            <div className="w-16 h-16 bg-slate-50 text-brand-green rounded-full flex items-center justify-center mb-6 group-hover:bg-brand-green group-hover:text-white transition-colors border border-slate-100 group-hover:border-brand-green">
-                                <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-                            </div>
-                            <h3 className="text-xl font-bold text-slate-800 mb-3 group-hover:text-brand-green transition-colors">{item.title}</h3>
-                            <p className="text-slate-600 text-sm leading-relaxed mb-4">
-                                {item.description}
-                            </p>
-                            <div className="mt-auto flex items-center text-sm font-bold text-brand-green opacity-0 group-hover:opacity-100 transition-opacity transform -translate-x-2 group-hover:translate-x-0 rtl:translate-x-2 rtl:group-hover:translate-x-0">
-                                {locale === 'ar' ? 'عرض التفاصيل' : 'Voir les détails'} &rarr;
+                    <Link key={item.id} href={`/${locale}/services/${item.id}`} className="block group">
+                        <div className="relative h-72 rounded-2xl overflow-hidden shadow-lg cursor-pointer border border-slate-800 hover:border-brand-green transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
+                            {/* Background image */}
+                            <img
+                                src={`/${item.id}.jpg`}
+                                alt={item.title}
+                                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                            />
+                            {/* Dark overlay */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-900/60 to-slate-800/20"></div>
+                            {/* Hover accent line */}
+                            <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-brand-green scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+                            {/* Content */}
+                            <div className="absolute inset-0 flex flex-col justify-end p-6">
+                                <div className="w-10 h-10 bg-slate-800/80 backdrop-blur-sm rounded-xl flex items-center justify-center mb-4 border border-white/10 group-hover:bg-brand-green/20 group-hover:border-brand-green/50 transition-colors">
+                                    <svg className="w-5 h-5 text-brand-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                    </svg>
+                                </div>
+                                <h3 className="text-xl font-extrabold text-white mb-2 group-hover:text-brand-green transition-colors">
+                                    {item.title}
+                                </h3>
+                                <p className="text-slate-300 text-sm leading-relaxed line-clamp-2">
+                                    {item.description}
+                                </p>
+                                <div className="mt-3 flex items-center text-xs font-bold text-brand-green opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+                                    {locale === 'ar' ? 'عرض التفاصيل ←' : 'Voir les détails →'}
+                                </div>
                             </div>
                         </div>
                     </Link>
