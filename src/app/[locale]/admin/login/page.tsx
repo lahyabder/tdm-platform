@@ -17,7 +17,7 @@ export default function AdminLogin({
     const t = {
         ar: {
             title: "تسجيل الدخول",
-            subtitle: "بوابة الإدارة المركزية - السلطة العليا للصحافة والسمعيات البصرية",
+            subtitle: "بوابة الإدارة المركزية - شركة البث الإذاعي والتلفزي الموريتاني",
             username: "اسم المستخدم",
             password: "كلمة المرور",
             login: "دخول",
@@ -25,7 +25,7 @@ export default function AdminLogin({
         },
         fr: {
             title: "Connexion",
-            subtitle: "Portail d'Administration Central - HAPA",
+            subtitle: "Portail d'Administration - Société Mauritanienne de Radiodiffusion et de Télévision",
             username: "Nom d'utilisateur",
             password: "Mot de passe",
             login: "Se connecter",
