@@ -21,11 +21,10 @@ export default async function ServicesPage({
                     <Link key={item.id} href={`/${locale}/services/${item.id}`} className="block group">
                         <div className="relative h-72 rounded-2xl overflow-hidden shadow-lg cursor-pointer border border-slate-800 hover:border-brand-green transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
                             {/* Background image */}
-                            <img
-                                src={`/${item.id}.jpg`}
-                                alt={item.title}
-                                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                                onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+                            <div
+                                className="absolute inset-0 w-full h-full bg-cover bg-center bg-slate-800 transition-transform duration-500 group-hover:scale-105"
+                                style={{ backgroundImage: `url(/${item.id}.jpg)` }}
+                                title={item.title}
                             />
                             {/* Dark overlay */}
                             <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-900/60 to-slate-800/20"></div>

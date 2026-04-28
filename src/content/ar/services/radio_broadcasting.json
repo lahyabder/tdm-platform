@@ -54,5 +54,56 @@
         "answer": "تعتمد التكلفة على قوة جهاز الإرسال، الموقع الجغرافي، ونطاق التغطية المطلوب."
       }
     ]
+  },
+  "technicalData": {
+    "title": "البيانات الفنية للبث",
+    "networks": [
+      {
+        "name": "البث الفضائي DTH عبر النطاق Ku",
+        "description": "يتم بث هذه الباقة على القمر الصناعي عربسات بدر 4 الذي يغطي المغرب العربي، الشرق الأوسط، والعديد من الدول الأوروبية.",
+        "parameters": [
+          {"label": "القمر الصناعي", "value": "عربسات بدر 4 @26ᴼ شرقاً"},
+          {"label": "التردد", "value": "12553 ميغاهرتز"},
+          {"label": "الاستقطاب", "value": "عمودي (V)"},
+          {"label": "معدل الترميز", "value": "27500 KS"},
+          {"label": "معامل تصحيح الخطأ", "value": "¾"}
+        ]
+      },
+      {
+        "name": "البث الفضائي عبر النطاق C (ترنارود)",
+        "description": "يغطي القارة الأفريقية بالكامل وجزءاً من أوروبا وآسيا للوصول إلى الجاليات الموريتانية.",
+        "parameters": [
+          {"label": "القمر الصناعي", "value": "عربسات 5C@20ᴼ شرقاً"},
+          {"label": "النطاق", "value": "النطاق C (حزمة EMEA)"},
+          {"label": "التردد", "value": "3884 ميغاهرتز"},
+          {"label": "معدل الترميز", "value": "27500 LS"},
+          {"label": "معامل تصحيح الخطأ", "value": "5/6"}
+        ]
+      },
+      {
+        "name": "الشبكة الأرضية FM",
+        "description": "تغطية أرضية عبر شبكة FM تشمل كافة مقاطعات الوطن.",
+        "parameters": []
+      }
+    ]
+  },
+  "stations": {
+    "title": "المحطات الإذاعية المبثة",
+    "items": [
+      { "name": "إذاعة القرآن الكريم", "type": "عمومية", "coverage": "Badr 4 / Arabsat 5C", "frequency": "فضائي", "logo": "/logos/radio_coran.png" },
+      { "name": "إذاعة الشباب", "type": "عمومية", "coverage": "Badr 4", "frequency": "فضائي", "logo": "/logos/radio_jeunesse.png" },
+      { "name": "إذاعة موريتانيا", "type": "عمومية", "coverage": "Badr 4 / Arabsat 5C", "frequency": "فضائي", "logo": "/logos/radio_mauritanie.png" },
+      { "name": "إذاعة التنوير", "type": "خاصة", "coverage": "نواكشوط", "frequency": "97.1 MHz", "logo": "/logos/tenwir.png" },
+      { "name": "إذاعة موريتانيد", "type": "خاصة", "coverage": "نواكشوط", "frequency": "100.5 MHz", "logo": "/logos/mauritanid.png" },
+      { "name": "إذاعة كوبني", "type": "خاصة", "coverage": "نواكشوط", "frequency": "94.2 MHz", "logo": "/logos/kobeni.png" },
+      { "name": "إذاعة فرنسا الدولية (RFI)", "type": "دولية", "coverage": "نواكشوط", "frequency": "103.3 MHz", "logo": "/logos/rfi.png" },
+      { "name": "إذاعة فرنسا الدولية (RFI)", "type": "دولية", "coverage": "نواذيبو", "frequency": "88.0 MHz", "logo": "/logos/rfi.png" },
+      { "name": "إذاعة مونت كارلو الدولية", "type": "دولية", "coverage": "نواكشوط", "frequency": "90.2 MHz", "logo": "/logos/mcd.png" },
+      { "name": "إذاعة BBC", "type": "دولية", "coverage": "نواكشوط", "frequency": "106.9 MHz", "logo": "/logos/bbc.png" },
+      { "name": "إذاعة BBC", "type": "دولية", "coverage": "نواذيبو", "frequency": "102.4 MHz", "logo": "/logos/bbc.png" },
+      { "name": "إذاعة الصين الدولية (CRI)", "type": "دولية", "coverage": "نواكشوط", "frequency": "95.7 MHz", "logo": "/logos/cri.png" },
+      { "name": "إذاعة سوا (Sawa)", "type": "دولية", "coverage": "نواكشوط", "frequency": "93.8 MHz", "logo": "/logos/sawa.png" },
+      { "name": "إذاعة ميدي 1 (Medi1)", "type": "دولية", "coverage": "نواكشوط", "frequency": "102.4 MHz", "logo": "/logos/medi1.png" }
+    ]
   }
 }

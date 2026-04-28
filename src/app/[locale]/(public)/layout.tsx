@@ -1,6 +1,7 @@
 import { getDictionary } from '@/dictionaries';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/ui/Footer';
+import { ScrollToTop } from '@/components/ScrollToTop';
 
 export default async function PublicLayout({
     children,
@@ -15,6 +16,7 @@ export default async function PublicLayout({
 
     return (
         <>
+            <ScrollToTop />
             <Navbar locale={locale} dict={dict.common} />
             <div className="flex-1 w-full bg-slate-50/50">
                 {children}

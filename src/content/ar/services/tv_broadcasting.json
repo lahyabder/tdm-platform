@@ -54,5 +54,46 @@
         "answer": "نعم، قمنا مؤخراً بإطلاق بوابة خاصة للبث المباشر (OTT) للقنوات الوطنية لضمان الوصول لمشتركي الإنترنت."
       }
     ]
+  },
+  "technicalData": {
+    "title": "البيانات الفنية للبث",
+    "networks": [
+      {
+        "name": "البث الفضائي (DTH) عبر عربسات بدر 4",
+        "description": "باقة تضم 12 قناة تلفزيونية، تغطي المغرب العربي، الشرق الأوسط، والعديد من الدول الأوروبية.",
+        "parameters": [
+          {"label": "القمر الصناعي", "value": "عربسات بدر 4 @26ᴼ شرقاً"},
+          {"label": "التردد", "value": "12563 ميغاهرتز"},
+          {"label": "الاستقطاب", "value": "عمودي (V)"},
+          {"label": "معدل الترميز", "value": "27500 KS"},
+          {"label": "معامل تصحيح الخطأ", "value": "¾"}
+        ]
+      },
+      {
+        "name": "البث الفضائي عبر النطاق C (ترنارود)",
+        "description": "يبث قناة الموريتانية لتغطية القارة الأفريقية بالكامل وجزء كبير من أوروبا وآسيا.",
+        "parameters": [
+          {"label": "القمر الصناعي", "value": "عربسات 5C@20ᴼ شرقاً"},
+          {"label": "النطاق", "value": "النطاق C (حزمة EMEA)"},
+          {"label": "التردد", "value": "3884 ميغاهرتز"},
+          {"label": "معدل الترميز", "value": "27500 LS"},
+          {"label": "معامل تصحيح الخطأ", "value": "5/6"}
+        ]
+      }
+    ]
+  },
+  "channels": {
+    "title": "القنوات التلفزيونية المبثة",
+    "items": [
+      { "name": "قناة الموريتانية", "satellite": "Badr 4 / Arabsat 5C", "format": "SD / HD", "type": "عمومية", "logo": "/logos/tvm.png" },
+      { "name": "الموريتانية 2", "satellite": "Badr 4", "format": "SD", "type": "عمومية", "logo": "/logos/tvm2.png" },
+      { "name": "القناة الرياضية", "satellite": "Badr 4", "format": "SD", "type": "عمومية", "logo": "/logos/sport.png" },
+      { "name": "القناة الثقافية", "satellite": "Badr 4", "format": "SD", "type": "عمومية", "logo": "/logos/culture.png" },
+      { "name": "قناة المحظرة", "satellite": "Badr 4", "format": "SD", "type": "عمومية", "logo": "/logos/mahdara.png" },
+      { "name": "قناة شنقيط", "satellite": "Badr 4", "format": "SD", "type": "خاصة", "logo": "/logos/chinguitt.png" },
+      { "name": "قناة المرابطون", "satellite": "Badr 4", "format": "SD", "type": "خاصة", "logo": "https://upload.wikimedia.org/wikipedia/ar/d/dd/Al_Mourabitoun_TV_logo.png" },
+      { "name": "القناة الوطنية", "satellite": "Badr 4", "format": "SD", "type": "خاصة" },
+      { "name": "قناة الساحل", "satellite": "Badr 4", "format": "SD", "type": "خاصة" }
+    ]
   }
 }

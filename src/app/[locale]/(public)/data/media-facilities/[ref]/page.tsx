@@ -1,6 +1,7 @@
 import { mediaFacilities } from '@/mock/mediaFacilities';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import PrintButton from '@/components/ui/PrintButton';
 
 export default async function MediaFacilityDetails({
     params,
@@ -96,17 +97,15 @@ export default async function MediaFacilityDetails({
                         </div>
                         <div>
                             <p className="text-sm font-medium text-slate-500 mb-1">{t.legislation}</p>
-                            <a href="#" className="text-lg font-bold text-brand-green hover:underline flex items-center gap-1">
+                            <a href={`/docs/legislation-${facility.ref}.pdf`} target="_blank" rel="noopener noreferrer" className="text-lg font-bold text-brand-green hover:underline flex items-center gap-2 group w-max">
+                                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
                                 {facility.legislationRef}
-                                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
                             </a>
                         </div>
                     </div>
 
-                    <div className="p-6 bg-slate-50 border-t border-slate-200 text-center">
-                        <button className="px-6 py-2 border border-slate-300 bg-white text-slate-700 font-bold rounded-sm hover:bg-slate-100 transition-colors shadow-sm">
-                            {locale === 'ar' ? 'طباعة الشهادة' : 'Imprimer le certificat'}
-                        </button>
+                    <div className="p-6 bg-slate-50 border-t border-slate-200 text-center print:hidden">
+                        <PrintButton label={locale === 'ar' ? 'طباعة الشهادة' : 'Imprimer le certificat'} />
                     </div>
                 </div>
             </div>

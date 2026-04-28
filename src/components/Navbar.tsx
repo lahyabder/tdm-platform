@@ -37,59 +37,63 @@ export function Navbar({ locale, dict }: { locale: string; dict: any }) {
         { name: locale === 'ar' ? 'البث الحي' : 'Direct', path: `/${locale}/live`, icon: Radio },
         { name: locale === 'ar' ? 'البيانات' : 'Données', path: `/${locale}/data`, icon: Activity },
         { name: locale === 'ar' ? 'سجل المنشآت' : 'Registre', path: `/${locale}/data/media-facilities`, icon: Map },
+        { name: locale === 'ar' ? 'المعرض' : 'Galerie', path: `/${locale}/gallery`, icon: FileText },
         { name: locale === 'ar' ? 'الصفقات' : 'Marchés', path: `/${locale}/tenders`, icon: FileText },
         { name: dict.dashboard, path: `/${locale}/admin`, icon: ShieldAlert },
     ];
 
     return (
         <>
-            {/* Floating Pill Navbar Wrapper */}
+            {/* Edge-to-Edge Sleek Navbar */}
             <motion.div
-                initial={{ y: -100, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-                className={`fixed top-6 left-0 right-0 z-[100] flex justify-center px-4 transition-all duration-500`}
+                initial={{ y: -100 }}
+                animate={{ y: 0 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+                className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${scrolled ? 'bg-white/95 backdrop-blur-xl border-b border-slate-200 shadow-sm py-2' : 'bg-white/80 backdrop-blur-lg border-b border-transparent py-4'}`}
             >
-                <div className={`relative px-2 py-2 flex items-center justify-between gap-6 transition-all duration-500 overflow-hidden ${scrolled ? 'w-[calc(100%-2rem)] max-w-4xl bg-slate-900/80 backdrop-blur-2xl border border-white/10 rounded-[2rem] shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)]' : 'w-full max-w-7xl bg-transparent'}`}>
+                <div className="max-w-[1400px] mx-auto px-6 flex items-center justify-between gap-8">
 
                     {/* Logo & Identity */}
-                    <Link href={`/${locale}`} className="flex items-center gap-3 relative z-20 pl-4 rtl:pl-0 rtl:pr-4 group shrink-0">
-                        <div className="w-12 h-12 flex items-center justify-center bg-white rounded-full shadow-lg group-hover:scale-110 transition-transform shrink-0 relative overflow-hidden border-2 border-slate-900/10">
-                            <img src="/logo.png" alt="TDM Logo" className="w-[85%] h-[85%] object-contain" />
+                    <Link href={`/${locale}`} className="flex items-center gap-4 relative z-20 group shrink-0">
+                        <div className={`flex items-center justify-center rounded-sm transition-all duration-300 shrink-0 relative overflow-hidden ${scrolled ? 'w-10 h-10' : 'w-14 h-14'}`}>
+                            <img src="/logo.png" alt="TDM Logo" className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105" />
                         </div>
-                        <div className={`flex flex-col ${scrolled ? 'opacity-0 w-0' : 'opacity-100'} transition-all duration-300 overflow-hidden whitespace-nowrap hidden sm:flex`}>
-                            <span className="font-extrabold text-lg tracking-tight text-white drop-shadow-md leading-none">
-                                {locale === 'ar' ? 'البث الإذاعي والتلفزي الموريتاني' : 'Télédiffusion de Mauritanie'}
+                        <div className={`flex flex-col transition-all duration-500 overflow-hidden whitespace-nowrap ${scrolled ? 'hidden lg:flex opacity-100' : 'flex opacity-100'}`}>
+                            <span className={`font-extrabold tracking-tight text-slate-800 leading-none mb-1 transition-all ${scrolled ? 'text-lg' : 'text-xl'}`}>
+                                {locale === 'ar' ? 'البث الإذاعي والتلفزي الموريتاني' : 'Télédiffusion de Mauritanie (TDM)'}
+                            </span>
+                            <span className={`font-bold text-brand-green tracking-[0.2em] uppercase transition-all ${scrolled ? 'text-[9px]' : 'text-[11px]'}`}>
+                                {locale === 'ar' ? 'Télédiffusion de Mauritanie (TDM)' : 'Mauritania Broadcasting'}
                             </span>
                         </div>
                     </Link>
 
-                    {/* Desktop Center Links (visible only when not heavily scrolled or if screen is large enough) */}
-                    <div className="hidden lg:flex items-center justify-center absolute left-1/2 -translate-x-1/2 z-10">
-                        <div className={`flex items-center gap-1 p-1 bg-white/5 backdrop-blur-md rounded-full border border-white/10 transition-all duration-500 ${scrolled ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}>
-                            {navLinks.slice(0, 4).map((link) => (
-                                <Link key={link.path} href={link.path} className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${pathname === link.path ? 'bg-white/10 text-white shadow-inner' : 'text-slate-300 hover:text-white hover:bg-white/5'}`}>
+                    {/* Desktop All Links */}
+                    <div className="hidden xl:flex items-center justify-center gap-1">
+                        {navLinks.slice(0, 6).map((link) => {
+                            const isActive = pathname === link.path;
+                            return (
+                                <Link key={link.path} href={link.path} className={`px-4 py-2 rounded-sm text-sm font-bold transition-all duration-200 ${isActive ? 'text-brand-green bg-brand-green/5' : 'text-slate-600 hover:text-brand-green hover:bg-slate-50'}`}>
                                     {link.name}
                                 </Link>
-                            ))}
-                        </div>
+                            );
+                        })}
                     </div>
 
-                    {/* Controls (Lang + Menu Toggle) */}
-                    <div className="flex items-center gap-2 relative z-20 pr-2 rtl:pr-0 rtl:pl-2 shrink-0">
+                    {/* Controls (Lang + Mobile Menu) */}
+                    <div className="flex items-center gap-3 relative z-20 shrink-0">
                         <Link
                             href={toggleLanguage()}
-                            className="flex items-center justify-center w-10 h-10 rounded-full bg-slate-800 hover:bg-slate-700 border border-slate-600 text-brand-yellow font-bold backdrop-blur-md transition-all hover:scale-105 active:scale-95 shrink-0 shadow-lg"
+                            className="flex items-center justify-center w-10 h-10 rounded-sm font-black transition-all hover:bg-slate-100 text-slate-700 hover:text-brand-green border border-slate-200 shrink-0"
                             title={dict.switchLang}
                         >
-                            <span className="text-sm tracking-widest leading-none mt-1">{locale === 'ar' ? 'FR' : 'عربي'}</span>
+                            <span className="text-xs tracking-widest leading-none mt-0.5">{locale === 'ar' ? 'FR' : 'AR'}</span>
                         </Link>
 
                         <button
                             onClick={() => setIsOpen(!isOpen)}
-                            className="flex items-center gap-2 px-4 h-10 rounded-full bg-brand-green hover:bg-brand-green/90 text-white font-bold backdrop-blur-md transition-all shadow-[0_0_20px_rgba(0,169,92,0.3)] hover:scale-105 active:scale-95 shrink-0"
+                            className="xl:hidden flex items-center justify-center w-10 h-10 rounded-sm bg-brand-green text-white hover:bg-slate-900 transition-colors shrink-0"
                         >
-                            <span className="hidden sm:inline-block">{locale === 'ar' ? 'القائمة' : 'Menu'}</span>
                             <motion.div animate={{ rotate: isOpen ? 90 : 0 }}>
                                 {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
                             </motion.div>

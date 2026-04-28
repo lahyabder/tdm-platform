@@ -1,0 +1,109 @@
+{
+  "title": "Service commercial",
+  "definition": "La TDM est en mesure d’assurer des contributions sur Arabsat Badr avec des tarifs compétitifs. Dans un contexte où l’optimisation des ressources et la mutualisation des infrastructures sont devenues des leviers stratégiques pour la compétitivité et la pérennité de nos activités, nous vous invitons à explorer les avantages de la mutualisation par colocalisation de nos infrastructures de diffusion.",
+  "audience": {
+    "title": "Pourquoi la colocalisation ou location ?",
+    "items": [
+      "Réduction des Coûts : En mutualisant vos installations, vous pouvez diminuer considérablement les coûts d’investissement et d’exploitation (CAPEX et OPEX), notamment en matière d’énergie, de maintenance et de gestion.",
+      "Amélioration de la Qualité de Service : La concentration des infrastructures permet une meilleure couverture, une réduction des interférences et une plus grande résilience des réseaux.",
+      "Optimisation des Ressources : L’utilisation conjointe des sites favorise une gestion plus efficace du spectre des fréquences, tout en minimisant l’impact environnemental.",
+      "Accélération du Déploiement : En mutualisant nos sites existants, vous pouvez déployer plus rapidement vos nouvelles solutions technologiques.",
+      "Développement Durable : La rationalisation des infrastructures contribue à réduire l’empreinte carbone (RSE)."
+    ]
+  },
+  "technicalData": {
+    "title": "Infrastructures proposées",
+    "networks": [
+      {
+        "name": "Pylônes & Antennes FM et DVB-T",
+        "description": "Nous proposons la mutualisation de pylônes et d’antennes pour la diffusion Radio-TV garantissant une couverture optimale."
+      },
+      {
+        "name": "Salles Techniques & terrains nus sécurisés",
+        "description": "Nous proposons des colocalisations d’infrastructures de diffusion ou de transmission dans nos locaux sécurisés climatisés et disposant d’énergie secourue et ondulée."
+      },
+      {
+        "name": "Location",
+        "description": "Ce type de contrat assure aux radios privées nationales et aux partenaires étrangers la diffusion de leurs programmes par des équipements que la TDM leur loue. Le partenaire n’a plus à se soucier du volet diffusion que la TDM lui assure avec une garantie de continuité de service."
+      }
+    ]
+  },
+  "steps": {
+    "title": "Pourquoi choisir TDM ?",
+    "items": [
+      {
+        "step": 1,
+        "title": "Infrastructures modernes",
+        "description": "Des infrastructures modernes et performantes avec des sites stratégiquement positionnés pour une couverture optimale."
+      },
+      {
+        "step": 2,
+        "title": "Support technique garanti",
+        "description": "Une maintenance et un support technique assurés avec une assistance technique 24h/24 ; 7J/7 pour assurer le bon fonctionnement des installations."
+      },
+      {
+        "step": 3,
+        "title": "Sécurité renforcée",
+        "description": "Une sécurité renforcée pour les équipements hébergés avec des solutions adaptées aux besoins spécifiques de chaque partenaire."
+      }
+    ]
+  },
+  "documents": {
+    "title": "Comment souscrire à nos services ?",
+    "items": [
+      {
+        "title": "Contactez la Direction Commerciale pour plus d'information",
+        "url": "tel:+22245255548"
+      },
+      {
+        "title": "TDM-SA, lot n°184 Ext NOT Module B, BP 5176",
+        "url": "#"
+      },
+      {
+        "title": "Tél : +222 45 25 55 48 – Fax : +222 45 25 55 47 – Nouakchott Mauritanie",
+        "url": "tel:+22245255548"
+      }
+    ]
+  },
+  "pricing": {
+    "title": "Tarifs de colocalisation",
+    "description": "La base de calcul de la redevance annuelle par site, applicable par chaque partie qui héberge, à la partie qui se fait héberger est arrêtée comme suit, conformément aux barèmes des services de colocalisation fixés par l’Autorité de Régulation :",
+    "categories": [
+      {
+        "name": "1. Bâtiment & Shelters",
+        "items": [
+          { "label": "Espace climatisé sans énergie dans un Shelter ou bâtiment", "value": "272 MRU HT/ m3/mois" },
+          { "label": "Espace non climatisé dans un Shelter ou bâtiment", "value": "55 MRU HT/ m3/mois" }
+        ]
+      },
+      {
+        "name": "2. Terrains nus",
+        "items": [
+          { "label": "Surface utilisée", "value": "30 MRU HT/ m2/mois" }
+        ]
+      },
+      {
+        "name": "3. Pylônes",
+        "items": [
+          { "label": "Frais d’accès par antenne", "value": "550 MRU HT/mois" },
+          { "label": "Redevance par antenne et par mètre de hauteur", "value": "10 MRU HT/mois" }
+        ]
+      },
+      {
+        "name": "4. Energie",
+        "items": [
+          { "label": "Energie propre à la partie qui héberge", "value": "8,5 MRU HT/KWH" },
+          { "label": "Energie Somelec", "value": "1,2 × Tarif Somelec/HT KWH" }
+        ]
+      }
+    ],
+    "conditionsTitle": "Conditions et modalités de facturation",
+    "conditions": [
+      "En cas de modification des tarifs ci-dessus par l’autorité de régulation, les nouveaux tarifs seront automatiquement considérés dans la facturation des prestations de partage, dès l’entrée en vigueur des nouveaux catalogues validés par l’ARE.",
+      "La redevance constitue un tarif annuel ferme dû au titre d’une année calendaire et s’entend hors taxes.",
+      "La partie qui héberge facture la redevance annuelle à des tranches semestrielles égales. La facture semestrielle est payable à terme échu.",
+      "Les factures sont payables dans un délai ne dépassant pas 30 (trente) jours à compter de leur réception. Tout dépassement de ce délai induira l’application de pénalités de retard fixées à 3% du montant total de la facture.",
+      "Les factures seront payées par chaque émis au nom de la partie bénéficiaire ou par virement à son compte bancaire qui sera spécifié dans chaque contrat applicatif."
+    ]
+  }
+}

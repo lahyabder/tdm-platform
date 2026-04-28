@@ -54,5 +54,56 @@
         "answer": "Les tarifs dépendent de la puissance d'émission, de la zone géographique et de la portée de couverture souhaitée."
       }
     ]
+  },
+  "technicalData": {
+    "title": "Données Techniques de Diffusion",
+    "networks": [
+      {
+        "name": "Diffusion DTH par satellite en bande Ku",
+        "description": "Ce bouquet est diffusé sur le satellite Arabsat BADR 4 qui dessert le Maghreb, le Moyen Orient, et de nombreux pays d'Europe.",
+        "parameters": [
+          {"label": "Satellite", "value": "Arabsat BADR 4 @26ᴼ Est"},
+          {"label": "Fréquence", "value": "12553 MHz"},
+          {"label": "Polarisation", "value": "Verticale"},
+          {"label": "S/R", "value": "27500 KS"},
+          {"label": "FEC", "value": "¾"}
+        ]
+      },
+      {
+        "name": "Diffusion par Tournaroud sur Arabsat 5C",
+        "description": "Couverture de la totalité du continent Africain et une partie de l'Europe et de l'Asie.",
+        "parameters": [
+          {"label": "Satellite", "value": "Arabsat sur 5C@20ᴼ Est"},
+          {"label": "Bande", "value": "C (Faisceau EMEA)"},
+          {"label": "Fréquence", "value": "3884 MHz"},
+          {"label": "S/R", "value": "27500 LS"},
+          {"label": "FEC", "value": "5/6"}
+        ]
+      },
+      {
+        "name": "Réseau Terrestre FM",
+        "description": "Couverture terrestre par un réseau FM couvrant la totalité des Moughataas du pays.",
+        "parameters": []
+      }
+    ]
+  },
+  "stations": {
+    "title": "Stations Radio Diffusées",
+    "items": [
+      { "name": "Radio Coran", "type": "Publique", "coverage": "Badr 4 / Arabsat 5C", "frequency": "Satellitaire", "logo": "/logos/radio_coran.png" },
+      { "name": "Radio Jeunesse", "type": "Publique", "coverage": "Badr 4", "frequency": "Satellitaire", "logo": "/logos/radio_jeunesse.png" },
+      { "name": "Radio Mauritanie", "type": "Publique", "coverage": "Badr 4 / Arabsat 5C", "frequency": "Satellitaire", "logo": "/logos/radio_mauritanie.png" },
+      { "name": "Radio Tenwir", "type": "Privée", "coverage": "Nouakchott", "frequency": "97.1 MHz", "logo": "/logos/tenwir.png" },
+      { "name": "Radio Mauritanid", "type": "Privée", "coverage": "Nouakchott", "frequency": "100.5 MHz", "logo": "/logos/mauritanid.png" },
+      { "name": "Radio Koubeni", "type": "Privée", "coverage": "Nouakchott", "frequency": "94.2 MHz", "logo": "/logos/kobeni.png" },
+      { "name": "Radio France Internationale (RFI)", "type": "Internationale", "coverage": "Nouakchott", "frequency": "103.3 MHz", "logo": "/logos/rfi.png" },
+      { "name": "Radio France Internationale (RFI)", "type": "Internationale", "coverage": "Nouadhibou", "frequency": "88.0 MHz", "logo": "/logos/rfi.png" },
+      { "name": "Radio Monte Carlo (MCD)", "type": "Internationale", "coverage": "Nouakchott", "frequency": "90.2 MHz", "logo": "/logos/mcd.png" },
+      { "name": "BBC Radio", "type": "Internationale", "coverage": "Nouakchott", "frequency": "106.9 MHz", "logo": "/logos/bbc.png" },
+      { "name": "BBC Radio", "type": "Internationale", "coverage": "Nouadhibou", "frequency": "102.4 MHz", "logo": "/logos/bbc.png" },
+      { "name": "Radio Chine Internationale (CRI)", "type": "Internationale", "coverage": "Nouakchott", "frequency": "95.7 MHz", "logo": "/logos/cri.png" },
+      { "name": "Radio Sawa", "type": "Internationale", "coverage": "Nouakchott", "frequency": "93.8 MHz", "logo": "/logos/sawa.png" },
+      { "name": "Medi1 Radio", "type": "Internationale", "coverage": "Nouakchott", "frequency": "102.4 MHz", "logo": "/logos/medi1.png" }
+    ]
   }
 }

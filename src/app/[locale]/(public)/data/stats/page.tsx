@@ -55,37 +55,61 @@ export default async function StatsPage({
             </section>
 
             {/* Content */}
-            <div className="max-w-6xl mx-auto px-6 -mt-16 relative z-20">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                    {content.metrics.map((metric, i) => (
-                        <div key={i} className="bg-white rounded-xl shadow-lg border border-slate-200 p-6 flex flex-col justify-between hover:-translate-y-1 transition-transform">
-                            <div className="w-10 h-10 rounded-full bg-yellow-50 flex items-center justify-center text-brand-yellow mb-4">
-                                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                                </svg>
-                            </div>
-                            <div>
-                                <h3 className="text-slate-500 text-sm font-medium mb-1">{metric.label}</h3>
-                                <div className="flex items-end gap-3">
-                                    <span className="text-3xl font-black text-slate-800">{metric.value}</span>
-                                    <span className="text-sm font-bold text-brand-green mb-1">{metric.change}</span>
+            <div className="max-w-7xl mx-auto px-6 -mt-20 relative z-20">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                    {content.metrics.map((metric, i) => {
+                        const numValue = metric.value.replace(/[^0-9.,]/g, '');
+                        const strValue = metric.value.replace(/[0-9.,]/g, '').trim();
+                        const isPositive = metric.change.includes('+');
+
+                        let Icon;
+                        if (metric.icon === 'Radio') Icon = <svg className="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9"/><path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5"/><circle cx="12" cy="12" r="2"/><path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5"/><path d="M19.1 4.9C23 8.8 23 15.2 19.1 19.1"/></svg>;
+                        else if (metric.icon === 'Tv Monitor') Icon = <svg className="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/></svg>;
+                        else if (metric.icon === 'Map Pin') Icon = <svg className="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>;
+                        else Icon = <svg className="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>;
+
+                        return (
+                            <div key={i} className="relative overflow-hidden bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-200/80 p-6 hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 group">
+                                <div className="absolute top-0 ltr:right-0 rtl:left-0 w-32 h-32 bg-brand-green/5 rounded-full blur-3xl ltr:-mr-10 rtl:-ml-10 -mt-10 group-hover:bg-brand-green/15 transition-colors duration-500"></div>
+                                <div className="relative z-10">
+                                    <div className="flex justify-between items-start mb-6">
+                                        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-slate-50 to-slate-100 border border-slate-200/80 flex items-center justify-center text-brand-green shadow-sm group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
+                                            {Icon}
+                                        </div>
+                                        <div className={`inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-bold border ${isPositive ? 'bg-emerald-50 text-emerald-600 border-emerald-100' : 'bg-brand-green/10 text-brand-green border-brand-green/20'}`}>
+                                            {isPositive && <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 10l7-7m0 0l7 7m-7-7v18" /></svg>}
+                                            {metric.change}
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h3 className="text-slate-500 text-sm font-bold mb-2">{metric.label}</h3>
+                                        <div className="flex items-baseline gap-2">
+                                            <span className="text-4xl lg:text-5xl font-black tracking-tight text-slate-800 font-mono">{numValue}</span>
+                                            {strValue && <span className="text-lg font-bold text-slate-400">{strValue}</span>}
+                                        </div>
+                                    </div>
                                 </div>
+                                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-brand-green to-brand-yellow scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
                             </div>
-                        </div>
-                    ))}
+                        );
+                    })}
                 </div>
 
-                <div className="bg-white rounded-xl shadow-lg border border-slate-200 p-12 text-center">
-                    <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-slate-50 border border-slate-100 mb-6">
-                        <svg className="w-10 h-10 text-slate-300 animate-spin-slow" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                        </svg>
+                {/* Coming Soon BI Dashboard Mockup */}
+                <div className="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden relative">
+                    <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+                    <div className="relative z-10 p-12 lg:p-20 text-center backdrop-blur-sm bg-white/60">
+                        <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-white shadow-xl border border-slate-100 mb-8 relative">
+                            <div className="absolute inset-0 rounded-full border-4 border-brand-green border-t-transparent animate-spin"></div>
+                            <svg className="w-10 h-10 text-brand-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                            </svg>
+                        </div>
+                        <h2 className="text-3xl font-black text-slate-800 mb-4 tracking-tight">{content.comingSoon}</h2>
+                        <p className="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+                            {locale === 'ar' ? 'نعمل حالياً على بناء لوحة ذكاء أعمال (Business Intelligence) متطورة، لربط هذه الإحصائيات مباشرة بقواعد بياناتنا الحية، لتوفير تقارير دقيقة ومحدثة آنياً حول تغطية الشبكة وأداء البث عبر التراب الوطني.' : 'Nous construisons actuellement un tableau de bord de Business Intelligence avancé, connectant ces statistiques à nos bases de données en direct pour fournir des rapports précis et en temps réel sur la couverture réseau.'}
+                        </p>
                     </div>
-                    <h2 className="text-2xl font-bold text-slate-800 mb-2">{content.comingSoon}</h2>
-                    <p className="text-slate-500 max-w-md mx-auto">
-                        {locale === 'ar' ? 'نعمل حالياً على بناء لوحة ذكاء أعمال (BI) لربط الإحصائيات مباشرة بقواعد البيانات الحية.' : 'Nous construisons actuellement un tableau de bord BI pour connecter les statistiques directement aux bases de données en direct.'}
-                    </p>
                 </div>
             </div>
         </main>

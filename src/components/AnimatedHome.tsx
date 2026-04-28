@@ -175,8 +175,13 @@ export function AnimatedHome({ locale, content }: { locale: string; content: any
                                 key={service.id} variants={itemFadeUp}
                                 className={`group relative rounded-[2.5rem] bg-[#0a1120] border border-white/5 p-10 overflow-hidden hover:border-white/15 transition-all duration-500 ${index === 0 ? 'md:col-span-2 md:row-span-2' : index === 3 ? 'md:col-span-2' : ''}`}
                             >
-                                <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent"></div>
-                                <div className={`absolute top-0 right-0 w-[500px] h-[500px] rounded-full blur-[100px] opacity-0 group-hover:opacity-20 transition-opacity duration-700 translate-x-1/2 -translate-y-1/2 pointer-events-none ${index % 2 === 0 ? 'bg-brand-green' : 'bg-brand-yellow'}`}></div>
+                                <div className="absolute inset-0 bg-[#0a1120]/80 z-0"></div>
+                                <div 
+                                    className="absolute inset-0 bg-cover bg-center opacity-30 group-hover:opacity-60 transition-opacity duration-700 mix-blend-screen scale-100 group-hover:scale-110"
+                                    style={{ backgroundImage: `url(/home_${service.id}.jpg)` }}
+                                ></div>
+                                <div className="absolute inset-0 bg-gradient-to-t from-[#0a1120] via-[#0a1120]/60 to-transparent z-0"></div>
+                                <div className={`absolute top-0 right-0 w-[500px] h-[500px] rounded-full blur-[100px] opacity-0 group-hover:opacity-20 transition-opacity duration-700 translate-x-1/2 -translate-y-1/2 pointer-events-none z-0 ${index % 2 === 0 ? 'bg-brand-green' : 'bg-brand-yellow'}`}></div>
 
                                 <div className="relative z-10 h-full flex flex-col justify-between">
                                     <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center backdrop-blur-sm group-hover:scale-110 group-hover:bg-brand-green group-hover:border-transparent transition-all duration-500">

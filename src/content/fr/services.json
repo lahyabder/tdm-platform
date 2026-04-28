@@ -25,6 +25,11 @@
             "id": "multimedia_services",
             "title": "Services d'Infrastructure",
             "description": "Location d'espaces et d'installations sur les sites techniques (pylônes) et offre de soutien logistique pour renforcer l'infrastructure numérique en Mauritanie."
+        },
+        {
+            "id": "commercial_service",
+            "title": "Service commercial",
+            "description": "La TDM propose des opportunités de colocalisation et de location d'infrastructures de diffusion avec des tarifs compétitifs, garantissant la qualité et la sécurité de vos équipements."
         }
     ]
 }

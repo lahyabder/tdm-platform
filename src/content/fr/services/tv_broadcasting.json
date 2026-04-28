@@ -54,5 +54,46 @@
         "answer": "Oui, nous avons lancé un portail de streaming (OTT) pour permettre l'accès aux chaînes nationales via internet."
       }
     ]
+  },
+  "technicalData": {
+    "title": "Données Techniques de Diffusion",
+    "networks": [
+      {
+        "name": "Bouquet DTH sur Arabsat BADR 4",
+        "description": "Un bouquet comprenant 12 Chaines TV. Couverture: Maghreb, Moyen Orient et de nombreux pays d'Europe.",
+        "parameters": [
+          {"label": "Satellite", "value": "Arabsat BADR 4 @26ᴼ Est"},
+          {"label": "Fréquence", "value": "12563 MHz"},
+          {"label": "Polarisation", "value": "Verticale"},
+          {"label": "S/R", "value": "27500 KS"},
+          {"label": "FEC", "value": "¾"}
+        ]
+      },
+      {
+        "name": "Diffusion par Tournaroud sur Arabsat 5C",
+        "description": "Chaine publique ElMouritania pour une couverture de la totalité du continent Africain et une partie de l'Europe et de l'Asie.",
+        "parameters": [
+          {"label": "Satellite", "value": "Arabsat sur 5C@20ᴼ Est"},
+          {"label": "Bande", "value": "C (Faisceau EMEA)"},
+          {"label": "Fréquence", "value": "3884 MHz"},
+          {"label": "S/R", "value": "27500 LS"},
+          {"label": "FEC", "value": "5/6"}
+        ]
+      }
+    ]
+  },
+  "channels": {
+    "title": "Chaînes de Télévision Diffusées",
+    "items": [
+      { "name": "El Mouritaniya TV", "satellite": "Badr 4 / Arabsat 5C", "format": "SD / HD", "type": "Publique", "logo": "/logos/tvm.png" },
+      { "name": "El Mouritaniya 2", "satellite": "Badr 4", "format": "SD", "type": "Publique", "logo": "/logos/tvm2.png" },
+      { "name": "Arriyadiya (Sport)", "satellite": "Badr 4", "format": "SD", "type": "Publique", "logo": "/logos/sport.png" },
+      { "name": "Athagafiya (Culture)", "satellite": "Badr 4", "format": "SD", "type": "Publique", "logo": "/logos/culture.png" },
+      { "name": "El Mahdara", "satellite": "Badr 4", "format": "SD", "type": "Publique", "logo": "/logos/mahdara.png" },
+      { "name": "Chinguitt TV", "satellite": "Badr 4", "format": "SD", "type": "Privée", "logo": "/logos/chinguitt.png" },
+      { "name": "Al Mourabitoun TV", "satellite": "Badr 4", "format": "SD", "type": "Privée", "logo": "https://upload.wikimedia.org/wikipedia/ar/d/dd/Al_Mourabitoun_TV_logo.png" },
+      { "name": "El Watania TV", "satellite": "Badr 4", "format": "SD", "type": "Privée" },
+      { "name": "Sahel TV", "satellite": "Badr 4", "format": "SD", "type": "Privée" }
+    ]
   }
 }

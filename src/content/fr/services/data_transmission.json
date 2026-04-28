@@ -1,49 +1,39 @@
 {
-  "title": "Services de Transmission de Données",
-  "definition": "La TDM offre un réseau intégré de transmission de données et d'interconnexion pour les institutions médiatiques, garantissant une livraison sécurisée et haut débit du contenu.",
+  "title": "Transmission Audiovisuelle",
+  "definition": "Compte tenu de l’essor des technologies de communication et de la demande croissante de contenus audiovisuels nécessitant une modernisation des infrastructures, la TDM s’équipe afin de prendre en charge le volet transmission que lui confèrent ses statuts. Elle assure les liaisons entre les centres de production audiovisuelle et sa tête de réseau, y compris lors des événements nationaux de grande importance où chaque éditeur de service dispose de son propre signal.",
   "audience": {
-    "title": "Public cible",
+    "title": "Contexte et Enjeux de l'Étude de Faisabilité",
     "items": [
-      "Institutions médiatiques publiques et privées",
-      "Agences gouvernementales liées à la diffusion",
-      "Opérateurs de télécommunications et FAI"
+      "Évolution des standards de transmission (HD, 4K, IP, satellite, fibre optique).",
+      "Exigences en matière de qualité, de fiabilité et de couverture.",
+      "Conformité aux réglementations nationales et internationales.",
+      "Intégration des nouvelles technologies et des plateformes numériques.",
+      "Infrastructure de transmission : équipements de diffusion (antennes, réseaux IP, encodeurs, multiplexeurs, etc.).",
+      "Systèmes de redondance : solutions de sauvegarde et de continuité des services.",
+      "Compatibilité des formats : prise en charge des standards internationaux.",
+      "Sécurité des transmissions : protection contre les cyberattaques et les interférences.",
+      "Compétences requises : formation des équipes techniques.",
+      "Processus de maintenance et d’exploitation."
     ]
   },
-  "steps": {
-    "title": "Comment bénéficier du service",
-    "items": [
+  "technicalData": {
+    "title": "Infrastructures et Réseaux",
+    "networks": [
       {
-        "step": 1,
-        "title": "Demande technique",
-        "description": "Définition des points d'interconnexion, de la capacité de transmission et de la durée."
+        "name": "Téléport TDM et Événements en Direct",
+        "description": "Des demandes de transmission en direct vers le téléport de la TDM peuvent être faites par des éditeurs de services nationaux ou étrangers, notamment lors des visites de personnalités de marque."
       },
       {
-        "step": 2,
-        "title": "Levée de site",
-        "description": "Vérification de la disponibilité de l'infrastructure (pylônes, fibre optique) sur les sites de liaison."
+        "name": "Distribution Primaire TNT",
+        "description": "Dans le cadre du déploiement du réseau national de la Télévision Numérique Terrestre (TNT), la TDM assure la distribution primaire du Multiplex TNT pour alimenter ses réseaux TNT FM à travers le réseau MPLS d'un opérateur national."
       },
       {
-        "step": 3,
-        "title": "Activation de la liaison",
-        "description": "Installation des équipements et sécurisation du transit de données sous surveillance du NOC."
-      }
-    ]
-  },
-  "documents": {
-    "title": "Documents",
-    "items": [
+        "name": "Réseau de Secours (Backup)",
+        "description": "La distribution primaire sert de backup au multiplex TNT transmis sur le bouquet DTH de la TDM disponible sur le satellite ARABSAT BADR à 26° Est."
+      },
       {
-        "title": "Spécifications techniques du réseau",
-        "url": "#"
-      }
-    ]
-  },
-  "faq": {
-    "title": "Questions fréquentes",
-    "items": [
-      {
-        "question": "Le service est-il disponible dans toutes les wilayas ?",
-        "answer": "Oui, notre réseau de transmission couvre toutes les capitales régionales et les villes majeures."
+        "name": "Réseau de Contribution en Fibre Optique",
+        "description": "Mise en œuvre d’un réseau de contribution audiovisuelle en fibre, partout où cela est possible sur le territoire, pour répondre aux besoins croissants en connectivité et assurer une transmission sécurisée."
       }
     ]
   }
