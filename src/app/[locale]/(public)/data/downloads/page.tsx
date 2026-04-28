@@ -50,8 +50,8 @@ export default async function DownloadsPage({
     return (
         <main className="min-h-screen bg-slate-50 pb-24">
             {/* Header */}
-            <section className="bg-slate-900 pt-24 pb-32 text-white relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-slate-900 to-slate-800"></div>
+            <section className="bg-brand-dark pt-24 pb-32 text-white relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-brand-dark to-brand-green/20"></div>
                 <div className="absolute bottom-0 w-full h-1 bg-gradient-to-r from-brand-green via-brand-yellow to-brand-red"></div>
                 <div className="max-w-6xl mx-auto px-6 relative z-10 text-center">
                     <Link href={`/${locale}/data`} className="inline-flex items-center gap-2 text-brand-red hover:underline mb-6 font-medium">

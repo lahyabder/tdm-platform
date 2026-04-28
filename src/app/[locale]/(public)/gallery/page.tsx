@@ -82,11 +82,11 @@ export default function GalleryPage() {
         : 'Archive photographique des activités et infrastructures de la TDM.';
 
     return (
-        <main className="min-h-screen bg-[#050B14]">
+        <main className="min-h-screen bg-brand-dark">
             {/* ── Hero Header ── */}
             <section className="relative pt-28 pb-24 overflow-hidden">
                 {/* Background effects */}
-                <div className="absolute inset-0 bg-gradient-to-b from-[#050B14] to-[#0a1120]" />
+                <div className="absolute inset-0 bg-gradient-to-b from-brand-dark to-brand-dark-2" />
                 <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:3rem_3rem] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_40%,#000_30%,transparent_100%)]" />
                 <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-brand-green/10 rounded-full blur-[120px]" />
                 <div className="absolute bottom-0 right-1/4 w-72 h-72 bg-brand-yellow/10 rounded-full blur-[100px]" />
@@ -123,7 +123,7 @@ export default function GalleryPage() {
             </section>
 
             {/* ── Filters ── */}
-            <div className="sticky top-16 z-30 bg-[#050B14]/80 backdrop-blur-xl border-b border-white/5">
+            <div className="sticky top-16 z-30 bg-brand-dark/80 backdrop-blur-xl border-b border-white/5">
                 <div className="max-w-6xl mx-auto px-6 py-4 flex gap-3 flex-wrap justify-center">
                     {Object.entries(cats).map(([key, label]) => (
                         <button

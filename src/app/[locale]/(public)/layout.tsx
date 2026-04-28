@@ -18,6 +18,7 @@ export default async function PublicLayout({
         <>
             <ScrollToTop />
             <Navbar locale={locale} dict={dict.common} />
+            <div className="h-24" aria-hidden="true" />
             <div className="flex-1 w-full bg-slate-50/50">
                 {children}
             </div>

@@ -43,8 +43,8 @@ export default function ProjectDetail({
     return (
         <div className="min-h-screen bg-white">
             {/* Hero Header */}
-            <section className="bg-slate-900 py-24 px-6 text-white relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-slate-900 to-slate-800"></div>
+            <section className="bg-brand-dark py-24 px-6 text-white relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-brand-dark to-brand-green/20"></div>
                 <div className="max-w-4xl mx-auto relative z-10 space-y-6">
                     <Link href={`/${locale}/projects`} className="text-xs font-bold text-slate-400 hover:text-white transition-colors flex items-center gap-2 uppercase tracking-widest">
                         <svg className={`w-4 h-4 ${locale === 'ar' ? 'rotate-0' : 'rotate-180'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>

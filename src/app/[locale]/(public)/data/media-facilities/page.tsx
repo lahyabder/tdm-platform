@@ -59,7 +59,7 @@ export default function MediaFacilitiesDirectory({
 
     return (
         <main className="min-h-screen bg-slate-50 pb-24">
-            <div className="bg-slate-900 pt-16 pb-12 text-white border-b-4 border-b-brand-green">
+            <div className="bg-brand-dark pt-16 pb-12 text-white border-b-4 border-b-brand-green">
                 <div className="max-w-7xl mx-auto px-6">
                     <Link href={`/${locale}/data`} className="text-brand-green hover:text-white text-sm mb-6 inline-block">
                         &larr; {locale === 'ar' ? 'العودة للبوابة' : 'Retour au portail'}

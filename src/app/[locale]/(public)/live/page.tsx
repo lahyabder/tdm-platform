@@ -63,7 +63,7 @@ export default function LivePage({
     };
 
     return (
-        <div className="min-h-screen bg-slate-900 text-white">
+        <div className="min-h-screen bg-brand-dark text-white">
             <div className="max-w-6xl mx-auto px-6 py-16 space-y-12">
 
                 {/* Header */}

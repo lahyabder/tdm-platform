@@ -187,8 +187,8 @@ export default function StatsPage({ params }: { params: Promise<{ locale: string
   return (
     <main className="min-h-screen bg-slate-50 pb-24" dir={isAr ? 'rtl' : 'ltr'}>
       {/* Header */}
-      <section className="bg-slate-900 pt-24 pb-32 text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 to-slate-800" />
+      <section className="bg-brand-dark pt-24 pb-32 text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-brand-dark to-brand-green/20" />
         <div className="absolute bottom-0 w-full h-1 bg-gradient-to-r from-brand-green via-brand-yellow to-brand-red" />
         <div className="max-w-6xl mx-auto px-6 relative z-10 text-center">
           <Link href={`/${locale}/data`} className="inline-flex items-center gap-2 text-brand-yellow hover:underline mb-6 font-medium">
@@ -298,7 +298,7 @@ export default function StatsPage({ params }: { params: Promise<{ locale: string
         </div>
 
         {/* Uptime Banner */}
-        <div className="bg-slate-900 rounded-2xl p-8 text-white flex flex-col md:flex-row items-center gap-6">
+        <div className="bg-brand-dark rounded-2xl p-8 text-white flex flex-col md:flex-row items-center gap-6">
           <div className="w-16 h-16 rounded-full bg-emerald-500/20 border-2 border-emerald-500 flex items-center justify-center shrink-0">
             <svg className="w-8 h-8 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h14M12 5l7 7-7 7" />
