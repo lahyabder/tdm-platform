@@ -262,14 +262,3 @@ export default function LivePage({
         </div>
     );
 }
-                              تقنية البث الرقمي تضمن وصلاً عالي الجودة لكافة ربوع الوطن.
-                            </p>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-        </div>
-    );
-}
