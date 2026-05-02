@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, use } from 'react';
-import { mediaFacilities } from '@/mock/mediaFacilities';
+import { useState, use, useEffect } from 'react';
+import { useFacilityStore } from '@/store/useFacilityStore';
 import Link from 'next/link';
 
 export default function MediaFacilitiesDirectory({
@@ -9,7 +9,14 @@ export default function MediaFacilitiesDirectory({
 }: {
     params: Promise<{ locale: string }>;
 }) {
-    const { locale } = use(params);
+    const { locale } = use(params) as any;
+    const { facilities, fetchFacilities } = useFacilityStore();
+    const [isClient, setIsClient] = useState(false);
+
+    useEffect(() => {
+        setIsClient(true);
+        fetchFacilities();
+    }, [fetchFacilities]);
 
     const [filterType, setFilterType] = useState('all');
     const [filterStatus, setFilterStatus] = useState('all');
@@ -38,9 +45,11 @@ export default function MediaFacilitiesDirectory({
         }
     }[locale as 'ar' | 'fr'];
 
-    const filteredData = mediaFacilities.filter(facility => {
-        const matchesSearch = facility.name[locale as 'ar' | 'fr'].toLowerCase().includes(searchQuery.toLowerCase()) ||
-            facility.ref.toLowerCase().includes(searchQuery.toLowerCase());
+    const filteredData = (facilities || []).filter(facility => {
+        const nameStr = facility.name[locale as 'ar' | 'fr'] || '';
+        const refStr = facility.ref || '';
+        const matchesSearch = nameStr.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            refStr.toLowerCase().includes(searchQuery.toLowerCase());
         const matchesType = filterType === 'all' || facility.type === filterType;
         const matchesStatus = filterStatus === 'all' || facility.status === filterStatus;
 
@@ -56,6 +65,8 @@ export default function MediaFacilitiesDirectory({
             default: return 'bg-brand-card-hover text-white border-white/20';
         }
     };
+
+    if (!isClient) return <div className="min-h-screen bg-brand-dark"></div>;
 
     return (
         <main className="min-h-screen pb-24">
@@ -88,7 +99,7 @@ export default function MediaFacilitiesDirectory({
                             onChange={(e) => setFilterType(e.target.value)}
                         >
                             <option value="all">{t.filters.type}: {t.filters.all}</option>
-                            {Object.entries(t.types).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
+                            {Object.entries(t.types).map(([k, v]) => <option key={k} value={k}>{v as string}</option>)}
                         </select>
                     </div>
                     <div>
@@ -98,7 +109,7 @@ export default function MediaFacilitiesDirectory({
                             onChange={(e) => setFilterStatus(e.target.value)}
                         >
                             <option value="all">{t.filters.status}: {t.filters.all}</option>
-                            {Object.entries(t.statuses).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
+                            {Object.entries(t.statuses).map(([k, v]) => <option key={k} value={k}>{v as string}</option>)}
                         </select>
                     </div>
                 </div>
@@ -123,12 +134,12 @@ export default function MediaFacilitiesDirectory({
                                     <tr key={facility.ref} className="border-b border-white/10 hover:bg-brand-card-hover transition-colors">
                                         <td className="px-6 py-4 font-mono font-medium text-white">{facility.ref}</td>
                                         <td className="px-6 py-4 font-bold text-white">{facility.name[locale as 'ar' | 'fr']}</td>
-                                        <td className="px-6 py-4">{t.types[facility.type]}</td>
+                                        <td className="px-6 py-4">{(t.types as any)[facility.type]}</td>
                                         <td className="px-6 py-4">{facility.city[locale as 'ar' | 'fr']}</td>
                                         <td className="px-6 py-4 font-mono">{facility.expiryDate}</td>
                                         <td className="px-6 py-4">
                                             <span className={`px-2.5 py-1 rounded-sm text-xs font-bold border ${getStatusColor(facility.status)}`}>
-                                                {t.statuses[facility.status]}
+                                                {(t.statuses as any)[facility.status]}
                                             </span>
                                         </td>
                                         <td className="px-6 py-4 text-center">

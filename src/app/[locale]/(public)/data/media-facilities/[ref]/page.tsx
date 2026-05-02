@@ -1,18 +1,26 @@
-import { mediaFacilities } from '@/mock/mediaFacilities';
+'use client';
+
+import { use, useEffect, useState } from 'react';
+import { useFacilityStore } from '@/store/useFacilityStore';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import PrintButton from '@/components/ui/PrintButton';
 
-export default async function MediaFacilityDetails({
+export default function MediaFacilityDetails({
     params,
 }: {
     params: Promise<{ locale: string; ref: string }>;
 }) {
-    const resolvedParams = await params;
-    const { locale, ref } = resolvedParams;
+    const { locale, ref } = use(params) as any;
+    const { getFacilityByRef, fetchFacilities } = useFacilityStore();
+    const [isClient, setIsClient] = useState(false);
 
-    const facility = mediaFacilities.find(f => f.ref === ref);
-    if (!facility) return notFound();
+    useEffect(() => {
+        setIsClient(true);
+        fetchFacilities();
+    }, [fetchFacilities]);
+
+    const facility = getFacilityByRef(ref);
 
     const t = {
         ar: {
@@ -53,6 +61,9 @@ export default async function MediaFacilityDetails({
         }
     };
 
+    if (!isClient) return <div className="min-h-screen bg-brand-dark"></div>;
+    if (!facility) return <div className="min-h-screen bg-brand-dark text-white p-20 text-center">Loading...</div>;
+
     return (
         <main className="min-h-screen pb-24">
             <div className="bg-brand-dark pt-16 pb-32 text-white border-b-4 border-b-brand-green">
@@ -62,7 +73,7 @@ export default async function MediaFacilityDetails({
                     </Link>
                     <div className="flex items-center gap-4 mb-4">
                         <span className={`px-3 py-1 rounded-sm text-xs font-bold border uppercase tracking-wider ${getStatusColor(facility.status)}`}>
-                            {t.statuses[facility.status]}
+                            {(t.statuses as any)[facility.status]}
                         </span>
                         <span className="text-slate-300 font-mono text-sm">{facility.ref}</span>
                     </div>
@@ -82,7 +93,7 @@ export default async function MediaFacilityDetails({
                     <div className="p-8 grid grid-cols-1 md:grid-cols-2 gap-y-8 gap-x-12">
                         <div>
                             <p className="text-sm font-medium text-slate-300 mb-1">{t.type}</p>
-                            <p className="text-lg font-bold text-white">{t.types[facility.type]}</p>
+                            <p className="text-lg font-bold text-white">{(t.types as any)[facility.type]}</p>
                         </div>
                         <div>
                             <p className="text-sm font-medium text-slate-300 mb-1">{t.city}</p>

@@ -15,6 +15,14 @@ export default async function DataHubPage({
             cards: [
 
                 {
+                    id: "facilities",
+                    title: "سجل المنشآت الإعلامية",
+                    desc: "دليل القنوات الإذاعية والتلفزيونية المرخصة ومزودي خدمة البيانات.",
+                    link: "/data/media-facilities",
+                    icon: "M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1",
+                    color: "brand-green"
+                },
+                {
                     id: "legislation",
                     title: "مكتبة التشريعات والمرجعيات",
                     desc: "النصوص القانونية والمراسيم المنظمة لقطاع السمعي البصري.",
@@ -45,6 +53,14 @@ export default async function DataHubPage({
             subtitle: "La plateforme centrale pour accéder aux registres, législations et statistiques du secteur de la diffusion.",
             cards: [
 
+                {
+                    id: "facilities",
+                    title: "Registre des Établissements",
+                    desc: "Annuaire des chaînes radio, TV et fournisseurs de données agréés.",
+                    link: "/data/media-facilities",
+                    icon: "M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1",
+                    color: "brand-green"
+                },
                 {
                     id: "legislation",
                     title: "Bibliothèque des Législations",
