@@ -11,8 +11,7 @@ export default function AdminFacilitiesPage({
     params: Promise<{ locale: string }>;
 }) {
     const { locale } = use(params) as any;
-    const { facilities, deleteFacility } = useFacilityStore();
-
+    const { facilities, deleteFacility, fetchFacilities } = useFacilityStore();
     const [searchQuery, setSearchQuery] = useState('');
     const [filterType, setFilterType] = useState('all');
     const [filterCity, setFilterCity] = useState('all');
@@ -21,7 +20,8 @@ export default function AdminFacilitiesPage({
     // Avoid hydration mismatch
     useEffect(() => {
         setIsClient(true);
-    }, []);
+        fetchFacilities();
+    }, [fetchFacilities]);
 
     const t = {
         ar: {

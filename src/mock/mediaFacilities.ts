@@ -6,6 +6,7 @@ export interface MediaFacility {
     status: 'active' | 'expired' | 'suspended' | 'renewing';
     expiryDate: string;
     legislationRef: string;
+    logoUrl?: string;
 }
 
 export const mediaFacilities: MediaFacility[] = [

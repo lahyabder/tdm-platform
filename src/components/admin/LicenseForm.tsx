@@ -123,18 +123,17 @@ export default function LicenseForm({ initialData, locale, isEdit }: LicenseForm
                     <label className="block text-sm font-bold text-slate-700 mb-2">{t.id}</label>
                     <input
                         type="text"
-                        className={`w-full p-2.5 bg-slate-50 border border-slate-300 rounded-sm focus:ring-brand-green focus:border-brand-green outline-none font-mono ${isEdit ? 'opacity-50 cursor-not-allowed' : ''}`}
+                        className="admin-input font-mono"
                         value={formData.id}
                         onChange={(e) => setFormData({ ...formData, id: e.target.value })}
                         required
-                        disabled={isEdit}
                     />
                 </div>
 
                 <div>
                     <label className="block text-sm font-bold text-slate-700 mb-2">{t.facility}</label>
                     <select
-                        className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-sm focus:ring-brand-green focus:border-brand-green outline-none"
+                        className="admin-input"
                         value={formData.facilityRef}
                         onChange={(e) => setFormData({ ...formData, facilityRef: e.target.value })}
                         required
@@ -154,7 +153,7 @@ export default function LicenseForm({ initialData, locale, isEdit }: LicenseForm
                     <label className="block text-sm font-bold text-slate-700 mb-2">{t.issueDate}</label>
                     <input
                         type="date"
-                        className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-sm focus:ring-brand-green focus:border-brand-green outline-none font-mono"
+                        className="admin-input font-mono"
                         value={formData.issueDate}
                         onChange={(e) => setFormData({ ...formData, issueDate: e.target.value })}
                         required
@@ -165,7 +164,7 @@ export default function LicenseForm({ initialData, locale, isEdit }: LicenseForm
                     <label className="block text-sm font-bold text-slate-700 mb-2">{t.validity}</label>
                     <input
                         type="number"
-                        className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-sm focus:ring-brand-green focus:border-brand-green outline-none font-mono"
+                        className="admin-input font-mono"
                         value={formData.validityYears}
                         onChange={(e) => handleValidityChange(parseInt(e.target.value))}
                         required
@@ -178,7 +177,7 @@ export default function LicenseForm({ initialData, locale, isEdit }: LicenseForm
                     <label className="block text-sm font-bold text-slate-700 mb-2">{t.expiryDate}</label>
                     <input
                         type="date"
-                        className="w-full p-2.5 bg-slate-100 border border-slate-300 rounded-sm outline-none font-mono cursor-not-allowed"
+                        className="admin-input font-mono bg-slate-100 opacity-70"
                         value={formData.expiryDate}
                         readOnly
                     />
@@ -187,7 +186,7 @@ export default function LicenseForm({ initialData, locale, isEdit }: LicenseForm
                 <div>
                     <label className="block text-sm font-bold text-slate-700 mb-2">{t.legislation}</label>
                     <select
-                        className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-sm focus:ring-brand-green focus:border-brand-green outline-none"
+                        className="admin-input"
                         value={formData.legislationId}
                         onChange={(e) => setFormData({ ...formData, legislationId: e.target.value })}
                         required
@@ -206,7 +205,7 @@ export default function LicenseForm({ initialData, locale, isEdit }: LicenseForm
                 <div>
                     <label className="block text-sm font-bold text-slate-700 mb-2">{t.status}</label>
                     <select
-                        className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-sm focus:ring-brand-green focus:border-brand-green outline-none"
+                        className="admin-input"
                         value={formData.status}
                         onChange={(e) => setFormData({ ...formData, status: e.target.value as LicenseStatus })}
                     >
@@ -218,7 +217,7 @@ export default function LicenseForm({ initialData, locale, isEdit }: LicenseForm
                     <label className="block text-sm font-bold text-slate-700 mb-2">{t.threshold}</label>
                     <input
                         type="number"
-                        className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-sm focus:ring-brand-green focus:border-brand-green outline-none font-mono"
+                        className="admin-input font-mono"
                         value={formData.renewalThresholdDays}
                         onChange={(e) => setFormData({ ...formData, renewalThresholdDays: parseInt(e.target.value) })}
                         required
@@ -230,7 +229,7 @@ export default function LicenseForm({ initialData, locale, isEdit }: LicenseForm
                 <div className="md:col-span-2">
                     <label className="block text-sm font-bold text-slate-700 mb-2">{t.notes}</label>
                     <textarea
-                        className="w-full p-2.5 bg-slate-50 border border-slate-300 rounded-sm focus:ring-brand-green focus:border-brand-green outline-none"
+                        className="admin-textarea"
                         rows={3}
                         value={formData.notes || ''}
                         onChange={(e) => setFormData({ ...formData, notes: e.target.value })}

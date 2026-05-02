@@ -131,13 +131,24 @@ export default function AdminDashboardPage({
                     </div>
                     <div className="bg-white rounded-sm border border-slate-200 shadow-sm divide-y divide-slate-100">
                         {articles.slice(0, 3).map((article) => (
-                            <div key={article.id} className="p-4 flex items-center gap-4">
-                                <img src={article.imageUrl} className="w-12 h-12 rounded-sm object-cover" alt="" />
-                                <div className="flex-1 min-w-0">
-                                    <p className="font-bold text-slate-800 truncate text-sm">{isAr ? article.title.ar : article.title.fr}</p>
-                                    <p className="text-[10px] text-slate-500 mt-1 uppercase font-bold tracking-widest">{isAr ? article.date.ar : article.date.fr}</p>
-                                </div>
-                                <Link href={`/${locale}/admin/news/${article.id}/edit`} className="p-2 text-slate-400 hover:text-brand-green transition-colors">
+                            <div key={article.id} className="p-4 flex items-center gap-4 hover:bg-slate-50 transition-colors group">
+                                <Link 
+                                    href={`/${locale}/admin/news/${article.id}/edit`}
+                                    className="flex items-center gap-4 flex-1 min-w-0"
+                                >
+                                    <img src={article.imageUrl} className="w-12 h-12 rounded-sm object-cover border border-slate-100" alt="" />
+                                    <div className="flex-1 min-w-0">
+                                        <p className="font-bold text-slate-800 truncate text-sm group-hover:text-brand-green transition-colors">
+                                            {isAr ? article.title.ar : article.title.fr}
+                                        </p>
+                                        <p className="text-[10px] text-slate-500 mt-1 uppercase font-bold tracking-widest">{isAr ? article.date.ar : article.date.fr}</p>
+                                    </div>
+                                </Link>
+                                <Link 
+                                    href={`/${locale}/admin/news/${article.id}/edit`} 
+                                    className="p-2 text-slate-300 hover:text-brand-green hover:bg-brand-green/10 rounded-full transition-all"
+                                    title={isAr ? 'تعديل' : 'Modifier'}
+                                >
                                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
                                 </Link>
                             </div>

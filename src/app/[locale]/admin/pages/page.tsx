@@ -12,7 +12,11 @@ export default function AdminPagesListPage({
     const isAr = locale === 'ar';
 
     const pages = [
+        { id: 'home', title: { ar: "الصفحة الرئيسية", fr: "Accueil" }, description: { ar: "تعديل النصوص الرئيسية، الإحصائيات، والترحيب", fr: "Modifier les textes principaux, stats et bienvenue" } },
         { id: 'about', title: { ar: "عن المؤسسة", fr: "À propos" }, description: { ar: "تعديل كلمة المدير العام وأقسام التعريف بالمؤسسة", fr: "Éditer le mot du DG et les sections de présentation" } },
+        { id: 'services', title: { ar: "خدماتنا", fr: "Services" }, description: { ar: "إدارة قائمة الخدمات التقنية المقدمة", fr: "Gérer la liste des services techniques" } },
+        { id: 'projects', title: { ar: "المشاريع", fr: "Projets" }, description: { ar: "تحديث قائمة المشاريع الكبرى للمؤسسة", fr: "Mettre à jour les grands projets" } },
+        { id: 'contact', title: { ar: "اتصل بنا", fr: "Contact" }, description: { ar: "تعديل معلومات التواصل والبريد الإلكتروني", fr: "Modifier les infos de contact et emails" } },
         { id: 'legal', title: { ar: "المرجعيات التشريعية", fr: "Législation" }, description: { ar: "إدارة النصوص القانونية والمراسيم", fr: "Gérer les textes légaux et décrets" } },
     ];
 

@@ -1,18 +1,19 @@
-import { promises as fs } from 'fs';
-import path from 'path';
+import { INITIAL_CONTENT } from '@/store/useContentStore';
 
-export async function getPageContent(locale: string, page: string) {
-    const filePath = path.join(process.cwd(), 'src/content', locale, `${page}.json`);
-    const fileContents = await fs.readFile(filePath, 'utf8');
-    return JSON.parse(fileContents);
+export async function getPageContent(locale: string, pageKey: string) {
+    const page = INITIAL_CONTENT[pageKey];
+    if (!page) return { title: "", sections: {} };
+
+    // Return the content in a format expected by the components
+    // but now they use the bilingual store anyway.
+    // This is mainly for initial server-side load.
+    return {
+        title: page.title[locale as 'ar' | 'fr'],
+        sections: page.sections
+    };
 }
 
 export async function getServiceDetailContent(locale: string, id: string) {
-    const filePath = path.join(process.cwd(), 'src/content', locale, 'services', `${id}.json`);
-    try {
-        const fileContents = await fs.readFile(filePath, 'utf8');
-        return JSON.parse(fileContents);
-    } catch (e) {
-        return null; // Return null if file not found
-    }
+    // For now returning null or generic as we focus on the main pages store
+    return null;
 }

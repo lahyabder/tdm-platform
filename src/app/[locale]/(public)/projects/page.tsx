@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, use } from 'react';
+import { useContentStore } from '@/store/useContentStore';
 import { projectsData } from '@/mock/projects';
 import Link from 'next/link';
 
@@ -10,11 +11,16 @@ export default function ProjectsPage({
     params: Promise<{ locale: string }>;
 }) {
     const { locale } = use(params) as any;
+    const { getPageContent } = useContentStore();
+    const [content, setContent] = useState<any>(null);
     const [isClient, setIsClient] = useState(false);
 
     useEffect(() => {
         setIsClient(true);
-    }, []);
+        setContent(getPageContent('projects'));
+    }, [getPageContent]);
+
+    const isAr = locale === 'ar';
 
     const t = {
         ar: {
@@ -33,15 +39,19 @@ export default function ProjectsPage({
         }
     }[locale as 'ar' | 'fr'];
 
-    if (!isClient) return null;
+    if (!isClient || !content) return <div className="min-h-screen bg-[#050B14]"></div>;
 
     return (
         <div className="min-h-screen py-12 px-6">
             <div className="max-w-6xl mx-auto space-y-12">
 
                 <div className="text-center space-y-4">
-                    <h1 className="text-4xl md:text-5xl font-black text-white tracking-tight">{t.title}</h1>
-                    <p className="text-lg text-slate-300 max-w-2xl mx-auto">{t.subtitle}</p>
+                    <h1 className="text-4xl md:text-5xl font-black text-white tracking-tight">
+                        {content.sections.intro?.title?.[locale] || t.title}
+                    </h1>
+                    <p className="text-lg text-slate-300 max-w-2xl mx-auto">
+                        {content.sections.intro?.content?.[locale] || t.subtitle}
+                    </p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10">

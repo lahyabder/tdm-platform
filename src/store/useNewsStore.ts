@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
+import { supabase } from '@/lib/supabase';
 
 export interface NewsArticle {
     id: number;
@@ -7,7 +8,6 @@ export interface NewsArticle {
     date: { ar: string; fr: string };
     description: { ar: string; fr: string };
     imageUrl: string;
-    link?: string;
     tag: { ar: string; fr: string };
 }
 
@@ -86,33 +86,103 @@ const initialArticles: NewsArticle[] = [
 
 interface NewsState {
     articles: NewsArticle[];
-    addArticle: (article: NewsArticle) => void;
-    updateArticle: (id: number, updatedArticle: Partial<NewsArticle>) => void;
-    deleteArticle: (id: number) => void;
+    isLoading: boolean;
+    fetchArticles: () => Promise<void>;
+    addArticle: (article: NewsArticle) => Promise<void>;
+    updateArticle: (id: number, updatedArticle: Partial<NewsArticle>) => Promise<void>;
+    deleteArticle: (id: number) => Promise<void>;
     getArticleById: (id: number) => NewsArticle | undefined;
+    resetArticles: () => void;
 }
 
 export const useNewsStore = create<NewsState>()(
     persist(
         (set, get) => ({
             articles: initialArticles,
-            addArticle: (article) =>
-                set((state) => ({
-                    articles: [article, ...state.articles]
-                })),
-            updateArticle: (id, updatedArticle) =>
+            isLoading: false,
+            
+            fetchArticles: async () => {
+                try {
+                    set({ isLoading: true });
+                    const { data, error } = await supabase.from('news').select('*').order('id', { ascending: false });
+                    
+                    if (!error && data && data.length > 0) {
+                        const mappedArticles = data.map(item => ({
+                            id: item.id,
+                            title: { ar: item.title_ar || '', fr: item.title_fr || '' },
+                            date: { ar: item.date_ar || '', fr: item.date_fr || '' },
+                            description: { ar: item.desc_ar || '', fr: item.desc_fr || '' },
+                            imageUrl: item.image_url || '',
+                            tag: { ar: item.tag_ar || '', fr: item.tag_fr || '' }
+                        }));
+                        set({ articles: mappedArticles, isLoading: false });
+                    } else {
+                        set({ isLoading: false });
+                    }
+                } catch (err) {
+                    console.error('Fetch articles error:', err);
+                    set({ isLoading: false });
+                }
+            },
+
+            addArticle: async (article) => {
+                const { data, error } = await supabase.from('news').insert([{
+                    title_ar: article.title.ar,
+                    title_fr: article.title.fr,
+                    desc_ar: article.description.ar,
+                    desc_fr: article.description.fr,
+                    tag_ar: article.tag.ar,
+                    tag_fr: article.tag.fr,
+                    image_url: article.imageUrl,
+                    date_ar: article.date.ar,
+                    date_fr: article.date.fr
+                }]).select();
+
+                if (!error && data) {
+                    const newArticle = { ...article, id: data[0].id };
+                    set((state) => ({ articles: [newArticle, ...state.articles] }));
+                } else {
+                    set((state) => ({ articles: [article, ...state.articles] }));
+                }
+            },
+
+            updateArticle: async (id, updatedArticle) => {
+                const currentArticle = get().articles.find(a => a.id === id);
+                if (!currentArticle) return;
+
+                const fullArticle = { ...currentArticle, ...updatedArticle };
+                
+                await supabase.from('news').update({
+                    title_ar: fullArticle.title.ar,
+                    title_fr: fullArticle.title.fr,
+                    desc_ar: fullArticle.description.ar,
+                    desc_fr: fullArticle.description.fr,
+                    tag_ar: fullArticle.tag.ar,
+                    tag_fr: fullArticle.tag.fr,
+                    image_url: fullArticle.imageUrl,
+                    date_ar: fullArticle.date.ar,
+                    date_fr: fullArticle.date.fr
+                }).eq('id', id);
+
                 set((state) => ({
                     articles: state.articles.map((a) =>
-                        a.id === id ? { ...a, ...updatedArticle } : a
+                        a.id === id ? fullArticle : a
                     )
-                })),
-            deleteArticle: (id) =>
+                }));
+            },
+
+            deleteArticle: async (id) => {
+                await supabase.from('news').delete().eq('id', id);
                 set((state) => ({
                     articles: state.articles.filter((a) => a.id !== id)
-                })),
+                }));
+            },
+
             getArticleById: (id) => {
                 return get().articles.find((a) => a.id === id);
             },
+
+            resetArticles: () => set({ articles: initialArticles }),
         }),
         {
             name: 'tdm-news-storage',

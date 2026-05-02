@@ -72,7 +72,7 @@ export default function AdminSettingsPage({
                     <div className="md:col-span-2 space-y-4">
                         <div>
                             <label className="block text-xs font-bold text-slate-700 mb-2 uppercase">{t.fields.siteName}</label>
-                            <input type="text" defaultValue="Télédiffusion de Mauritanie" className="w-full bg-white border border-slate-300 px-4 py-2.5 rounded-sm focus:ring-2 focus:ring-brand-green/20 focus:border-brand-green outline-none font-medium transition-all" />
+                            <input type="text" defaultValue="Télédiffusion de Mauritanie" className="admin-input" />
                         </div>
                         <div className="flex items-center gap-4">
                             <div className="w-12 h-12 bg-brand-green rounded-sm border border-slate-200"></div>
@@ -98,25 +98,8 @@ export default function AdminSettingsPage({
                         </div>
                         <div>
                             <label className="block text-xs font-bold text-slate-700 mb-2 uppercase">{t.fields.expiryNotice}</label>
-                            <input type="number" defaultValue="60" className="w-32 bg-white border border-slate-300 px-4 py-2.5 rounded-sm focus:ring-2 focus:ring-brand-green/20 focus:border-brand-green outline-none font-bold" />
+                            <input type="number" defaultValue="60" className="admin-input w-32" />
                         </div>
-                    </div>
-                </div>
-
-                <div className="h-px bg-slate-200 w-full"></div>
-
-                {/* Interface */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div>
-                        <h3 className="text-sm font-black text-slate-900 uppercase tracking-wider mb-1">{t.sections.interface}</h3>
-                        <p className="text-xs text-slate-500 font-medium leading-relaxed">تغيير لغة العرض ووضع النظام.</p>
-                    </div>
-                    <div className="md:col-span-2 space-y-4 text-center p-8 border-2 border-dashed border-slate-200 rounded-sm">
-                        <div className="bg-brand-yellow/10 text-brand-yellow px-4 py-2 inline-block rounded-sm font-black text-xs uppercase mb-4 tracking-widest border border-brand-yellow/20">
-                            Active
-                        </div>
-                        <p className="text-sm font-bold text-slate-800">{t.fields.demoMode}</p>
-                        <p className="text-[10px] text-slate-400 max-w-xs mx-auto mt-2">Data is maintained in local session and will be reset upon clearing browser cache.</p>
                     </div>
                 </div>
             </div>

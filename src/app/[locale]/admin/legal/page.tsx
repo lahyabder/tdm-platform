@@ -14,6 +14,7 @@ export default function AdminLegalPage({
     const [isClient, setIsClient] = useState(false);
     const [filterType, setFilterType] = useState<LegislationType | 'all'>('all');
     const [isAdding, setIsAdding] = useState(false);
+    const [editingId, setEditingId] = useState<string | null>(null);
 
     // Form State
     const [formData, setFormData] = useState({
@@ -53,15 +54,37 @@ export default function AdminLegalPage({
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        addLegislation({
+        const data = {
             id: formData.id,
             type: formData.type,
             date: formData.date,
             title: { ar: formData.title_ar, fr: formData.title_fr },
-            pdfUrl: '#' // Mock
-        });
+            pdfUrl: '#'
+        };
+
+        if (editingId) {
+            updateLegislation(editingId, data);
+            alert(locale === 'ar' ? '✅ تم التعديل بنجاح' : '✅ Modifié avec succès');
+        } else {
+            addLegislation(data);
+            alert(locale === 'ar' ? '✅ تم الإضافة بنجاح' : '✅ Ajouté avec succès');
+        }
+        
         setIsAdding(false);
+        setEditingId(null);
         setFormData({ id: '', title_ar: '', title_fr: '', type: 'law', date: new Date().toISOString().split('T')[0] });
+    };
+
+    const handleEdit = (l: any) => {
+        setFormData({
+            id: l.id,
+            title_ar: l.title.ar,
+            title_fr: l.title.fr,
+            type: l.type,
+            date: l.date
+        });
+        setEditingId(l.id);
+        setIsAdding(true);
     };
 
     if (!isClient) return null;
@@ -84,25 +107,25 @@ export default function AdminLegalPage({
                     <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label className="block text-xs font-bold text-slate-500 uppercase mb-1">{t.fields.id}</label>
-                            <input required className="w-full p-2 bg-slate-50 border border-slate-300 rounded-sm text-sm outline-none focus:border-brand-green" value={formData.id} onChange={e => setFormData({ ...formData, id: e.target.value })} />
+                            <input required className={`admin-input ${editingId ? 'bg-slate-50' : ''}`} value={formData.id} onChange={e => setFormData({ ...formData, id: e.target.value })} disabled={!!editingId} />
                         </div>
                         <div>
                             <label className="block text-xs font-bold text-slate-500 uppercase mb-1">{t.fields.type}</label>
-                            <select className="w-full p-2 bg-slate-50 border border-slate-300 rounded-sm text-sm outline-none focus:border-brand-green" value={formData.type} onChange={e => setFormData({ ...formData, type: e.target.value as any })}>
+                            <select className="admin-input" value={formData.type} onChange={e => setFormData({ ...formData, type: e.target.value as any })}>
                                 {['law', 'decree', 'order', 'circular'].map(type => <option key={type} value={type}>{t.types[type as keyof typeof t.types]}</option>)}
                             </select>
                         </div>
                         <div>
                             <label className="block text-xs font-bold text-slate-500 uppercase mb-1">{t.fields.titleAr}</label>
-                            <input required className="w-full p-2 bg-slate-50 border border-slate-300 rounded-sm text-sm outline-none focus:border-brand-green" dir="rtl" value={formData.title_ar} onChange={e => setFormData({ ...formData, title_ar: e.target.value })} />
+                            <input required className="admin-input" dir="rtl" value={formData.title_ar} onChange={e => setFormData({ ...formData, title_ar: e.target.value })} />
                         </div>
                         <div>
                             <label className="block text-xs font-bold text-slate-500 uppercase mb-1">{t.fields.titleFr}</label>
-                            <input required className="w-full p-2 bg-slate-50 border border-slate-300 rounded-sm text-sm outline-none focus:border-brand-green" dir="ltr" value={formData.title_fr} onChange={e => setFormData({ ...formData, title_fr: e.target.value })} />
+                            <input required className="admin-input" dir="ltr" value={formData.title_fr} onChange={e => setFormData({ ...formData, title_fr: e.target.value })} />
                         </div>
                         <div>
                             <label className="block text-xs font-bold text-slate-500 uppercase mb-1">{t.fields.date}</label>
-                            <input type="date" required className="w-full p-2 bg-slate-50 border border-slate-300 rounded-sm text-sm outline-none focus:border-brand-green" value={formData.date} onChange={e => setFormData({ ...formData, date: e.target.value })} />
+                            <input type="date" required className="admin-input" value={formData.date} onChange={e => setFormData({ ...formData, date: e.target.value })} />
                         </div>
                         <div className="md:col-span-2 flex justify-end gap-2 pt-4 border-t border-slate-100">
                             <button type="button" onClick={() => setIsAdding(false)} className="px-4 py-2 text-sm font-bold text-slate-500 hover:bg-slate-50 rounded-sm transition-colors">{t.actions.cancel}</button>
@@ -145,7 +168,10 @@ export default function AdminLegalPage({
                                     </td>
                                     <td className="px-6 py-4 font-mono text-xs">{l.date}</td>
                                     <td className="px-6 py-4 text-center">
-                                        <button onClick={() => { if (window.confirm(t.confirmDelete)) deleteLegislation(l.id); }} className="text-brand-red hover:underline font-bold text-xs uppercase">{t.actions.delete}</button>
+                                        <div className="flex items-center justify-center gap-3">
+                                            <button onClick={() => handleEdit(l)} className="text-brand-green hover:underline font-bold text-xs uppercase">{locale === 'ar' ? 'تعديل' : 'Modifier'}</button>
+                                            <button onClick={() => { if (window.confirm(t.confirmDelete)) deleteLegislation(l.id); }} className="text-brand-red hover:underline font-bold text-xs uppercase">{t.actions.delete}</button>
+                                        </div>
                                     </td>
                                 </tr>
                             ))}
