@@ -24,7 +24,7 @@ export const useFacilityStore = create<FacilityState>()(
                     set({ isLoading: true });
                     const { data, error } = await supabase.from('facilities').select('*');
                     
-                    if (!error && data && data.length > 0) {
+                    if (!error && data) {
                         const mappedFacilities = data.map(item => ({
                             ref: item.ref,
                             name: { ar: item.name_ar || '', fr: item.name_fr || '' },
@@ -34,7 +34,16 @@ export const useFacilityStore = create<FacilityState>()(
                             expiryDate: item.expiry_date || '',
                             legislationRef: item.legislation_ref || ''
                         }));
-                        set({ facilities: mappedFacilities, isLoading: false });
+                        
+                        // Merge logic: prefer Supabase data but keep local ones not in Supabase
+                        set((state) => {
+                            const supabaseRefs = new Set(mappedFacilities.map(f => f.ref));
+                            const localOnly = state.facilities.filter(f => !supabaseRefs.has(f.ref));
+                            return { 
+                                facilities: [...mappedFacilities, ...localOnly], 
+                                isLoading: false 
+                            };
+                        });
                     } else {
                         set({ isLoading: false });
                     }
