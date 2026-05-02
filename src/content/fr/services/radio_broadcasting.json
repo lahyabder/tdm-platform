@@ -90,20 +90,20 @@
   "stations": {
     "title": "Stations Radio Diffusées",
     "items": [
-      { "name": "Radio Coran", "type": "Publique", "coverage": "Badr 4 / Arabsat 5C", "frequency": "Satellitaire", "logo": "/logos/radio_coran.png" },
-      { "name": "Radio Jeunesse", "type": "Publique", "coverage": "Badr 4", "frequency": "Satellitaire", "logo": "/logos/radio_jeunesse.png" },
-      { "name": "Radio Mauritanie", "type": "Publique", "coverage": "Badr 4 / Arabsat 5C", "frequency": "Satellitaire", "logo": "/logos/radio_mauritanie.png" },
-      { "name": "Radio Tenwir", "type": "Privée", "coverage": "Nouakchott", "frequency": "97.1 MHz", "logo": "/logos/tenwir.png" },
-      { "name": "Radio Mauritanid", "type": "Privée", "coverage": "Nouakchott", "frequency": "100.5 MHz", "logo": "/logos/mauritanid.png" },
-      { "name": "Radio Koubeni", "type": "Privée", "coverage": "Nouakchott", "frequency": "94.2 MHz", "logo": "/logos/kobeni.png" },
-      { "name": "Radio France Internationale (RFI)", "type": "Internationale", "coverage": "Nouakchott", "frequency": "103.3 MHz", "logo": "/logos/rfi.png" },
-      { "name": "Radio France Internationale (RFI)", "type": "Internationale", "coverage": "Nouadhibou", "frequency": "88.0 MHz", "logo": "/logos/rfi.png" },
-      { "name": "Radio Monte Carlo (MCD)", "type": "Internationale", "coverage": "Nouakchott", "frequency": "90.2 MHz", "logo": "/logos/mcd.png" },
-      { "name": "BBC Radio", "type": "Internationale", "coverage": "Nouakchott", "frequency": "106.9 MHz", "logo": "/logos/bbc.png" },
-      { "name": "BBC Radio", "type": "Internationale", "coverage": "Nouadhibou", "frequency": "102.4 MHz", "logo": "/logos/bbc.png" },
-      { "name": "Radio Chine Internationale (CRI)", "type": "Internationale", "coverage": "Nouakchott", "frequency": "95.7 MHz", "logo": "/logos/cri.png" },
-      { "name": "Radio Sawa", "type": "Internationale", "coverage": "Nouakchott", "frequency": "93.8 MHz", "logo": "/logos/sawa.png" },
-      { "name": "Medi1 Radio", "type": "Internationale", "coverage": "Nouakchott", "frequency": "102.4 MHz", "logo": "/logos/medi1.png" }
+      { "name": "Radio Coran", "type": "Publique", "coverage": "Badr 4 / Arabsat 5C", "frequency": "Satellitaire", "logo": "/logos/radio_coran.svg" },
+      { "name": "Radio Jeunesse", "type": "Publique", "coverage": "Badr 4", "frequency": "Satellitaire", "logo": "/logos/radio_jeunesse.svg" },
+      { "name": "Radio Mauritanie", "type": "Publique", "coverage": "Badr 4 / Arabsat 5C", "frequency": "Satellitaire", "logo": "/logos/radio_mauritanie.svg" },
+      { "name": "Radio Tenwir", "type": "Privée", "coverage": "Nouakchott", "frequency": "97.1 MHz", "logo": "/logos/tenwir.svg" },
+      { "name": "Radio Mauritanid", "type": "Privée", "coverage": "Nouakchott", "frequency": "100.5 MHz", "logo": "/logos/mauritanid.svg" },
+      { "name": "Radio Koubeni", "type": "Privée", "coverage": "Nouakchott", "frequency": "94.2 MHz", "logo": "/logos/kobeni.svg" },
+      { "name": "Radio France Internationale (RFI)", "type": "Internationale", "coverage": "Nouakchott", "frequency": "103.3 MHz", "logo": "/logos/rfi.svg" },
+      { "name": "Radio France Internationale (RFI)", "type": "Internationale", "coverage": "Nouadhibou", "frequency": "88.0 MHz", "logo": "/logos/rfi.svg" },
+      { "name": "Radio Monte Carlo (MCD)", "type": "Internationale", "coverage": "Nouakchott", "frequency": "90.2 MHz", "logo": "/logos/mcd.svg" },
+      { "name": "BBC Radio", "type": "Internationale", "coverage": "Nouakchott", "frequency": "106.9 MHz", "logo": "/logos/bbc.svg" },
+      { "name": "BBC Radio", "type": "Internationale", "coverage": "Nouadhibou", "frequency": "102.4 MHz", "logo": "/logos/bbc.svg" },
+      { "name": "Radio Chine Internationale (CRI)", "type": "Internationale", "coverage": "Nouakchott", "frequency": "95.7 MHz", "logo": "/logos/cri.svg" },
+      { "name": "Radio Sawa", "type": "Internationale", "coverage": "Nouakchott", "frequency": "93.8 MHz", "logo": "/logos/sawa.svg" },
+      { "name": "Medi1 Radio", "type": "Internationale", "coverage": "Nouakchott", "frequency": "102.4 MHz", "logo": "/logos/medi1.svg" }
     ]
   }
 }

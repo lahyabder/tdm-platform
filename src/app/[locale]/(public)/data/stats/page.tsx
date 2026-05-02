@@ -185,7 +185,7 @@ export default function StatsPage({ params }: { params: Promise<{ locale: string
   };
 
   return (
-    <main className="min-h-screen bg-slate-50 pb-24" dir={isAr ? 'rtl' : 'ltr'}>
+    <main className="min-h-screen pb-24" dir={isAr ? 'rtl' : 'ltr'}>
       {/* Header */}
       <section className="bg-brand-dark pt-24 pb-32 text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-brand-dark to-brand-green/20" />
@@ -195,7 +195,7 @@ export default function StatsPage({ params }: { params: Promise<{ locale: string
             {isAr ? '→' : '←'} {T.back}
           </Link>
           <h1 className="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">{T.title}</h1>
-          <p className="text-lg text-slate-300 max-w-xl mx-auto">{T.subtitle}</p>
+          <p className="text-lg text-slate-100 max-w-xl mx-auto">{T.subtitle}</p>
         </div>
       </section>
 
@@ -203,7 +203,7 @@ export default function StatsPage({ params }: { params: Promise<{ locale: string
         {/* KPI Cards */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {T.metrics.map((m, i) => (
-            <div key={i} className="bg-white rounded-2xl border border-slate-200/80 shadow-md p-5 hover:shadow-lg hover:-translate-y-0.5 transition-all">
+            <div key={i} className="bg-brand-card rounded-2xl border border-white/20/80 shadow-md p-5 hover:shadow-lg hover:-translate-y-0.5 transition-all">
               <div className="flex justify-between items-start mb-4">
                 <div className={`px-2.5 py-1 rounded-full text-xs font-bold flex items-center gap-1 ${m.up ? 'bg-emerald-50 text-emerald-600 border border-emerald-100' : 'bg-red-50 text-red-600 border border-red-100'}`}>
                   <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -213,20 +213,20 @@ export default function StatsPage({ params }: { params: Promise<{ locale: string
                 </div>
               </div>
               <div className="flex items-baseline gap-1">
-                <span className="text-3xl font-black text-slate-800 font-mono">{m.value}</span>
-                {'unit' in m && m.unit && <span className="text-sm font-bold text-slate-400">{m.unit}</span>}
+                <span className="text-3xl font-black text-white font-mono">{m.value}</span>
+                {'unit' in m && m.unit && <span className="text-sm font-bold text-slate-300">{m.unit}</span>}
               </div>
-              <p className="text-xs font-bold text-slate-500 mt-1">{m.label}</p>
+              <p className="text-xs font-bold text-slate-300 mt-1">{m.label}</p>
             </div>
           ))}
         </div>
 
         {/* Chart Tabs */}
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-md overflow-hidden">
-          <div className="flex border-b border-slate-100 overflow-x-auto">
+        <div className="bg-brand-card rounded-2xl border border-white/20 shadow-md overflow-hidden">
+          <div className="flex border-b border-white/10 overflow-x-auto">
             {(Object.keys(T.tabs) as Array<keyof typeof T.tabs>).map(tab => (
               <button key={tab} onClick={() => setActiveTab(tab as any)}
-                className={`px-6 py-4 text-sm font-bold whitespace-nowrap border-b-2 transition-colors -mb-px ${activeTab === tab ? 'border-brand-green text-brand-green' : 'border-transparent text-slate-500 hover:text-slate-800'}`}>
+                className={`px-6 py-4 text-sm font-bold whitespace-nowrap border-b-2 transition-colors -mb-px ${activeTab === tab ? 'border-brand-green text-brand-green' : 'border-transparent text-slate-300 hover:text-white'}`}>
                 {T.tabs[tab]}
               </button>
             ))}
@@ -236,7 +236,7 @@ export default function StatsPage({ params }: { params: Promise<{ locale: string
             {activeTab === 'coverage' && (
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <h2 className="font-bold text-slate-800">{T.coverageTitle}</h2>
+                  <h2 className="font-bold text-white">{T.coverageTitle}</h2>
                   <div className="flex gap-4 text-xs font-bold">
                     <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-full bg-emerald-500 inline-block" />{T.radioLabel}</span>
                     <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-full bg-blue-500 inline-block" />{T.tvLabel}</span>
@@ -249,7 +249,7 @@ export default function StatsPage({ params }: { params: Promise<{ locale: string
             {activeTab === 'wilaya' && (
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <h2 className="font-bold text-slate-800">{T.wilayaTitle}</h2>
+                  <h2 className="font-bold text-white">{T.wilayaTitle}</h2>
                   <div className="flex gap-4 text-xs font-bold">
                     <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-full bg-emerald-500 inline-block" />{T.radioLabel}</span>
                     <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-full bg-blue-500 inline-block" />{T.tvLabel}</span>
@@ -258,8 +258,8 @@ export default function StatsPage({ params }: { params: Promise<{ locale: string
                 <BarChart data={WILAYA_DATA} />
                 <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-2">
                   {WILAYA_DATA.map(w => (
-                    <div key={w.name} className="p-3 bg-slate-50 rounded-lg border border-slate-100">
-                      <p className="text-xs font-bold text-slate-600 mb-1">{w.name}</p>
+                    <div key={w.name} className="p-3 bg-brand-card rounded-lg border border-white/10">
+                      <p className="text-xs font-bold text-slate-200 mb-1">{w.name}</p>
                       <div className="flex gap-3 text-xs">
                         <span className="text-emerald-600 font-bold">{w.radio}%</span>
                         <span className="text-blue-600 font-bold">{w.tv}%</span>
@@ -272,22 +272,22 @@ export default function StatsPage({ params }: { params: Promise<{ locale: string
 
             {activeTab === 'broadcast' && (
               <div>
-                <h2 className="font-bold text-slate-800 mb-6">{T.broadcastTitle}</h2>
+                <h2 className="font-bold text-white mb-6">{T.broadcastTitle}</h2>
                 <div className="flex flex-col md:flex-row items-center gap-8">
                   <div className="w-full md:w-48 shrink-0">
                     <DonutChart />
                   </div>
                   <div className="flex-1 grid grid-cols-2 gap-3 w-full">
                     {BROADCAST_HOURS.map((b, i) => (
-                      <div key={i} className="flex items-center gap-3 p-3 rounded-lg border border-slate-100 hover:bg-slate-50 transition-colors">
+                      <div key={i} className="flex items-center gap-3 p-3 rounded-lg border border-white/10 hover:bg-brand-card transition-colors">
                         <div className="w-3 h-3 rounded-full shrink-0" style={{ backgroundColor: b.color }} />
                         <div className="flex-1 min-w-0">
-                          <p className="text-xs font-bold text-slate-700 truncate">{b.label}</p>
-                          <div className="w-full bg-slate-100 rounded-full h-1.5 mt-1">
+                          <p className="text-xs font-bold text-slate-100 truncate">{b.label}</p>
+                          <div className="w-full bg-brand-card-hover rounded-full h-1.5 mt-1">
                             <div className="h-1.5 rounded-full transition-all" style={{ width: `${(b.hours / TOTAL_HOURS) * 100}%`, backgroundColor: b.color }} />
                           </div>
                         </div>
-                        <span className="text-xs font-black text-slate-500 shrink-0">{Math.round((b.hours / TOTAL_HOURS) * 100)}%</span>
+                        <span className="text-xs font-black text-slate-300 shrink-0">{Math.round((b.hours / TOTAL_HOURS) * 100)}%</span>
                       </div>
                     ))}
                   </div>
@@ -306,7 +306,7 @@ export default function StatsPage({ params }: { params: Promise<{ locale: string
           </div>
           <div>
             <div className="text-3xl font-black text-emerald-400 mb-1">99.9% Uptime</div>
-            <p className="text-slate-300 text-sm">{isAr ? 'معدل توافر شبكة البث عبر التراب الوطني — مراقب على مدار الساعة' : 'Disponibilité du réseau de diffusion — surveillance 24h/24'}</p>
+            <p className="text-slate-100 text-sm">{isAr ? 'معدل توافر شبكة البث عبر التراب الوطني — مراقب على مدار الساعة' : 'Disponibilité du réseau de diffusion — surveillance 24h/24'}</p>
           </div>
           <div className="md:ms-auto flex gap-2">
             {Array.from({ length: 30 }).map((_, i) => (

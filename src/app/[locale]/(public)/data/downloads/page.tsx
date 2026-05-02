@@ -48,7 +48,7 @@ export default async function DownloadsPage({
     }[locale];
 
     return (
-        <main className="min-h-screen bg-slate-50 pb-24">
+        <main className="min-h-screen pb-24">
             {/* Header */}
             <section className="bg-brand-dark pt-24 pb-32 text-white relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-brand-dark to-brand-green/20"></div>
@@ -60,7 +60,7 @@ export default async function DownloadsPage({
                     <h1 className="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight">
                         {content.title}
                     </h1>
-                    <p className="text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl mx-auto">
+                    <p className="text-lg md:text-xl text-slate-100 leading-relaxed max-w-2xl mx-auto">
                         {content.subtitle}
                     </p>
                 </div>
@@ -68,10 +68,10 @@ export default async function DownloadsPage({
 
             {/* Content */}
             <div className="max-w-4xl mx-auto px-6 -mt-16 relative z-20">
-                <div className="bg-white rounded-xl shadow-lg border border-slate-200 p-6 md:p-8">
+                <div className="bg-brand-card rounded-xl shadow-lg border border-white/20 p-6 md:p-8">
                     <div className="grid grid-cols-1 gap-4">
                         {content.files.map((file) => (
-                            <div key={file.id} className="flex flex-col md:flex-row md:items-center justify-between p-5 rounded-lg border border-slate-100 hover:border-brand-red/30 hover:bg-slate-50 transition-all gap-4 group">
+                            <div key={file.id} className="flex flex-col md:flex-row md:items-center justify-between p-5 rounded-lg border border-white/10 hover:border-brand-red/30 hover:bg-brand-card transition-all gap-4 group">
                                 <div className="flex items-start gap-4">
                                     <div className="w-12 h-12 rounded-lg bg-red-50 text-brand-red flex items-center justify-center shrink-0">
                                         <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -79,14 +79,14 @@ export default async function DownloadsPage({
                                         </svg>
                                     </div>
                                     <div>
-                                        <h3 className="font-bold text-slate-800 text-lg mb-1 group-hover:text-brand-red transition-colors">
+                                        <h3 className="font-bold text-white text-lg mb-1 group-hover:text-brand-red transition-colors">
                                             {file.title}
                                         </h3>
-                                        <div className="flex items-center gap-3 text-sm text-slate-500">
-                                            <span className="inline-block px-2.5 py-1 rounded-md bg-slate-100 font-medium text-xs">
+                                        <div className="flex items-center gap-3 text-sm text-slate-300">
+                                            <span className="inline-block px-2.5 py-1 rounded-md bg-brand-card-hover font-medium text-xs">
                                                 {content.categories[file.cat as keyof typeof content.categories]}
                                             </span>
-                                            <span className="font-bold text-slate-400">{file.type}</span>
+                                            <span className="font-bold text-slate-300">{file.type}</span>
                                             <span>•</span>
                                             <span>{file.size}</span>
                                         </div>

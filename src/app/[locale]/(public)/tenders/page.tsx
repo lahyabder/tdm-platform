@@ -75,7 +75,7 @@ export default function TendersPage({
     if (!isClient) return null;
 
     return (
-        <div className="min-h-screen bg-slate-50 py-12 px-6">
+        <div className="min-h-screen py-12 px-6">
             <div className="max-w-6xl mx-auto space-y-12">
 
                 {/* Header Section */}
@@ -83,10 +83,10 @@ export default function TendersPage({
                     <div className="inline-block px-4 py-1.5 bg-brand-green/10 text-brand-green text-xs font-black uppercase rounded-full border border-brand-green/20 mb-4 tracking-widest">
                         CPMP Dashboard
                     </div>
-                    <h1 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+                    <h1 className="text-4xl md:text-5xl font-black text-white tracking-tight leading-tight">
                         {t.title}
                     </h1>
-                    <p className="text-lg text-slate-500 max-w-3xl mx-auto font-medium">
+                    <p className="text-lg text-slate-100 max-w-3xl mx-auto font-medium">
                         {t.subtitle}
                     </p>
                 </div>
@@ -98,8 +98,8 @@ export default function TendersPage({
                         <button
                             onClick={() => setActiveYear('all')}
                             className={`flex-shrink-0 px-6 py-2 rounded-full text-sm font-bold border transition-all ${activeYear === 'all'
-                                    ? 'bg-slate-900 border-slate-900 text-white shadow-lg'
-                                    : 'bg-white border-slate-200 text-slate-600 hover:border-brand-green'
+                                    ? 'bg-brand-green border-brand-green text-white shadow-lg'
+                                    : 'bg-brand-card border-white/20 text-slate-100 hover:border-brand-green'
                                 }`}
                         >
                             {t.filters.allYears}
@@ -109,8 +109,8 @@ export default function TendersPage({
                                 key={year}
                                 onClick={() => setActiveYear(year)}
                                 className={`flex-shrink-0 px-8 py-2 rounded-full text-sm font-bold border transition-all ${activeYear === year
-                                        ? 'bg-slate-900 border-slate-900 text-white shadow-lg'
-                                        : 'bg-white border-slate-200 text-slate-600 hover:border-brand-green'
+                                        ? 'bg-brand-green border-brand-green text-white shadow-lg'
+                                        : 'bg-brand-card border-white/20 text-slate-100 hover:border-brand-green'
                                     }`}
                             >
                                 {year}
@@ -119,14 +119,14 @@ export default function TendersPage({
                     </div>
 
                     {/* Category Tabs */}
-                    <div className="bg-white p-1.5 rounded-2xl border border-slate-200 shadow-xl shadow-slate-200/40 flex flex-wrap md:flex-nowrap gap-2 items-center">
+                    <div className="bg-brand-card p-1.5 rounded-2xl border border-white/20 flex flex-wrap md:flex-nowrap gap-2 items-center">
                         {(['announcement', 'result', 'report', 'plan'] as TenderCategory[]).map(cat => (
                             <button
                                 key={cat}
                                 onClick={() => setActiveCategory(cat)}
                                 className={`flex-1 min-w-[120px] py-3.5 rounded-xl text-sm font-black transition-all ${activeCategory === cat
                                         ? 'bg-brand-green text-white shadow-md transform scale-[1.02]'
-                                        : 'text-slate-400 hover:text-slate-800 hover:bg-slate-50'
+                                        : 'text-slate-300 hover:text-white hover:bg-white/5'
                                     }`}
                             >
                                 {t.filters.categories[cat]}
@@ -136,31 +136,31 @@ export default function TendersPage({
                 </div>
 
                 {/* List of Tenders */}
-                <div className="bg-white rounded-3xl border border-slate-200 shadow-2xl shadow-slate-200/50 overflow-hidden">
+                <div className="bg-brand-card rounded-3xl border border-white/20 overflow-hidden">
                     {filteredTenders.length > 0 ? (
                         <div className="overflow-x-auto">
                             <table className="w-full text-right rtl:text-right ltr:text-left">
-                                <thead className="bg-slate-50/50 border-b border-slate-100">
+                                <thead className="bg-brand-card border-b border-white/20">
                                     <tr>
-                                        <th className="px-8 py-6 text-xs font-black text-slate-400 uppercase tracking-widest">{t.table.id}</th>
-                                        <th className="px-8 py-6 text-xs font-black text-slate-400 uppercase tracking-widest">{t.table.title}</th>
-                                        <th className="px-8 py-6 text-xs font-black text-slate-400 uppercase tracking-widest">{t.table.date}</th>
-                                        <th className="px-8 py-6 text-xs font-black text-slate-400 uppercase tracking-widest text-center">{t.table.download}</th>
+                                        <th className="px-8 py-6 text-xs font-black text-slate-300 uppercase tracking-widest">{t.table.id}</th>
+                                        <th className="px-8 py-6 text-xs font-black text-slate-300 uppercase tracking-widest">{t.table.title}</th>
+                                        <th className="px-8 py-6 text-xs font-black text-slate-300 uppercase tracking-widest">{t.table.date}</th>
+                                        <th className="px-8 py-6 text-xs font-black text-slate-300 uppercase tracking-widest text-center">{t.table.download}</th>
                                     </tr>
                                 </thead>
-                                <tbody className="divide-y divide-slate-50">
+                                <tbody className="divide-y divide-white/5">
                                     {filteredTenders.map(tender => (
                                         <tr key={tender.id} className="group hover:bg-brand-green/[0.02] transition-colors">
-                                            <td className="px-8 py-8 font-mono text-sm text-slate-400">{tender.id}</td>
+                                            <td className="px-8 py-8 font-mono text-sm text-slate-300">{tender.id}</td>
                                             <td className="px-8 py-8">
-                                                <span className="text-xl font-bold text-slate-800 group-hover:text-brand-green transition-colors leading-tight">
+                                                <span className="text-xl font-bold text-white group-hover:text-brand-green transition-colors leading-tight">
                                                     {tender.title[locale as 'ar' | 'fr']}
                                                 </span>
                                             </td>
                                             <td className="px-8 py-8">
                                                 <div className="flex flex-col gap-1">
-                                                    <span className="text-sm font-bold text-slate-600">{tender.date}</span>
-                                                    <span className="text-[10px] font-black text-slate-300 uppercase tracking-tighter">PUBLISHED</span>
+                                                    <span className="text-sm font-bold text-slate-200">{tender.date}</span>
+                                                    <span className="text-[10px] font-black text-slate-100 uppercase tracking-tighter">PUBLISHED</span>
                                                 </div>
                                             </td>
                                             <td className="px-8 py-8 text-center">
@@ -177,12 +177,12 @@ export default function TendersPage({
                         </div>
                     ) : (
                         <div className="p-24 text-center space-y-6">
-                            <div className="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mx-auto border border-slate-100">
-                                <svg className="w-10 h-10 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <div className="w-20 h-20 bg-brand-card rounded-full flex items-center justify-center mx-auto border border-white/10">
+                                <svg className="w-10 h-10 text-slate-100" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
                                 </svg>
                             </div>
-                            <p className="text-xl font-bold text-slate-400 max-w-sm mx-auto">
+                            <p className="text-xl font-bold text-slate-300 max-w-sm mx-auto">
                                 {t.noData}
                             </p>
                         </div>
@@ -190,14 +190,14 @@ export default function TendersPage({
                 </div>
 
                 {/* Bottom Banner */}
-                <div className="bg-slate-900 p-12 rounded-3xl text-white relative overflow-hidden group">
+                <div className="bg-brand-dark/80 border border-white/20 p-12 rounded-3xl text-white relative overflow-hidden group">
                     <div className="absolute top-0 right-0 w-64 h-64 bg-brand-green/10 rounded-full blur-3xl -mr-32 -mt-32"></div>
                     <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-right rtl:md:text-right ltr:md:text-left">
                         <div>
                             <h2 className="text-2xl font-black mb-2">
                                 {locale === 'ar' ? 'هل لديك استفسار حول الصفقات؟' : 'Une question sur les marchés ?'}
                             </h2>
-                            <p className="text-slate-400 font-medium">
+                            <p className="text-slate-300 font-medium">
                                 {locale === 'ar' ? 'تواصل مع لجنة إبرام الصفقات العمومية للمزيد من التفاصيل.' : 'Contactez la CPMP pour plus de détails.'}
                             </p>
                         </div>

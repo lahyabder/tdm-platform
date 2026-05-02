@@ -52,7 +52,7 @@ export function AnimatedHome({ locale, content }: { locale: string; content: any
                         variants={staggeredContainer} initial="hidden" animate="show"
                         className="w-full max-w-4xl px-4 sm:px-6 text-center space-y-8 flex flex-col items-center z-30"
                     >
-                        <motion.div variants={itemFadeUp} className="inline-flex items-center gap-3 px-5 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-xl">
+                        <motion.div variants={itemFadeUp} className="inline-flex items-center gap-3 px-5 py-2 rounded-full border border-white/20 bg-brand-card backdrop-blur-xl">
                             <span className="w-2.5 h-2.5 rounded-full bg-brand-green shadow-[0_0_15px_rgba(0,169,92,1)] animate-pulse border border-white/20"></span>
                             <span className="text-sm font-semibold tracking-wide text-white/90">
                                 {locale === 'ar' ? 'الشبكة الوطنية الرسمية للإرسال' : 'Réseau National Officiel de Diffusion'}
@@ -68,7 +68,7 @@ export function AnimatedHome({ locale, content }: { locale: string; content: any
                             </span>
                         </motion.h1>
 
-                        <motion.p variants={itemFadeUp} className="text-lg sm:text-2xl text-slate-400 font-light leading-relaxed max-w-3xl">
+                        <motion.p variants={itemFadeUp} className="text-lg sm:text-2xl text-slate-300 font-light leading-relaxed max-w-3xl">
                             {content.hero.subtitle}
                         </motion.p>
 
@@ -78,7 +78,7 @@ export function AnimatedHome({ locale, content }: { locale: string; content: any
                                 <ArrowUpRight className="w-5 h-5 relative z-10 group-hover:rotate-45 transition-transform" />
                                 <div className="absolute inset-0 bg-brand-green translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-in-out"></div>
                             </Link>
-                            <Link href={`/${locale}/live`} className="group px-8 py-4 bg-[#050B14] border border-white/10 text-white font-bold rounded-2xl hover:bg-white/5 transition-all flex items-center gap-3 backdrop-blur-md">
+                            <Link href={`/${locale}/live`} className="group px-8 py-4 bg-[#050B14] border border-white/20 text-white font-bold rounded-2xl hover:bg-brand-card transition-all flex items-center gap-3 backdrop-blur-md">
                                 <Radio className="w-5 h-5 text-brand-red animate-pulse" />
                                 {content.hero.cta.live}
                             </Link>
@@ -142,14 +142,14 @@ export function AnimatedHome({ locale, content }: { locale: string; content: any
                     {content.stats.items.map((stat: any, index: number) => (
                         <motion.div
                             key={stat.id} variants={itemFadeUp}
-                            className="relative group p-8 rounded-3xl bg-[#0a1120]/80 border border-white/5 backdrop-blur-2xl hover:bg-white/5 transition-colors overflow-hidden"
+                            className="relative group p-8 rounded-3xl bg-[#0a1120]/80 border border-white/5 backdrop-blur-2xl hover:bg-brand-card transition-colors overflow-hidden"
                         >
                             <div className={`absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500 bg-gradient-to-br ${index === 0 ? 'from-brand-green to-transparent' : index === 1 ? 'from-brand-yellow to-transparent' : index === 2 ? 'from-brand-red to-transparent' : 'from-blue-500 to-transparent'}`}></div>
 
                             <p className={`text-5xl font-black mb-3 tracking-tighter ${index === 0 ? 'text-brand-green' : index === 1 ? 'text-brand-yellow' : index === 2 ? 'text-brand-red' : 'text-blue-400'}`}>
                                 {stat.value}
                             </p>
-                            <p className="text-sm font-bold text-slate-400 uppercase tracking-widest">{stat.label}</p>
+                            <p className="text-sm font-bold text-slate-300 uppercase tracking-widest">{stat.label}</p>
                         </motion.div>
                     ))}
                 </motion.div>
@@ -184,12 +184,12 @@ export function AnimatedHome({ locale, content }: { locale: string; content: any
                                 <div className={`absolute top-0 right-0 w-[500px] h-[500px] rounded-full blur-[100px] opacity-0 group-hover:opacity-20 transition-opacity duration-700 translate-x-1/2 -translate-y-1/2 pointer-events-none z-0 ${index % 2 === 0 ? 'bg-brand-green' : 'bg-brand-yellow'}`}></div>
 
                                 <div className="relative z-10 h-full flex flex-col justify-between">
-                                    <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center backdrop-blur-sm group-hover:scale-110 group-hover:bg-brand-green group-hover:border-transparent transition-all duration-500">
-                                        <Activity className="w-8 h-8 text-slate-400 group-hover:text-white transition-colors" />
+                                    <div className="w-16 h-16 rounded-2xl bg-brand-card border border-white/20 flex items-center justify-center backdrop-blur-sm group-hover:scale-110 group-hover:bg-brand-green group-hover:border-transparent transition-all duration-500">
+                                        <Activity className="w-8 h-8 text-slate-300 group-hover:text-white transition-colors" />
                                     </div>
                                     <div className="space-y-4">
                                         <h3 className={`font-black text-white ${index === 0 ? 'text-4xl' : 'text-2xl'}`}>{service.title}</h3>
-                                        <p className="text-slate-400 text-lg font-light leading-relaxed max-w-lg">{service.description}</p>
+                                        <p className="text-slate-300 text-lg font-light leading-relaxed max-w-lg">{service.description}</p>
                                     </div>
 
                                     <div className="absolute bottom-10 rtl:left-10 ltr:right-10 opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-500">
@@ -215,13 +215,13 @@ export function AnimatedHome({ locale, content }: { locale: string; content: any
                         <motion.div variants={staggeredContainer} initial="hidden" whileInView="show" viewport={{ once: true }} className="grid gap-6">
                             {content.news.items.map((newsItem: any) => (
                                 <motion.div key={newsItem.id} variants={itemFadeUp}>
-                                    <Link href="#" className="group flex flex-col sm:flex-row gap-6 p-6 rounded-3xl bg-[#0a1120] border border-white/5 hover:border-brand-green/30 hover:bg-white/5 transition-all duration-300">
+                                    <Link href="#" className="group flex flex-col sm:flex-row gap-6 p-6 rounded-3xl bg-[#0a1120] border border-white/5 hover:border-brand-green/30 hover:bg-brand-card transition-all duration-300">
                                         <div className="w-full sm:w-40 shrink-0">
                                             <span className="inline-block px-4 py-1.5 rounded-full bg-brand-green/10 text-brand-green text-xs font-bold tracking-widest">{newsItem.date}</span>
                                         </div>
                                         <div className="space-y-3">
                                             <h3 className="text-xl font-bold text-white group-hover:text-brand-green transition-colors">{newsItem.title}</h3>
-                                            <p className="text-slate-400 font-light leading-relaxed">{newsItem.summary}</p>
+                                            <p className="text-slate-300 font-light leading-relaxed">{newsItem.summary}</p>
                                         </div>
                                     </Link>
                                 </motion.div>
@@ -239,7 +239,7 @@ export function AnimatedHome({ locale, content }: { locale: string; content: any
                             {content.quickLinks.items.map((link: any, index: number) => (
                                 <motion.div key={link.id} variants={itemFadeUp}>
                                     <Link href={`/${locale}${link.path}`} className="group flex items-center justify-between p-6 rounded-3xl bg-[#0a1120] border border-white/5 hover:bg-brand-yellow hover:border-brand-yellow transition-all duration-300">
-                                        <span className="font-bold text-slate-300 group-hover:text-amber-950 transition-colors">{link.title}</span>
+                                        <span className="font-bold text-slate-100 group-hover:text-amber-950 transition-colors">{link.title}</span>
                                         <ArrowUpRight className="w-6 h-6 text-slate-500 group-hover:text-amber-950 transition-colors rtl:-scale-x-100" />
                                     </Link>
                                 </motion.div>
@@ -253,7 +253,7 @@ export function AnimatedHome({ locale, content }: { locale: string; content: any
                         >
                             <div className="absolute top-0 right-0 w-40 h-40 bg-white/20 blur-[50px] rounded-full translate-x-1/2 -translate-y-1/2"></div>
                             <div className="relative z-10 space-y-6">
-                                <div className="w-20 h-20 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center mx-auto border border-white/20 shadow-2xl">
+                                <div className="w-20 h-20 rounded-full bg-brand-card-hover backdrop-blur-md flex items-center justify-center mx-auto border border-white/20 shadow-2xl">
                                     <Globe2 className="w-10 h-10 text-white" />
                                 </div>
                                 <h4 className="text-2xl font-black text-white">{locale === 'ar' ? 'البوابة الإلكترونية' : 'Portail en ligne'}</h4>

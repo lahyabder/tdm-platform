@@ -13,14 +13,7 @@ export default async function DataHubPage({
             title: "بوابة البيانات المفتوحة",
             subtitle: "المنصة المركزية للوصول إلى السجلات، التشريعات، والإحصائيات الخاصة بقطاع البث.",
             cards: [
-                {
-                    id: "directory",
-                    title: "سجل المنشآت الإعلامية",
-                    desc: "دليل شامل لجميع القنوات والإذاعات ومزودي خدمات نقل البيانات المرخصة.",
-                    link: "/data/media-facilities",
-                    icon: "M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10",
-                    color: "brand-green"
-                },
+
                 {
                     id: "legislation",
                     title: "مكتبة التشريعات والمرجعيات",
@@ -51,14 +44,7 @@ export default async function DataHubPage({
             title: "Portail des Données Ouvertes",
             subtitle: "La plateforme centrale pour accéder aux registres, législations et statistiques du secteur de la diffusion.",
             cards: [
-                {
-                    id: "directory",
-                    title: "Registre des Établissements Médiatiques",
-                    desc: "Un annuaire complet de toutes les chaînes, radios et fournisseurs de services de transmission de données agréés.",
-                    link: "/data/media-facilities",
-                    icon: "M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10",
-                    color: "brand-green"
-                },
+
                 {
                     id: "legislation",
                     title: "Bibliothèque des Législations",
@@ -88,7 +74,7 @@ export default async function DataHubPage({
     }[locale as 'ar' | 'fr'];
 
     return (
-        <main className="min-h-screen bg-slate-50 pb-24">
+        <main className="min-h-screen pb-24">
             {/* Header */}
             <section className="bg-brand-dark pt-24 pb-32 text-white relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-brand-dark to-brand-green/20"></div>
@@ -97,7 +83,7 @@ export default async function DataHubPage({
                     <h1 className="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight">
                         {content.title}
                     </h1>
-                    <p className="text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl mx-auto">
+                    <p className="text-lg md:text-xl text-slate-100 leading-relaxed max-w-2xl mx-auto">
                         {content.subtitle}
                     </p>
                 </div>
@@ -108,15 +94,15 @@ export default async function DataHubPage({
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {content.cards.map((card: any) => (
                         <Link key={card.id} href={`/${locale}${card.link}`} className="block group">
-                            <div className={`bg-white p-8 rounded-sm shadow-sm border border-slate-200 hover:border-${card.color} hover:shadow-md transition-all h-full flex items-start gap-6`}>
+                            <div className={`bg-brand-card p-8 rounded-sm border border-white/20 hover:border-${card.color} hover:shadow-md transition-all h-full flex items-start gap-6`}>
                                 <div className={`p-4 bg-${card.color}/10 text-${card.color} rounded-sm group-hover:bg-${card.color} group-hover:text-white transition-colors shrink-0`}>
                                     <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={card.icon} />
                                     </svg>
                                 </div>
                                 <div>
-                                    <h2 className={`text-2xl font-bold text-slate-800 mb-3 group-hover:text-${card.color} transition-colors`}>{card.title}</h2>
-                                    <p className="text-slate-600 leading-relaxed">
+                                    <h2 className={`text-2xl font-bold text-white mb-3 group-hover:text-${card.color} transition-colors`}>{card.title}</h2>
+                                    <p className="text-slate-100 leading-relaxed">
                                         {card.desc}
                                     </p>
                                 </div>

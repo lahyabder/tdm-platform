@@ -1,18 +1,17 @@
 'use client';
 
-import { useLicenseStore } from '@/store/useLicenseStore';
-import { useFacilityStore } from '@/store/useFacilityStore';
 import { use, useEffect, useState } from 'react';
+import { useNewsStore } from '@/store/useNewsStore';
+import { useFacilityStore } from '@/store/useFacilityStore';
 import Link from 'next/link';
-import { differenceInDays, parseISO, isBefore } from 'date-fns';
 
-export default function AdminDashboard({
+export default function AdminDashboardPage({
     params,
 }: {
     params: Promise<{ locale: string }>;
 }) {
-    const { locale } = use(params) as any;
-    const { licenses } = useLicenseStore();
+    const { locale } = use(params);
+    const { articles } = useNewsStore();
     const { facilities } = useFacilityStore();
     const [isClient, setIsClient] = useState(false);
 
@@ -20,130 +19,130 @@ export default function AdminDashboard({
         setIsClient(true);
     }, []);
 
+    const isAr = locale === 'ar';
+
     const t = {
         ar: {
             welcome: "مرحباً بك في لوحة تحكم TDM",
-            subtitle: "نظرة عامة على نشاط المنشآت الإعلامية والتراخيص",
-            stats: {
-                activeLicenses: "التراخيص السارية",
-                pendingRenewals: "طلبات التجديد",
-                totalFacilities: "إجمالي المنشآت",
-                recentDocs: "الوثائق المضافة مؤخراً"
-            },
-            alerts: {
-                title: "تنبيهات التجديد",
-                expiringSoon: "تراخيص ستنتهي قريبًا",
-                viewAll: "عرض الكل",
-                daysLeft: "يوم متبقي",
-                today: "تنتهي اليوم!"
-            },
-            recentActivity: "أحدث النشاطات",
-            noActivity: "لا توجد نشاطات حديثة لعرضها"
+            summary: "ملخص نشاط المنصة",
+            newsCount: "الأخبار المنشورة",
+            facilitiesCount: "المنشآت المسجلة",
+            quickActions: "إجراءات سريعة",
+            addNews: "نشر خبر جديد",
+            addFacility: "إضافة منشأة",
+            editAbout: "تعديل صفحة المؤسسة",
+            recentNews: "أحدث الأخبار"
         },
         fr: {
-            welcome: "Bienvenue sur le tableau de bord TDM",
-            subtitle: "Aperçu de l'activité des établissements médias et des licences",
-            stats: {
-                activeLicenses: "Licences actives",
-                pendingRenewals: "Demandes de renouvellement",
-                totalFacilities: "Établissements totaux",
-                recentDocs: "Documents récents"
-            },
-            alerts: {
-                title: "Alertes de renouvellement",
-                expiringSoon: "Licences expirant bientôt",
-                viewAll: "Voir tout",
-                daysLeft: "jours restants",
-                today: "Expire aujourd'hui !"
-            },
-            recentActivity: "Activité Récente",
-            noActivity: "Aucune activité récente à afficher"
+            welcome: "Bienvenue sur le portail Admin TDM",
+            summary: "Résumé de l'activité",
+            newsCount: "Actualités publiées",
+            facilitiesCount: "Établissements",
+            quickActions: "Actions rapides",
+            addNews: "Nouvelle actualité",
+            addFacility: "Ajouter établissement",
+            editAbout: "Modifier À Propos",
+            recentNews: "Dernières actualités"
         }
     }[locale as 'ar' | 'fr'];
-
-    const expiringLicenses = licenses.filter(l => {
-        if (l.status !== 'active') return false;
-        const today = new Date();
-        const expiry = parseISO(l.expiryDate);
-        const diff = differenceInDays(expiry, today);
-        return diff >= 0 && diff <= l.renewalThresholdDays;
-    }).map(l => {
-        const today = new Date();
-        const expiry = parseISO(l.expiryDate);
-        const diff = differenceInDays(expiry, today);
-        const facility = facilities.find(f => f.ref === l.facilityRef);
-        return { ...l, daysLeft: diff, facilityName: facility ? facility.name[locale as 'ar' | 'fr'] : l.facilityRef };
-    });
 
     if (!isClient) return null;
 
     return (
-        <div className="space-y-6">
-            <div className="mb-8">
-                <h1 className="text-3xl font-extrabold text-slate-800 mb-2">{t.welcome}</h1>
-                <p className="text-slate-500">{t.subtitle}</p>
+        <div className="space-y-8">
+            <div className="relative bg-slate-900 rounded-sm p-8 overflow-hidden">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-brand-green/10 blur-[100px] -mr-32 -mt-32"></div>
+                <div className="relative z-10">
+                    <h1 className="text-3xl font-black text-white tracking-tight">{t.welcome}</h1>
+                    <p className="text-slate-400 mt-2 font-medium">{t.summary}</p>
+                </div>
             </div>
 
-            {/* Alerts Section (Expiring Soon) */}
-            {expiringLicenses.length > 0 && (
-                <div className="bg-brand-red/5 border border-brand-red/20 rounded-sm p-6 mb-8">
-                    <div className="flex items-center justify-between mb-4">
-                        <h2 className="text-sm font-black text-brand-red uppercase tracking-widest flex items-center gap-2">
-                            <svg className="w-5 h-5 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
-                            {t.alerts.expiringSoon}
-                        </h2>
-                        <Link href={`/${locale}/admin/licenses`} className="text-xs font-bold text-brand-red hover:underline uppercase">
-                            {t.alerts.viewAll}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {/* Stats Cards */}
+                <div className="bg-white p-6 rounded-sm border border-slate-200 shadow-sm">
+                    <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 bg-brand-green/10 rounded-sm flex items-center justify-center text-brand-green">
+                            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10l4 4v10a2 2 0 01-2 2z" /></svg>
+                        </div>
+                        <div>
+                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{t.newsCount}</p>
+                            <p className="text-2xl font-black text-slate-900">{articles.length}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="bg-white p-6 rounded-sm border border-slate-200 shadow-sm">
+                    <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 bg-brand-yellow/10 rounded-sm flex items-center justify-center text-brand-yellow">
+                            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1" /></svg>
+                        </div>
+                        <div>
+                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{t.facilitiesCount}</p>
+                            <p className="text-2xl font-black text-slate-900">{facilities.length}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="bg-brand-green p-6 rounded-sm shadow-lg shadow-brand-green/20">
+                    <div className="flex items-center gap-4 text-white">
+                        <div className="w-12 h-12 bg-white/20 rounded-sm flex items-center justify-center">
+                            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                        </div>
+                        <div>
+                            <p className="text-[10px] font-black opacity-80 uppercase tracking-widest">نظام التراخيص</p>
+                            <p className="text-2xl font-black">94% نشط</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                {/* Quick Actions */}
+                <div className="space-y-4">
+                    <h3 className="text-lg font-black text-slate-800 flex items-center gap-3">
+                        <span className="w-2 h-6 bg-brand-green rounded-full"></span>
+                        {t.quickActions}
+                    </h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <Link href={`/${locale}/admin/news/new`} className="p-4 bg-white border border-slate-200 rounded-sm hover:border-brand-green hover:shadow-md transition-all flex items-center gap-3 font-bold text-slate-700">
+                            <div className="w-8 h-8 rounded-full bg-brand-green/10 flex items-center justify-center text-brand-green"><svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" /></svg></div>
+                            {t.addNews}
+                        </Link>
+                        <Link href={`/${locale}/admin/facilities/new`} className="p-4 bg-white border border-slate-200 rounded-sm hover:border-brand-green hover:shadow-md transition-all flex items-center gap-3 font-bold text-slate-700">
+                            <div className="w-8 h-8 rounded-full bg-brand-yellow/10 flex items-center justify-center text-brand-yellow"><svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16" /></svg></div>
+                            {t.addFacility}
+                        </Link>
+                        <Link href={`/${locale}/admin/pages/about`} className="p-4 bg-white border border-slate-200 rounded-sm hover:border-brand-green hover:shadow-md transition-all flex items-center gap-3 font-bold text-slate-700">
+                            <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-500"><svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5" /></svg></div>
+                            {t.editAbout}
                         </Link>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {expiringLicenses.slice(0, 3).map(l => (
-                            <div key={l.id} className="bg-white p-4 border border-brand-red/10 shadow-sm rounded-sm flex flex-col gap-1">
-                                <div className="flex justify-between items-start">
-                                    <span className="text-xs font-mono text-slate-400">{l.id}</span>
-                                    <span className={`text-xs font-bold ${l.daysLeft <= 15 ? 'text-brand-red' : 'text-brand-yellow'}`}>
-                                        {l.daysLeft === 0 ? t.alerts.today : `${l.daysLeft} ${t.alerts.daysLeft}`}
-                                    </span>
+                </div>
+
+                {/* Recent News List */}
+                <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                        <h3 className="text-lg font-black text-slate-800 flex items-center gap-3">
+                            <span className="w-2 h-6 bg-brand-yellow rounded-full"></span>
+                            {t.recentNews}
+                        </h3>
+                        <Link href={`/${locale}/admin/news`} className="text-xs font-bold text-brand-green hover:underline">{isAr ? 'عرض الكل' : 'Voir tout'}</Link>
+                    </div>
+                    <div className="bg-white rounded-sm border border-slate-200 shadow-sm divide-y divide-slate-100">
+                        {articles.slice(0, 3).map((article) => (
+                            <div key={article.id} className="p-4 flex items-center gap-4">
+                                <img src={article.imageUrl} className="w-12 h-12 rounded-sm object-cover" alt="" />
+                                <div className="flex-1 min-w-0">
+                                    <p className="font-bold text-slate-800 truncate text-sm">{isAr ? article.title.ar : article.title.fr}</p>
+                                    <p className="text-[10px] text-slate-500 mt-1 uppercase font-bold tracking-widest">{isAr ? article.date.ar : article.date.fr}</p>
                                 </div>
-                                <p className="text-sm font-bold text-slate-800 line-clamp-1">{l.facilityName}</p>
-                                <p className="text-[10px] text-slate-400 uppercase mt-1">Expiry: {l.expiryDate}</p>
+                                <Link href={`/${locale}/admin/news/${article.id}/edit`} className="p-2 text-slate-400 hover:text-brand-green transition-colors">
+                                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+                                </Link>
                             </div>
                         ))}
                     </div>
-                </div>
-            )}
-
-            {/* Stats Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {[
-                    { label: t.stats.activeLicenses, value: licenses.filter(l => l.status === 'active').length.toString(), color: "text-brand-green", bg: "bg-brand-green/10" },
-                    { label: t.stats.pendingRenewals, value: licenses.filter(l => l.status === 'pending').length.toString(), color: "text-brand-yellow", bg: "bg-brand-yellow/10" },
-                    { label: t.stats.totalFacilities, value: facilities.length.toString(), color: "text-slate-800", bg: "bg-slate-100" },
-                    { label: t.stats.recentDocs, value: "24", color: "text-brand-red", bg: "bg-brand-red/10" },
-                ].map((stat, i) => (
-                    <div key={i} className="bg-white p-6 rounded-sm border border-slate-200 shadow-sm flex items-center gap-4 hover:border-brand-green/30 transition-colors">
-                        <div className={`w-14 h-14 rounded-full flex items-center justify-center ${stat.bg}`}>
-                            <span className={`text-2xl font-black ${stat.color}`}>{stat.value}</span>
-                        </div>
-                        <div>
-                            <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">{stat.label}</p>
-                        </div>
-                    </div>
-                ))}
-            </div>
-
-            {/* Recent Activity Placeholder */}
-            <div className="bg-white rounded-sm border border-slate-200 shadow-sm mt-8">
-                <div className="p-6 border-b border-slate-100 bg-slate-50">
-                    <h2 className="text-sm font-bold text-slate-700 uppercase tracking-wider">
-                        {t.recentActivity}
-                    </h2>
-                </div>
-                <div className="p-12 text-center">
-                    <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4 border border-slate-200">
-                        <svg className="w-6 h-6 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                    </div>
-                    <p className="text-slate-500 text-sm">{t.noActivity}</p>
                 </div>
             </div>
         </div>

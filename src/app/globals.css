@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f8faf9;
-  --foreground: #171717;
+  --background: #0d2b1a;
+  --foreground: #f1f5f9;
 }
 
 @theme inline {
@@ -18,6 +18,10 @@
   --color-brand-dark: #0d2b1a;
   --color-brand-dark-2: #122b1f;
 
+  /* Card surfaces — slightly lighter than brand-dark */
+  --color-brand-card: #163624;
+  --color-brand-card-hover: #1c4230;
+
   /* Modern Effects */
   --glow-green: 0 0 40px rgba(0, 169, 92, 0.15);
   --glow-green-strong: 0 0 60px rgba(0, 169, 92, 0.3);
@@ -28,7 +32,7 @@
 }
 
 body {
-  background: var(--background);
+  background: var(--color-brand-dark);
   color: var(--foreground);
   font-family: var(--font-sans);
 }

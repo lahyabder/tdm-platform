@@ -90,20 +90,20 @@
   "stations": {
     "title": "المحطات الإذاعية المبثة",
     "items": [
-      { "name": "إذاعة القرآن الكريم", "type": "عمومية", "coverage": "Badr 4 / Arabsat 5C", "frequency": "فضائي", "logo": "/logos/radio_coran.png" },
-      { "name": "إذاعة الشباب", "type": "عمومية", "coverage": "Badr 4", "frequency": "فضائي", "logo": "/logos/radio_jeunesse.png" },
-      { "name": "إذاعة موريتانيا", "type": "عمومية", "coverage": "Badr 4 / Arabsat 5C", "frequency": "فضائي", "logo": "/logos/radio_mauritanie.png" },
-      { "name": "إذاعة التنوير", "type": "خاصة", "coverage": "نواكشوط", "frequency": "97.1 MHz", "logo": "/logos/tenwir.png" },
-      { "name": "إذاعة موريتانيد", "type": "خاصة", "coverage": "نواكشوط", "frequency": "100.5 MHz", "logo": "/logos/mauritanid.png" },
-      { "name": "إذاعة كوبني", "type": "خاصة", "coverage": "نواكشوط", "frequency": "94.2 MHz", "logo": "/logos/kobeni.png" },
-      { "name": "إذاعة فرنسا الدولية (RFI)", "type": "دولية", "coverage": "نواكشوط", "frequency": "103.3 MHz", "logo": "/logos/rfi.png" },
-      { "name": "إذاعة فرنسا الدولية (RFI)", "type": "دولية", "coverage": "نواذيبو", "frequency": "88.0 MHz", "logo": "/logos/rfi.png" },
-      { "name": "إذاعة مونت كارلو الدولية", "type": "دولية", "coverage": "نواكشوط", "frequency": "90.2 MHz", "logo": "/logos/mcd.png" },
-      { "name": "إذاعة BBC", "type": "دولية", "coverage": "نواكشوط", "frequency": "106.9 MHz", "logo": "/logos/bbc.png" },
-      { "name": "إذاعة BBC", "type": "دولية", "coverage": "نواذيبو", "frequency": "102.4 MHz", "logo": "/logos/bbc.png" },
-      { "name": "إذاعة الصين الدولية (CRI)", "type": "دولية", "coverage": "نواكشوط", "frequency": "95.7 MHz", "logo": "/logos/cri.png" },
-      { "name": "إذاعة سوا (Sawa)", "type": "دولية", "coverage": "نواكشوط", "frequency": "93.8 MHz", "logo": "/logos/sawa.png" },
-      { "name": "إذاعة ميدي 1 (Medi1)", "type": "دولية", "coverage": "نواكشوط", "frequency": "102.4 MHz", "logo": "/logos/medi1.png" }
+      { "name": "إذاعة القرآن الكريم", "type": "عمومية", "coverage": "Badr 4 / Arabsat 5C", "frequency": "فضائي", "logo": "/logos/radio_coran.svg" },
+      { "name": "إذاعة الشباب", "type": "عمومية", "coverage": "Badr 4", "frequency": "فضائي", "logo": "/logos/radio_jeunesse.svg" },
+      { "name": "إذاعة موريتانيا", "type": "عمومية", "coverage": "Badr 4 / Arabsat 5C", "frequency": "فضائي", "logo": "/logos/radio_mauritanie.svg" },
+      { "name": "إذاعة التنوير", "type": "خاصة", "coverage": "نواكشوط", "frequency": "97.1 MHz", "logo": "/logos/tenwir.svg" },
+      { "name": "إذاعة موريتانيد", "type": "خاصة", "coverage": "نواكشوط", "frequency": "100.5 MHz", "logo": "/logos/mauritanid.svg" },
+      { "name": "إذاعة كوبني", "type": "خاصة", "coverage": "نواكشوط", "frequency": "94.2 MHz", "logo": "/logos/kobeni.svg" },
+      { "name": "إذاعة فرنسا الدولية (RFI)", "type": "دولية", "coverage": "نواكشوط", "frequency": "103.3 MHz", "logo": "/logos/rfi.svg" },
+      { "name": "إذاعة فرنسا الدولية (RFI)", "type": "دولية", "coverage": "نواذيبو", "frequency": "88.0 MHz", "logo": "/logos/rfi.svg" },
+      { "name": "إذاعة مونت كارلو الدولية", "type": "دولية", "coverage": "نواكشوط", "frequency": "90.2 MHz", "logo": "/logos/mcd.svg" },
+      { "name": "إذاعة BBC", "type": "دولية", "coverage": "نواكشوط", "frequency": "106.9 MHz", "logo": "/logos/bbc.svg" },
+      { "name": "إذاعة BBC", "type": "دولية", "coverage": "نواذيبو", "frequency": "102.4 MHz", "logo": "/logos/bbc.svg" },
+      { "name": "إذاعة الصين الدولية (CRI)", "type": "دولية", "coverage": "نواكشوط", "frequency": "95.7 MHz", "logo": "/logos/cri.svg" },
+      { "name": "إذاعة سوا (Sawa)", "type": "دولية", "coverage": "نواكشوط", "frequency": "93.8 MHz", "logo": "/logos/sawa.svg" },
+      { "name": "إذاعة ميدي 1 (Medi1)", "type": "دولية", "coverage": "نواكشوط", "frequency": "102.4 MHz", "logo": "/logos/medi1.svg" }
     ]
   }
 }

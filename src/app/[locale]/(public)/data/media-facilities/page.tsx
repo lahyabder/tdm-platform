@@ -52,38 +52,38 @@ export default function MediaFacilitiesDirectory({
             case 'active': return 'bg-brand-green/10 text-brand-green border-brand-green/20';
             case 'expired': return 'bg-brand-red/10 text-brand-red border-brand-red/20';
             case 'renewing': return 'bg-brand-yellow/10 text-brand-yellow border-brand-yellow/20';
-            case 'suspended': return 'bg-slate-100 text-slate-600 border-slate-200';
-            default: return 'bg-slate-100 text-slate-800 border-slate-200';
+            case 'suspended': return 'bg-brand-card-hover text-slate-200 border-white/20';
+            default: return 'bg-brand-card-hover text-white border-white/20';
         }
     };
 
     return (
-        <main className="min-h-screen bg-slate-50 pb-24">
+        <main className="min-h-screen pb-24">
             <div className="bg-brand-dark pt-16 pb-12 text-white border-b-4 border-b-brand-green">
                 <div className="max-w-7xl mx-auto px-6">
                     <Link href={`/${locale}/data`} className="text-brand-green hover:text-white text-sm mb-6 inline-block">
                         &larr; {locale === 'ar' ? 'العودة للبوابة' : 'Retour au portail'}
                     </Link>
                     <h1 className="text-3xl font-extrabold mb-4">{t.title}</h1>
-                    <p className="text-slate-400">{t.subtitle}</p>
+                    <p className="text-slate-300">{t.subtitle}</p>
                 </div>
             </div>
 
             <div className="max-w-7xl mx-auto px-6 py-12">
                 {/* Filters */}
-                <div className="bg-white p-6 rounded-sm shadow-sm border border-slate-200 mb-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="bg-brand-card p-6 rounded-sm border border-white/20 mb-8 grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
                         <input
                             type="text"
                             placeholder={t.search}
-                            className="w-full bg-slate-50 border border-slate-300 text-slate-900 rounded-sm focus:ring-brand-green focus:border-brand-green p-2.5"
+                            className="w-full bg-brand-card border border-white/25 text-white rounded-sm focus:ring-brand-green focus:border-brand-green p-2.5"
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                         />
                     </div>
                     <div>
                         <select
-                            className="w-full bg-slate-50 border border-slate-300 text-slate-900 rounded-sm focus:ring-brand-green focus:border-brand-green p-2.5"
+                            className="w-full bg-brand-card border border-white/25 text-white rounded-sm focus:ring-brand-green focus:border-brand-green p-2.5"
                             value={filterType}
                             onChange={(e) => setFilterType(e.target.value)}
                         >
@@ -93,7 +93,7 @@ export default function MediaFacilitiesDirectory({
                     </div>
                     <div>
                         <select
-                            className="w-full bg-slate-50 border border-slate-300 text-slate-900 rounded-sm focus:ring-brand-green focus:border-brand-green p-2.5"
+                            className="w-full bg-brand-card border border-white/25 text-white rounded-sm focus:ring-brand-green focus:border-brand-green p-2.5"
                             value={filterStatus}
                             onChange={(e) => setFilterStatus(e.target.value)}
                         >
@@ -104,10 +104,10 @@ export default function MediaFacilitiesDirectory({
                 </div>
 
                 {/* Table */}
-                <div className="bg-white rounded-sm shadow-sm border border-slate-200 overflow-hidden">
+                <div className="bg-brand-card rounded-sm border border-white/20 overflow-hidden">
                     <div className="overflow-x-auto">
-                        <table className="w-full text-sm text-left rtl:text-right text-slate-600">
-                            <thead className="text-xs text-slate-700 uppercase bg-slate-100 border-b border-slate-200">
+                        <table className="w-full text-sm text-left rtl:text-right text-slate-200">
+                            <thead className="text-xs text-slate-100 uppercase bg-brand-card-hover border-b border-white/20">
                                 <tr>
                                     <th className="px-6 py-4">{t.table.ref}</th>
                                     <th className="px-6 py-4">{t.table.name}</th>
@@ -120,9 +120,9 @@ export default function MediaFacilitiesDirectory({
                             </thead>
                             <tbody>
                                 {filteredData.map((facility) => (
-                                    <tr key={facility.ref} className="bg-white border-b border-slate-100 hover:bg-slate-50 transition-colors">
-                                        <td className="px-6 py-4 font-mono font-medium text-slate-900">{facility.ref}</td>
-                                        <td className="px-6 py-4 font-bold text-slate-800">{facility.name[locale as 'ar' | 'fr']}</td>
+                                    <tr key={facility.ref} className="border-b border-white/10 hover:bg-brand-card-hover transition-colors">
+                                        <td className="px-6 py-4 font-mono font-medium text-white">{facility.ref}</td>
+                                        <td className="px-6 py-4 font-bold text-white">{facility.name[locale as 'ar' | 'fr']}</td>
                                         <td className="px-6 py-4">{t.types[facility.type]}</td>
                                         <td className="px-6 py-4">{facility.city[locale as 'ar' | 'fr']}</td>
                                         <td className="px-6 py-4 font-mono">{facility.expiryDate}</td>
@@ -140,7 +140,7 @@ export default function MediaFacilitiesDirectory({
                                 ))}
                                 {filteredData.length === 0 && (
                                     <tr>
-                                        <td colSpan={7} className="px-6 py-12 text-center text-slate-500">
+                                        <td colSpan={7} className="px-6 py-12 text-center text-slate-300">
                                             {locale === 'ar' ? 'لا توجد بيانات مطابقة للبحث.' : 'Aucune donnée ne correspond à la recherche.'}
                                         </td>
                                     </tr>

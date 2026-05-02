@@ -37,7 +37,7 @@ export default async function LegalLibraryPage({
     }[locale];
 
     return (
-        <main className="min-h-screen bg-slate-50 pb-24">
+        <main className="min-h-screen pb-24">
             {/* Header */}
             <section className="bg-brand-dark pt-24 pb-32 text-white relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-brand-dark to-brand-green/20"></div>
@@ -49,7 +49,7 @@ export default async function LegalLibraryPage({
                     <h1 className="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight">
                         {content.title}
                     </h1>
-                    <p className="text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl mx-auto">
+                    <p className="text-lg md:text-xl text-slate-100 leading-relaxed max-w-2xl mx-auto">
                         {content.subtitle}
                     </p>
                 </div>
@@ -57,32 +57,32 @@ export default async function LegalLibraryPage({
 
             {/* Content */}
             <div className="max-w-4xl mx-auto px-6 -mt-16 relative z-20">
-                <div className="bg-white rounded-xl shadow-lg border border-slate-200 p-6 md:p-8">
+                <div className="bg-brand-card rounded-xl shadow-lg border border-white/20 p-6 md:p-8">
                     {/* Search Bar (Mock visual only for now) */}
                     <div className="mb-8">
                         <input
                             type="text"
                             placeholder={content.searchPlaceholder}
-                            className="w-full px-5 py-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-green/50 bg-slate-50 text-slate-800 transition-all"
+                            className="w-full px-5 py-3 rounded-lg border border-white/25 focus:outline-none focus:ring-2 focus:ring-brand-green/50 bg-brand-card text-white transition-all"
                             disabled
                         />
                     </div>
 
                     <div className="space-y-4">
                         {legislationData.map((item) => (
-                            <div key={item.id} className="group flex flex-col md:flex-row md:items-center justify-between p-5 rounded-lg border border-slate-100 hover:border-brand-green/30 hover:bg-slate-50 transition-all gap-4">
+                            <div key={item.id} className="group flex flex-col md:flex-row md:items-center justify-between p-5 rounded-lg border border-white/10 hover:border-brand-green/30 hover:bg-brand-card transition-all gap-4">
                                 <div className="flex items-start gap-4">
-                                    <div className="w-12 h-12 rounded-full bg-slate-100 text-slate-500 flex items-center justify-center shrink-0 group-hover:bg-brand-green/10 group-hover:text-brand-green transition-colors">
+                                    <div className="w-12 h-12 rounded-full bg-brand-card-hover text-slate-300 flex items-center justify-center shrink-0 group-hover:bg-brand-green/10 group-hover:text-brand-green transition-colors">
                                         <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                                         </svg>
                                     </div>
                                     <div>
-                                        <h3 className="font-bold text-slate-800 text-lg mb-1 group-hover:text-brand-green transition-colors">
+                                        <h3 className="font-bold text-white text-lg mb-1 group-hover:text-brand-green transition-colors">
                                             {item.title[locale]}
                                         </h3>
-                                        <div className="flex items-center gap-3 text-sm text-slate-500">
-                                            <span className="inline-block px-2.5 py-1 rounded-md bg-slate-100 font-medium">
+                                        <div className="flex items-center gap-3 text-sm text-slate-300">
+                                            <span className="inline-block px-2.5 py-1 rounded-md bg-brand-card-hover font-medium">
                                                 {content.types[item.type]}
                                             </span>
                                             <span>•</span>

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <rect width="100" height="100" rx="16" fill="#1a0a0a"/>
+  <rect x="2" y="2" width="96" height="96" rx="14" fill="none" stroke="#D01C1F" stroke-width="2"/>
+  <text x="50" y="38" font-family="Arial,sans-serif" font-weight="900" font-size="12" fill="#D01C1F" text-anchor="middle">قناة</text>
+  <text x="50" y="62" font-family="Arial,sans-serif" font-weight="900" font-size="11" fill="#fff" text-anchor="middle">المرابطون</text>
+</svg>

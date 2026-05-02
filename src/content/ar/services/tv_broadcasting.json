@@ -85,15 +85,15 @@
   "channels": {
     "title": "القنوات التلفزيونية المبثة",
     "items": [
-      { "name": "قناة الموريتانية", "satellite": "Badr 4 / Arabsat 5C", "format": "SD / HD", "type": "عمومية", "logo": "/logos/tvm.png" },
-      { "name": "الموريتانية 2", "satellite": "Badr 4", "format": "SD", "type": "عمومية", "logo": "/logos/tvm2.png" },
-      { "name": "القناة الرياضية", "satellite": "Badr 4", "format": "SD", "type": "عمومية", "logo": "/logos/sport.png" },
-      { "name": "القناة الثقافية", "satellite": "Badr 4", "format": "SD", "type": "عمومية", "logo": "/logos/culture.png" },
-      { "name": "قناة المحظرة", "satellite": "Badr 4", "format": "SD", "type": "عمومية", "logo": "/logos/mahdara.png" },
-      { "name": "قناة شنقيط", "satellite": "Badr 4", "format": "SD", "type": "خاصة", "logo": "/logos/chinguitt.png" },
-      { "name": "قناة المرابطون", "satellite": "Badr 4", "format": "SD", "type": "خاصة", "logo": "https://upload.wikimedia.org/wikipedia/ar/d/dd/Al_Mourabitoun_TV_logo.png" },
-      { "name": "القناة الوطنية", "satellite": "Badr 4", "format": "SD", "type": "خاصة" },
-      { "name": "قناة الساحل", "satellite": "Badr 4", "format": "SD", "type": "خاصة" }
+      { "name": "قناة الموريتانية", "satellite": "Badr 4 / Arabsat 5C", "format": "SD / HD", "type": "عمومية", "logo": "/logos/tvm.svg" },
+      { "name": "الموريتانية 2", "satellite": "Badr 4", "format": "SD", "type": "عمومية", "logo": "/logos/tvm2.svg" },
+      { "name": "القناة الرياضية", "satellite": "Badr 4", "format": "SD", "type": "عمومية", "logo": "/logos/sport.svg" },
+      { "name": "القناة الثقافية", "satellite": "Badr 4", "format": "SD", "type": "عمومية", "logo": "/logos/culture.svg" },
+      { "name": "قناة المحظرة", "satellite": "Badr 4", "format": "SD", "type": "عمومية", "logo": "/logos/mahdara.svg" },
+      { "name": "قناة شنقيط", "satellite": "Badr 4", "format": "SD", "type": "خاصة", "logo": "/logos/chinguitt.svg" },
+      { "name": "قناة المرابطون", "satellite": "Badr 4", "format": "SD", "type": "خاصة", "logo": "/logos/marabitoun.svg" },
+      { "name": "القناة الوطنية", "satellite": "Badr 4", "format": "SD", "type": "خاصة", "logo": "/logos/watania.svg" },
+      { "name": "قناة الساحل", "satellite": "Badr 4", "format": "SD", "type": "خاصة", "logo": "/logos/sahel.svg" }
     ]
   }
 }

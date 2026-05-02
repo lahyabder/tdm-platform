@@ -541,25 +541,25 @@ export default function LeafletMap({ locale }: { locale: string }) {
                         className={`absolute top-4 ${locale === 'ar' ? 'left-4' : 'right-4'} bottom-4 w-full max-w-[320px] md:max-w-[400px] z-[1000] pointer-events-none`}
                         dir={locale === 'ar' ? 'rtl' : 'ltr'}
                     >
-                        <div className="w-full h-full bg-slate-900/80 backdrop-blur-2xl border border-white/10 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] p-6 pointer-events-auto overflow-y-auto custom-scrollbar flex flex-col gap-6">
+                        <div className="w-full h-full bg-slate-900/80 backdrop-blur-2xl border border-white/20 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] p-6 pointer-events-auto overflow-y-auto custom-scrollbar flex flex-col gap-6">
                             <div className="flex items-start justify-between">
                                 <div>
                                     <h2 className="text-3xl font-black text-white tracking-tight leading-tight">{selectedCity.name[locale as 'ar' | 'fr']}</h2>
-                                    <p className="text-slate-400 text-sm flex items-center gap-2 mt-2 font-mono bg-white/5 w-fit px-3 py-1 rounded-full border border-white/5">
+                                    <p className="text-slate-300 text-sm flex items-center gap-2 mt-2 font-mono bg-brand-card w-fit px-3 py-1 rounded-full border border-white/5">
                                         <MapPin className="w-3.5 h-3.5 text-brand-green" />
                                         {selectedCity.coords[0].toFixed(4)}, {selectedCity.coords[1].toFixed(4)}
                                     </p>
                                 </div>
                                 <button
                                     onClick={() => setSelectedCity(null)}
-                                    className="p-2 hover:bg-white/10 rounded-full transition-all text-white/40 hover:text-white hover:rotate-90"
+                                    className="p-2 hover:bg-brand-card-hover rounded-full transition-all text-white/40 hover:text-white hover:rotate-90"
                                 >
                                     <X className="w-6 h-6" />
                                 </button>
                             </div>
 
                             <div className="space-y-4">
-                                <div className="p-4 bg-white/5 rounded-2xl border border-white/10 group hover:border-white/20 transition-all">
+                                <div className="p-4 bg-brand-card rounded-2xl border border-white/20 group hover:border-white/20 transition-all">
                                     <p className="text-slate-500 text-[10px] font-black uppercase tracking-widest mb-3">{labels.type}</p>
                                     <div className="flex items-center gap-3">
                                         <div className={`w-4 h-4 rounded-full relative ${
@@ -591,34 +591,34 @@ export default function LeafletMap({ locale }: { locale: string }) {
                                         </div>
 
                                         <div className="space-y-3">
-                                            <div className="flex items-center justify-between p-4 bg-white/5 rounded-xl border border-white/5 hover:bg-white/10 transition-all">
+                                            <div className="flex items-center justify-between p-4 bg-brand-card rounded-xl border border-white/5 hover:bg-brand-card-hover transition-all">
                                                 <div className="flex items-center gap-3">
                                                     <div className="p-2 bg-slate-800 rounded-lg">
-                                                        <Activity className="w-4 h-4 text-slate-400" />
+                                                        <Activity className="w-4 h-4 text-slate-300" />
                                                     </div>
-                                                    <span className="text-slate-300 font-bold">{labels.tower}</span>
+                                                    <span className="text-slate-100 font-bold">{labels.tower}</span>
                                                 </div>
                                                 <span className="text-white font-mono font-black text-lg">{selectedCity.details.tower_height}</span>
                                             </div>
-                                            <div className="flex items-center justify-between p-4 bg-white/5 rounded-xl border border-white/5 hover:bg-white/10 transition-all">
+                                            <div className="flex items-center justify-between p-4 bg-brand-card rounded-xl border border-white/5 hover:bg-brand-card-hover transition-all">
                                                 <div className="flex items-center gap-3">
                                                     <div className="p-2 bg-slate-800 rounded-lg">
                                                         <Zap className="w-4 h-4 text-brand-yellow" />
                                                     </div>
-                                                    <span className="text-slate-300 font-bold">{labels.power}</span>
+                                                    <span className="text-slate-100 font-bold">{labels.power}</span>
                                                 </div>
                                                 <span className="text-white font-mono font-black text-lg">{selectedCity.details.power}</span>
                                             </div>
-                                            <div className="flex items-center justify-between p-4 bg-white/5 rounded-xl border border-white/5 hover:bg-white/10 transition-all">
+                                            <div className="flex items-center justify-between p-4 bg-brand-card rounded-xl border border-white/5 hover:bg-brand-card-hover transition-all">
                                                 <div className="flex items-center gap-3">
                                                     <div className="p-2 bg-slate-800 rounded-lg">
                                                         <Activity className="w-4 h-4 text-brand-green" />
                                                     </div>
-                                                    <span className="text-slate-300 font-bold">{labels.coverage}</span>
+                                                    <span className="text-slate-100 font-bold">{labels.coverage}</span>
                                                 </div>
                                                 <div className="flex flex-col items-end gap-2">
                                                     <span className="text-white font-mono font-black text-lg">{selectedCity.details.coverage}</span>
-                                                    <div className="w-24 h-1.5 bg-white/10 rounded-full overflow-hidden">
+                                                    <div className="w-24 h-1.5 bg-brand-card-hover rounded-full overflow-hidden">
                                                         <motion.div
                                                             initial={{ width: 0 }}
                                                             animate={{ width: selectedCity.details.coverage }}
@@ -631,7 +631,7 @@ export default function LeafletMap({ locale }: { locale: string }) {
                                         </div>
                                     </>
                                 ) : (
-                                    <div className="p-12 text-center bg-white/5 rounded-3xl border border-white/10 border-dashed">
+                                    <div className="p-12 text-center bg-brand-card rounded-3xl border border-white/20 border-dashed">
                                         <Activity className="w-12 h-12 text-slate-700 mx-auto mb-4 animate-pulse" />
                                         <p className="text-slate-500 font-bold">{locale === 'ar' ? 'بيانات فنية إضافية قيد التحديث...' : 'Données techniques en cours de mise à jour...'}</p>
                                     </div>
@@ -640,7 +640,7 @@ export default function LeafletMap({ locale }: { locale: string }) {
                                 <div className="mt-auto pt-6">
                                     <button
                                         onClick={() => setSelectedCity(null)}
-                                        className="w-full py-4 bg-white/10 hover:bg-white/20 text-white rounded-2xl font-black transition-all active:scale-95 border border-white/10"
+                                        className="w-full py-4 bg-brand-card-hover hover:bg-white/20 text-white rounded-2xl font-black transition-all active:scale-95 border border-white/20"
                                     >
                                         {labels.close}
                                     </button>

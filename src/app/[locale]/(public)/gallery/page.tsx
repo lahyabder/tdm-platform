@@ -92,7 +92,7 @@ export default function GalleryPage() {
                 <div className="absolute bottom-0 right-1/4 w-72 h-72 bg-brand-yellow/10 rounded-full blur-[100px]" />
 
                 <div className="relative z-10 max-w-6xl mx-auto px-6 text-center">
-                    <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-xl mb-8">
+                    <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full border border-white/20 bg-brand-card backdrop-blur-xl mb-8">
                         <span className="w-2 h-2 rounded-full bg-brand-green animate-pulse shadow-[0_0_10px_rgba(0,169,92,1)]" />
                         <span className="text-sm font-semibold text-white/80 tracking-wide">
                             {locale === 'ar' ? 'الأرشيف المصور' : 'Archive photographique'}
@@ -103,7 +103,7 @@ export default function GalleryPage() {
                             {title}
                         </span>
                     </h1>
-                    <p className="text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
+                    <p className="text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed">
                         {subtitle}
                     </p>
 
@@ -115,7 +115,7 @@ export default function GalleryPage() {
                         ].map((s, i) => (
                             <div key={i} className="text-center">
                                 <div className="text-4xl font-black text-white">{s.val}</div>
-                                <div className="text-sm text-slate-500 font-semibold uppercase tracking-widest mt-1">{s.label}</div>
+                                <div className="text-sm text-slate-300 font-semibold uppercase tracking-widest mt-1">{s.label}</div>
                             </div>
                         ))}
                     </div>
@@ -132,7 +132,7 @@ export default function GalleryPage() {
                             className={`px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${
                                 activeCategory === key
                                     ? 'bg-brand-green text-white shadow-[0_0_20px_rgba(0,169,92,0.5)] scale-105'
-                                    : 'bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white border border-white/10'
+                                    : 'bg-brand-card text-slate-300 hover:bg-brand-card-hover hover:text-white border border-white/20'
                             }`}
                         >
                             {label}
@@ -153,7 +153,7 @@ export default function GalleryPage() {
                         <div
                             key={img.src}
                             onClick={() => openLightbox(idx)}
-                            className="break-inside-avoid relative group cursor-pointer overflow-hidden rounded-2xl bg-white/5 border border-white/5 hover:border-brand-green/40 transition-all duration-500 hover:shadow-[0_0_30px_rgba(0,169,92,0.15)]"
+                            className="break-inside-avoid relative group cursor-pointer overflow-hidden rounded-2xl bg-brand-card border border-white/5 hover:border-brand-green/40 transition-all duration-500 hover:shadow-[0_0_30px_rgba(0,169,92,0.15)]"
                         >
                             <div className="relative overflow-hidden">
                                 <Image
@@ -166,7 +166,7 @@ export default function GalleryPage() {
                                 />
                                 {/* Hover overlay */}
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-end justify-center pb-6">
-                                    <div className="flex items-center gap-2 px-5 py-2.5 bg-white/10 backdrop-blur-md rounded-full border border-white/20 text-white text-sm font-bold translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                                    <div className="flex items-center gap-2 px-5 py-2.5 bg-brand-card-hover backdrop-blur-md rounded-full border border-white/20 text-white text-sm font-bold translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
                                         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
                                         </svg>
@@ -190,14 +190,14 @@ export default function GalleryPage() {
                     onClick={closeLightbox}
                 >
                     {/* Image counter */}
-                    <div className="absolute top-6 left-1/2 -translate-x-1/2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-white text-sm font-bold border border-white/20">
+                    <div className="absolute top-6 left-1/2 -translate-x-1/2 px-4 py-2 bg-brand-card-hover backdrop-blur-sm rounded-full text-white text-sm font-bold border border-white/20">
                         {lightboxIndex + 1} / {filtered.length}
                     </div>
 
                     {/* Close */}
                     <button
                         onClick={closeLightbox}
-                        className="absolute top-6 end-6 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white flex items-center justify-center transition-all hover:scale-110 z-10"
+                        className="absolute top-6 end-6 w-12 h-12 rounded-full bg-brand-card-hover hover:bg-white/20 border border-white/20 text-white flex items-center justify-center transition-all hover:scale-110 z-10"
                     >
                         <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -207,7 +207,7 @@ export default function GalleryPage() {
                     {/* Prev */}
                     <button
                         onClick={e => { e.stopPropagation(); prevImage(); }}
-                        className="absolute start-4 md:start-8 w-14 h-14 rounded-full bg-white/10 hover:bg-brand-green/30 border border-white/20 text-white flex items-center justify-center transition-all hover:scale-110 hover:border-brand-green/50 z-10"
+                        className="absolute start-4 md:start-8 w-14 h-14 rounded-full bg-brand-card-hover hover:bg-brand-green/30 border border-white/20 text-white flex items-center justify-center transition-all hover:scale-110 hover:border-brand-green/50 z-10"
                     >
                         <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={isRtl ? 'M9 5l7 7-7 7' : 'M15 19l-7-7 7-7'} />
@@ -231,7 +231,7 @@ export default function GalleryPage() {
                     {/* Next */}
                     <button
                         onClick={e => { e.stopPropagation(); nextImage(); }}
-                        className="absolute end-4 md:end-8 w-14 h-14 rounded-full bg-white/10 hover:bg-brand-green/30 border border-white/20 text-white flex items-center justify-center transition-all hover:scale-110 hover:border-brand-green/50 z-10"
+                        className="absolute end-4 md:end-8 w-14 h-14 rounded-full bg-brand-card-hover hover:bg-brand-green/30 border border-white/20 text-white flex items-center justify-center transition-all hover:scale-110 hover:border-brand-green/50 z-10"
                     >
                         <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={isRtl ? 'M15 19l-7-7 7-7' : 'M9 5l7 7-7 7'} />
@@ -247,7 +247,7 @@ export default function GalleryPage() {
                                 className={`w-14 h-14 shrink-0 rounded-lg overflow-hidden cursor-pointer transition-all duration-200 border-2 ${
                                     i === lightboxIndex
                                         ? 'border-brand-green scale-110 shadow-[0_0_15px_rgba(0,169,92,0.6)]'
-                                        : 'border-white/10 opacity-50 hover:opacity-80'
+                                        : 'border-white/20 opacity-50 hover:opacity-80'
                                 }`}
                             >
                                 <Image

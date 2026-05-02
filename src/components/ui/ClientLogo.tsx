@@ -6,7 +6,7 @@ export function ClientLogo({
     src, 
     alt, 
     initials,
-    imageClassName = "w-[70%] h-[70%] object-contain relative z-10 bg-white"
+    imageClassName = "w-full h-full object-cover rounded-xl"
 }: { 
     src: string; 
     alt: string; 
@@ -17,7 +17,7 @@ export function ClientLogo({
 
     if (hasError) {
         return (
-            <div className="absolute inset-0 bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center text-slate-400 font-bold text-sm z-0">
+            <div className="absolute inset-0 bg-gradient-to-br from-brand-green/20 to-brand-dark flex items-center justify-center text-brand-green font-black text-sm z-0">
                 {initials}
             </div>
         );
@@ -31,7 +31,7 @@ export function ClientLogo({
                 className={imageClassName}
                 onError={() => setHasError(true)}
             />
-            <div className="absolute inset-0 bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center text-slate-400 font-bold text-sm -z-10">
+            <div className="absolute inset-0 bg-gradient-to-br from-brand-green/20 to-brand-dark flex items-center justify-center text-brand-green font-black text-sm -z-10">
                 {initials}
             </div>
         </>

@@ -85,15 +85,15 @@
   "channels": {
     "title": "Chaînes de Télévision Diffusées",
     "items": [
-      { "name": "El Mouritaniya TV", "satellite": "Badr 4 / Arabsat 5C", "format": "SD / HD", "type": "Publique", "logo": "/logos/tvm.png" },
-      { "name": "El Mouritaniya 2", "satellite": "Badr 4", "format": "SD", "type": "Publique", "logo": "/logos/tvm2.png" },
-      { "name": "Arriyadiya (Sport)", "satellite": "Badr 4", "format": "SD", "type": "Publique", "logo": "/logos/sport.png" },
-      { "name": "Athagafiya (Culture)", "satellite": "Badr 4", "format": "SD", "type": "Publique", "logo": "/logos/culture.png" },
-      { "name": "El Mahdara", "satellite": "Badr 4", "format": "SD", "type": "Publique", "logo": "/logos/mahdara.png" },
-      { "name": "Chinguitt TV", "satellite": "Badr 4", "format": "SD", "type": "Privée", "logo": "/logos/chinguitt.png" },
-      { "name": "Al Mourabitoun TV", "satellite": "Badr 4", "format": "SD", "type": "Privée", "logo": "https://upload.wikimedia.org/wikipedia/ar/d/dd/Al_Mourabitoun_TV_logo.png" },
-      { "name": "El Watania TV", "satellite": "Badr 4", "format": "SD", "type": "Privée" },
-      { "name": "Sahel TV", "satellite": "Badr 4", "format": "SD", "type": "Privée" }
+      { "name": "El Mouritaniya TV", "satellite": "Badr 4 / Arabsat 5C", "format": "SD / HD", "type": "Publique", "logo": "/logos/tvm.svg" },
+      { "name": "El Mouritaniya 2", "satellite": "Badr 4", "format": "SD", "type": "Publique", "logo": "/logos/tvm2.svg" },
+      { "name": "Arriyadiya (Sport)", "satellite": "Badr 4", "format": "SD", "type": "Publique", "logo": "/logos/sport.svg" },
+      { "name": "Athagafiya (Culture)", "satellite": "Badr 4", "format": "SD", "type": "Publique", "logo": "/logos/culture.svg" },
+      { "name": "El Mahdara", "satellite": "Badr 4", "format": "SD", "type": "Publique", "logo": "/logos/mahdara.svg" },
+      { "name": "Chinguitt TV", "satellite": "Badr 4", "format": "SD", "type": "Privée", "logo": "/logos/chinguitt.svg" },
+      { "name": "Al Mourabitoun TV", "satellite": "Badr 4", "format": "SD", "type": "Privée", "logo": "/logos/marabitoun.svg" },
+      { "name": "El Watania TV", "satellite": "Badr 4", "format": "SD", "type": "Privée", "logo": "/logos/watania.svg" },
+      { "name": "Sahel TV", "satellite": "Badr 4", "format": "SD", "type": "Privée", "logo": "/logos/sahel.svg" }
     ]
   }
 }

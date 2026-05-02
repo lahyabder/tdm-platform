@@ -21,7 +21,7 @@ export function MauritaniaMap({ locale }: { locale: string }) {
             <LeafletMap locale={locale} />
 
             {/* Non-overlapping Legend Below the Map */}
-            <div className="w-full mt-6 bg-[#0a1120]/80 backdrop-blur-2xl p-4 md:p-5 rounded-2xl border border-white/10 text-xs md:text-sm shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex flex-wrap gap-4 items-center justify-center z-20 relative">
+            <div className="w-full mt-6 bg-[#0a1120]/80 backdrop-blur-2xl p-4 md:p-5 rounded-2xl border border-white/20 text-xs md:text-sm shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex flex-wrap gap-4 items-center justify-center z-20 relative">
                 <div className="flex items-center gap-3">
                     <span className="w-4 h-4 bg-brand-yellow rounded-full shadow-[0_0_15px_rgba(255,215,0,0.8)] border border-white/20"></span>
                     <span className="text-slate-200 font-bold">{locale === 'ar' ? 'المحطة الأرضية' : 'Station Terrienne'}</span>
