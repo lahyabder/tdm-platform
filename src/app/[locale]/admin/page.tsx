@@ -5,7 +5,7 @@ import { useNewsStore } from '@/store/useNewsStore';
 import { useFacilityStore } from '@/store/useFacilityStore';
 import { useContentStore } from '@/store/useContentStore';
 import Link from 'next/link';
-import { Cloud, CheckCircle2, Loader2, Zap, Newspaper, MapPin, Settings } from 'lucide-react';
+import { Cloud, CheckCircle2, Loader2, Zap, Newspaper, MapPin, Settings, ArrowRight, LayoutDashboard, Globe } from 'lucide-react';
 
 export default function AdminDashboardPage({
     params,
@@ -13,9 +13,9 @@ export default function AdminDashboardPage({
     params: Promise<{ locale: string }>;
 }) {
     const { locale } = use(params);
-    const { articles, syncAllToCloud: syncNews } = useNewsStore();
+    const { articles, syncAllToCloud: syncNews, fetchArticles } = useNewsStore();
     const { facilities, fetchFacilities } = useFacilityStore();
-    const { syncAllToCloud: syncContent } = useContentStore();
+    const { syncAllToCloud: syncContent, fetchContent } = useContentStore();
     
     const [isClient, setIsClient] = useState(false);
     const [isPublishing, setIsPublishing] = useState(false);
@@ -24,6 +24,8 @@ export default function AdminDashboardPage({
     useEffect(() => {
         setIsClient(true);
         fetchFacilities();
+        fetchArticles();
+        fetchContent();
     }, []);
 
     const isAr = locale === 'ar';
@@ -31,22 +33,23 @@ export default function AdminDashboardPage({
     const t = {
         ar: {
             welcome: "مرحباً بك في لوحة تحكم TDM",
-            summary: "ملخص نشاط المنصة الرقمية",
-            newsCount: "الأخبار المنشورة",
-            facilitiesCount: "المنشآت المسجلة",
+            summary: "ملخص نشاط المنصة الرقمية الموحدة",
+            newsCount: "الأخبار",
+            facilitiesCount: "المنشآت",
             quickActions: "إجراءات سريعة",
             addNews: "نشر خبر جديد",
             addFacility: "إضافة منشأة",
             editAbout: "تعديل صفحة المؤسسة",
             recentNews: "أحدث الأخبار",
             publishBtn: "نشر التحديثات الشاملة",
-            publishing: "جاري النشر...",
-            published: "تم نشر كل شيء بنجاح!"
+            publishing: "جاري النشر للسحابة...",
+            published: "تم النشر بنجاح!",
+            viewSite: "عرض الموقع"
         },
         fr: {
-            welcome: "Bienvenue sur le portail Admin TDM",
+            welcome: "Tableau de Bord TDM",
             summary: "Résumé de l'activité numérique",
-            newsCount: "Actualités publiées",
+            newsCount: "Actualités",
             facilitiesCount: "Établissements",
             quickActions: "Actions rapides",
             addNews: "Nouvelle actualité",
@@ -55,7 +58,8 @@ export default function AdminDashboardPage({
             recentNews: "Dernières actualités",
             publishBtn: "Publier tout",
             publishing: "Publication...",
-            published: "Tout est publié !"
+            published: "Publié !",
+            viewSite: "Voir le site"
         }
     }[locale as 'ar' | 'fr'];
 
@@ -72,145 +76,136 @@ export default function AdminDashboardPage({
         }
     };
 
-    if (!isClient) return null;
+    if (!isClient) return <div className="min-h-screen bg-slate-50"></div>;
 
     return (
-        <div className="space-y-10 pb-20">
-            {/* Hero Header with Publish Button */}
-            <div className="relative bg-slate-950 rounded-2xl p-10 overflow-hidden border border-white/5 shadow-2xl">
-                <div className="absolute top-0 right-0 w-96 h-96 bg-brand-green/10 blur-[120px] -mr-48 -mt-48 animate-pulse"></div>
-                <div className="relative z-10 flex flex-col md:flex-row justify-between items-center gap-8">
-                    <div className="text-center md:text-right">
-                        <h1 className="text-4xl font-black text-white tracking-tight">{t.welcome}</h1>
-                        <p className="text-slate-400 mt-2 font-medium">{t.summary}</p>
+        <div className="space-y-10 pb-20 max-w-7xl mx-auto px-4 sm:px-6">
+            {/* Ultra-Premium Header */}
+            <div className="relative bg-[#050B14] rounded-[2.5rem] p-10 md:p-16 overflow-hidden border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-green/10 blur-[120px] -mr-64 -mt-64 animate-pulse"></div>
+                <div className="absolute bottom-0 left-0 w-64 h-64 bg-brand-yellow/5 blur-[100px] -ml-32 -mb-32"></div>
+                
+                <div className="relative z-10 flex flex-col lg:flex-row justify-between items-center gap-10">
+                    <div className="text-center lg:text-right space-y-4">
+                        <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-brand-green/20 rounded-full border border-brand-green/30">
+                            <LayoutDashboard className="w-4 h-4 text-brand-green" />
+                            <span className="text-[10px] font-black text-brand-green uppercase tracking-[0.3em]">ADMIN PORTAL</span>
+                        </div>
+                        <h1 className="text-4xl md:text-6xl font-black text-white tracking-tighter leading-tight">{t.welcome}</h1>
+                        <p className="text-slate-400 text-lg font-medium max-w-xl">{t.summary}</p>
                     </div>
                     
-                    <button 
-                        onClick={handlePublishAll}
-                        disabled={isPublishing}
-                        className={`group relative flex items-center gap-3 px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-widest transition-all ${
-                            publishSuccess 
-                            ? 'bg-brand-green text-white scale-105' 
-                            : 'bg-white text-slate-950 hover:bg-brand-green hover:text-white'
-                        } disabled:opacity-70`}
-                    >
-                        {isPublishing ? (
-                            <>
-                                <Loader2 className="w-5 h-5 animate-spin" />
-                                {t.publishing}
-                            </>
-                        ) : publishSuccess ? (
-                            <>
-                                <CheckCircle2 className="w-5 h-5" />
-                                {t.published}
-                            </>
-                        ) : (
-                            <>
-                                <Cloud className="w-5 h-5 group-hover:animate-bounce" />
-                                {t.publishBtn}
-                            </>
-                        )}
-                    </button>
+                    <div className="flex flex-col sm:flex-row gap-4 w-full lg:w-auto">
+                        <button 
+                            onClick={handlePublishAll}
+                            disabled={isPublishing}
+                            className={`group relative flex items-center justify-center gap-4 px-10 py-5 rounded-[2rem] font-black text-sm uppercase tracking-widest transition-all duration-500 shadow-2xl ${
+                                publishSuccess 
+                                ? 'bg-brand-green text-white scale-105 shadow-brand-green/30' 
+                                : 'bg-white text-slate-950 hover:bg-brand-green hover:text-white hover:shadow-brand-green/20'
+                            } disabled:opacity-70`}
+                        >
+                            {isPublishing ? (
+                                <>
+                                    <Loader2 className="w-5 h-5 animate-spin" />
+                                    {t.publishing}
+                                </>
+                            ) : publishSuccess ? (
+                                <>
+                                    <CheckCircle2 className="w-5 h-5" />
+                                    {t.published}
+                                </>
+                            ) : (
+                                <>
+                                    <Cloud className="w-5 h-5 group-hover:animate-bounce" />
+                                    {t.publishBtn}
+                                </>
+                            )}
+                        </button>
+                        
+                        <Link href={`/${locale}`} target="_blank" className="flex items-center justify-center gap-3 px-8 py-5 bg-white/5 border border-white/10 rounded-[2rem] text-white font-black text-xs uppercase tracking-widest hover:bg-white/10 transition-all">
+                            <Globe className="w-4 h-4" />
+                            {t.viewSite}
+                        </Link>
+                    </div>
                 </div>
             </div>
 
-            {/* Stats Grid */}
+            {/* Stats Cards - Redesigned */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-xl shadow-slate-200/40 relative overflow-hidden group hover:border-brand-green/30 transition-all">
-                    <div className="absolute top-0 right-0 w-24 h-24 bg-brand-green/5 rounded-full -mr-12 -mt-12 group-hover:scale-150 transition-transform duration-700"></div>
-                    <div className="flex items-center gap-6 relative z-10">
-                        <div className="w-16 h-16 bg-brand-green/10 rounded-2xl flex items-center justify-center text-brand-green border border-brand-green/20">
-                            <Newspaper className="w-8 h-8" />
-                        </div>
-                        <div>
-                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">{t.newsCount}</p>
-                            <p className="text-4xl font-black text-slate-900 tracking-tighter">{articles.length}</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-xl shadow-slate-200/40 relative overflow-hidden group hover:border-brand-yellow/30 transition-all">
-                    <div className="absolute top-0 right-0 w-24 h-24 bg-brand-yellow/5 rounded-full -mr-12 -mt-12 group-hover:scale-150 transition-transform duration-700"></div>
-                    <div className="flex items-center gap-6 relative z-10">
-                        <div className="w-16 h-16 bg-brand-yellow/10 rounded-2xl flex items-center justify-center text-brand-yellow border border-brand-yellow/20">
-                            <MapPin className="w-8 h-8" />
-                        </div>
-                        <div>
-                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">{t.facilitiesCount}</p>
-                            <p className="text-4xl font-black text-slate-900 tracking-tighter">{facilities.length}</p>
+                {[
+                    { icon: <Newspaper />, color: 'brand-green', label: t.newsCount, val: articles.length },
+                    { icon: <MapPin />, color: 'brand-yellow', label: t.facilitiesCount, val: facilities.length },
+                    { icon: <Zap />, color: 'brand-green', label: 'الحالة التقنية', val: '100%' }
+                ].map((stat, i) => (
+                    <div key={i} className="bg-white p-10 rounded-[2rem] border border-slate-100 shadow-xl shadow-slate-200/40 group hover:shadow-2xl transition-all duration-500">
+                        <div className="flex items-center gap-8">
+                            <div className={`w-20 h-20 bg-slate-50 text-slate-900 rounded-3xl flex items-center justify-center group-hover:bg-slate-950 group-hover:text-white transition-all duration-500`}>
+                                {stat.icon}
+                            </div>
+                            <div>
+                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] mb-2">{stat.label}</p>
+                                <p className="text-5xl font-black text-slate-900 tracking-tighter">{stat.val}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <div className="bg-brand-green p-8 rounded-2xl shadow-2xl shadow-brand-green/30 relative overflow-hidden group">
-                     <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700"></div>
-                     <div className="flex items-center gap-6 text-white relative z-10">
-                        <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center border border-white/20">
-                            <Zap className="w-8 h-8" />
-                        </div>
-                        <div>
-                            <p className="text-[10px] font-black opacity-80 uppercase tracking-[0.2em] mb-1">الحالة التقنية</p>
-                            <p className="text-4xl font-black tracking-tighter">100% نشط</p>
-                        </div>
-                    </div>
-                </div>
+                ))}
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
                 {/* Quick Actions */}
-                <div className="space-y-6">
+                <div className="space-y-8">
                     <div className="flex items-center gap-4">
-                        <div className="w-2 h-8 bg-brand-green rounded-full"></div>
-                        <h3 className="text-xl font-black text-slate-900">{t.quickActions}</h3>
+                        <div className="w-3 h-8 bg-brand-green rounded-full shadow-lg shadow-brand-green/30"></div>
+                        <h3 className="text-2xl font-black text-slate-900">{t.quickActions}</h3>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                        <Link href={`/${locale}/admin/news/new`} className="p-6 bg-white border border-slate-100 rounded-2xl shadow-lg hover:shadow-xl hover:border-brand-green transition-all flex flex-col gap-4 group">
-                            <div className="w-12 h-12 rounded-xl bg-brand-green/10 flex items-center justify-center text-brand-green group-hover:bg-brand-green group-hover:text-white transition-all"><Newspaper className="w-6 h-6" /></div>
-                            <span className="font-black text-slate-800">{t.addNews}</span>
+                        <Link href={`/${locale}/admin/news/new`} className="p-8 bg-white border border-slate-100 rounded-[2rem] shadow-lg hover:shadow-2xl hover:border-brand-green transition-all flex flex-col gap-6 group">
+                            <div className="w-14 h-14 rounded-2xl bg-brand-green/10 flex items-center justify-center text-brand-green group-hover:bg-brand-green group-hover:text-white transition-all"><Newspaper className="w-7 h-7" /></div>
+                            <span className="font-black text-slate-900 text-lg">{t.addNews}</span>
                         </Link>
-                        <Link href={`/${locale}/admin/facilities/new`} className="p-6 bg-white border border-slate-100 rounded-2xl shadow-lg hover:shadow-xl hover:border-brand-yellow transition-all flex flex-col gap-4 group">
-                            <div className="w-12 h-12 rounded-xl bg-brand-yellow/10 flex items-center justify-center text-brand-yellow group-hover:bg-brand-yellow group-hover:text-white transition-all"><MapPin className="w-6 h-6" /></div>
-                            <span className="font-black text-slate-800">{t.addFacility}</span>
+                        <Link href={`/${locale}/admin/facilities/new`} className="p-8 bg-white border border-slate-100 rounded-[2rem] shadow-lg hover:shadow-2xl hover:border-brand-yellow transition-all flex flex-col gap-6 group">
+                            <div className="w-14 h-14 rounded-2xl bg-brand-yellow/10 flex items-center justify-center text-brand-yellow group-hover:bg-brand-yellow group-hover:text-white transition-all"><MapPin className="w-7 h-7" /></div>
+                            <span className="font-black text-slate-900 text-lg">{t.addFacility}</span>
                         </Link>
-                        <Link href={`/${locale}/admin/pages/about`} className="p-6 bg-white border border-slate-100 rounded-2xl shadow-lg hover:shadow-xl hover:border-slate-300 transition-all flex flex-col gap-4 group sm:col-span-2">
-                            <div className="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center text-slate-500 group-hover:bg-slate-800 group-hover:text-white transition-all"><Settings className="w-6 h-6" /></div>
-                            <span className="font-black text-slate-800">{t.editAbout}</span>
+                        <Link href={`/${locale}/admin/pages/about`} className="p-8 bg-white border border-slate-100 rounded-[2rem] shadow-lg hover:shadow-2xl hover:border-slate-800 transition-all flex flex-col gap-6 group sm:col-span-2">
+                            <div className="w-14 h-14 rounded-2xl bg-slate-100 flex items-center justify-center text-slate-500 group-hover:bg-slate-950 group-hover:text-white transition-all"><Settings className="w-7 h-7" /></div>
+                            <span className="font-black text-slate-900 text-lg">{t.editAbout}</span>
                         </Link>
                     </div>
                 </div>
 
-                {/* Recent News List */}
-                <div className="space-y-6">
+                {/* Recent Feed */}
+                <div className="space-y-8">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center gap-4">
-                            <div className="w-2 h-8 bg-brand-yellow rounded-full"></div>
-                            <h3 className="text-xl font-black text-slate-900">{t.recentNews}</h3>
+                            <div className="w-3 h-8 bg-brand-yellow rounded-full shadow-lg shadow-brand-yellow/30"></div>
+                            <h3 className="text-2xl font-black text-slate-900">{t.recentNews}</h3>
                         </div>
-                        <Link href={`/${locale}/admin/news`} className="text-xs font-black text-brand-green hover:underline tracking-widest">{isAr ? 'عرض الكل' : 'Voir tout'}</Link>
                     </div>
-                    <div className="bg-white rounded-2xl border border-slate-100 shadow-xl divide-y divide-slate-100 overflow-hidden">
+                    <div className="bg-white rounded-[2.5rem] border border-slate-100 shadow-2xl divide-y divide-slate-50 overflow-hidden">
                         {articles.slice(0, 4).map((article) => (
-                            <div key={article.id} className="p-5 flex items-center gap-5 hover:bg-slate-50 transition-colors group">
+                            <div key={article.id} className="p-6 flex items-center gap-6 hover:bg-slate-50 transition-colors group">
                                 <Link 
                                     href={`/${locale}/admin/news/${article.id}/edit`}
-                                    className="flex items-center gap-5 flex-1 min-w-0"
+                                    className="flex items-center gap-6 flex-1 min-w-0"
                                 >
-                                    <img src={article.imageUrl} className="w-14 h-14 rounded-xl object-cover border border-slate-100 shadow-sm" alt="" />
+                                    <img src={article.imageUrl} className="w-16 h-16 rounded-2xl object-cover border border-slate-100 shadow-md transition-transform group-hover:scale-110" alt="" />
                                     <div className="flex-1 min-w-0">
-                                        <p className="font-bold text-slate-900 truncate text-sm group-hover:text-brand-green transition-colors">
+                                        <p className="font-bold text-slate-900 truncate text-lg group-hover:text-brand-green transition-colors">
                                             {isAr ? article.title.ar : article.title.fr}
                                         </p>
-                                        <div className="flex items-center gap-2 mt-1">
-                                             <div className="w-1.5 h-1.5 rounded-full bg-brand-green/40"></div>
-                                             <p className="text-[10px] text-slate-500 uppercase font-black tracking-widest">{isAr ? article.date.ar : article.date.fr}</p>
+                                        <div className="flex items-center gap-2 mt-2">
+                                             <div className="w-1.5 h-1.5 rounded-full bg-brand-green animate-pulse"></div>
+                                             <p className="text-[10px] text-slate-400 uppercase font-black tracking-widest">{isAr ? article.date.ar : article.date.fr}</p>
                                         </div>
                                     </div>
                                 </Link>
                                 <Link 
                                     href={`/${locale}/admin/news/${article.id}/edit`} 
-                                    className="w-10 h-10 flex items-center justify-center text-slate-300 hover:text-brand-green hover:bg-brand-green/10 rounded-xl transition-all"
+                                    className="w-12 h-12 flex items-center justify-center text-slate-200 hover:text-brand-green hover:bg-brand-green/10 rounded-2xl transition-all"
                                 >
-                                    <ArrowRight className={`w-5 h-5 ${isAr ? 'rotate-180' : ''}`} />
+                                    <ArrowRight className={`w-6 h-6 ${isAr ? 'rotate-180' : ''}`} />
                                 </Link>
                             </div>
                         ))}
