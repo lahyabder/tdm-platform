@@ -12,42 +12,32 @@ export default function ServicesPage({
     params: Promise<{ locale: string }>;
 }) {
     const { locale } = use(params) as any;
-    const { pages, fetchContent } = useContentStore();
+    const { pages, fetchContent, isLoading } = useContentStore();
     const [isClient, setIsClient] = useState(false);
+    const [hasFetched, setHasFetched] = useState(false);
 
     useEffect(() => {
         setIsClient(true);
-        fetchContent();
+        fetchContent().then(() => setHasFetched(true));
     }, []);
 
     const content = pages.services;
     const isAr = locale === 'ar';
 
-    if (!isClient || !content) return <div className="min-h-screen bg-brand-dark"></div>;
+    if (!isClient) return <div className="min-h-screen bg-brand-dark"></div>;
+    
+    // Prevent flashing initial content by waiting for the fetch to complete
+    if (!hasFetched || isLoading) {
+        return (
+            <div className="min-h-screen bg-brand-dark flex items-center justify-center">
+                <div className="w-8 h-8 border-4 border-brand-green border-t-transparent rounded-full animate-spin"></div>
+            </div>
+        );
+    }
 
-    const servicesItems = [
-        { 
-            id: 'tv', 
-            icon: <Tv className="w-8 h-8" />,
-            title: { ar: "البث التلفزي الرقمي", fr: "Diffusion TV Numérique" }, 
-            description: { ar: "نقدم حلول بث تلفزيوني رقمي بمعايير عالمية، تضمن وصول الصورة والصوت بوضوح فائق لكافة المشاهدين.", fr: "Solutions de diffusion TV numérique aux standards mondiaux, garantissant une clarté exceptionnelle." },
-            features: { ar: ["جودة HD/4K", "تغطية وطنية", "استقرار عالي"], fr: ["Qualité HD/4K", "Couverture Nationale", "Haute Stabilité"] }
-        },
-        { 
-            id: 'radio', 
-            icon: <Radio className="w-8 h-8" />,
-            title: { ar: "البث الإذاعي (FM)", fr: "Diffusion Radio (FM)" }, 
-            description: { ar: "شبكة بث إذاعي متطورة تغطي كافة الولايات الموريتانية، مع ضمان نقاء الصوت واستمرارية الخدمة.", fr: "Réseau de diffusion radio avancé couvrant toutes les wilayas, assurant la pureté sonore." },
-            features: { ar: ["نطاق FM واسع", "بث محلي", "تقنيات معالجة الصوت"], fr: ["Large bande FM", "Diffusion Locale", "Traitement Sonore"] }
-        },
-        { 
-            id: 'data', 
-            icon: <Share2 className="w-8 h-8" />,
-            title: { ar: "خدمات نقل البيانات", fr: "Services de Données" }, 
-            description: { ar: "بنية تحتية متينة لنقل البيانات والربط الفني بين المؤسسات الإعلامية عبر شبكاتنا المخصصة.", fr: "Infrastructure solide pour le transfert de données et la liaison technique entre médias." },
-            features: { ar: ["ربط آمن", "سرعات عالية", "دعم فني 24/7"], fr: ["Liaison Sécurisée", "Haut Débit", "Support 24/7"] }
-        },
-    ];
+    if (!content) return <div className="min-h-screen bg-brand-dark"></div>;
+
+    const servicesItems = content.sections.items || [];
 
     return (
         <main className="min-h-screen pb-32 pt-28 bg-brand-dark waves-pattern relative overflow-hidden">

@@ -4,11 +4,19 @@ import { motion, useScroll, useTransform, Variants } from 'framer-motion';
 import Link from 'next/link';
 import { useContentStore } from '@/store/useContentStore';
 import { MauritaniaMap } from '@/components/ui/MauritaniaMap';
-import { ArrowUpRight, Radio, Activity, Globe2, Network, Zap, Tv, Share2, ArrowRight } from 'lucide-react';
+import { ArrowUpRight, Radio, Zap, Tv, Share2, ArrowRight } from 'lucide-react';
 import { useRef, useState, useEffect } from 'react';
 
-export function AnimatedHome({ locale, content }: { locale: string; content: any }) {
+export function AnimatedHome({ locale, content: initialContent }: { locale: string; content: any }) {
     const containerRef = useRef(null);
+    const { pages, fetchContent } = useContentStore();
+    const [hasFetched, setHasFetched] = useState(false);
+    
+    useEffect(() => {
+        fetchContent().then(() => setHasFetched(true));
+    }, []);
+
+    const content = hasFetched ? pages.home : initialContent;
 
     const { scrollYProgress } = useScroll({
         target: containerRef,
@@ -21,6 +29,10 @@ export function AnimatedHome({ locale, content }: { locale: string; content: any
     if (!content) return <div className="min-h-screen bg-brand-dark"></div>;
 
     const isAr = locale === 'ar';
+    const hero = content.sections.hero || {};
+    const stats = content.sections.stats?.items || [];
+    const news = content.sections.news?.items || [];
+    const services = pages.services?.sections?.items?.slice(0, 3) || [];
 
     const staggeredContainer: Variants = {
         hidden: { opacity: 0 },
@@ -35,6 +47,8 @@ export function AnimatedHome({ locale, content }: { locale: string; content: any
         show: { opacity: 1, y: 0, transition: { type: "tween", duration: 0.5, ease: "easeOut" } }
     };
 
+    const serviceIcons = [<Tv className="w-8 h-8" />, <Radio className="w-6 h-6" />, <Share2 className="w-6 h-6" />];
+
     return (
         <div ref={containerRef} className="relative min-h-screen bg-brand-dark waves-pattern overflow-hidden text-slate-200 selection:bg-brand-green selection:text-white">
             
@@ -46,7 +60,6 @@ export function AnimatedHome({ locale, content }: { locale: string; content: any
                 <motion.div style={{ y: yBackground }} className="absolute inset-0 pointer-events-none">
                     <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-brand-green/10 rounded-full blur-[120px] opacity-40"></div>
                     <div className="absolute bottom-[-10%] right-[-10%] w-[40vw] h-[40vw] bg-brand-yellow/5 rounded-full blur-[120px] opacity-40"></div>
-                    <div className="absolute top-[40%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vh] opacity-10 blur-3xl bg-gradient-to-r from-brand-green via-transparent to-brand-yellow"></div>
                 </motion.div>
 
                 <div className="relative z-10 w-full mx-auto flex flex-col items-center gap-12 pt-8 lg:pt-16">
@@ -63,7 +76,7 @@ export function AnimatedHome({ locale, content }: { locale: string; content: any
 
                         <motion.h1 variants={itemFadeUp} className="text-5xl sm:text-7xl lg:text-9xl font-black leading-none tracking-tighter">
                             <span className="text-white block mb-4">
-                                {isAr ? 'نحن نصل' : 'Connecting'}
+                                {hero.title?.[locale] || (isAr ? 'نحن نصل' : 'Connecting')}
                             </span>
                             <span className="glow-text-gold block">
                                 {isAr ? 'بكم للجميع' : 'The Nation'}
@@ -71,12 +84,12 @@ export function AnimatedHome({ locale, content }: { locale: string; content: any
                         </motion.h1>
 
                         <motion.p variants={itemFadeUp} className="text-lg sm:text-2xl text-slate-400 font-medium leading-relaxed max-w-3xl mx-auto">
-                            {content.sections.hero.subtitle?.[locale]}
+                            {hero.subtitle?.[locale]}
                         </motion.p>
 
                         <motion.div variants={itemFadeUp} className="flex flex-wrap justify-center gap-6 pt-8">
                             <Link href={`/${locale}/services`} className="glass-button bg-brand-green border-brand-green text-white shadow-[0_10px_40px_rgba(0,169,92,0.3)]">
-                                {content.sections.hero.cta?.services?.[locale]}
+                                {hero.cta?.services?.[locale] || (isAr ? 'خدماتنا' : 'Services')}
                             </Link>
                             <Link href={`/${locale}/live`} className="glass-button flex items-center gap-3">
                                 <div className="w-2 h-2 rounded-full bg-brand-red animate-ping" />
@@ -85,7 +98,7 @@ export function AnimatedHome({ locale, content }: { locale: string; content: any
                         </motion.div>
                     </motion.div>
 
-                    {/* Bottom: Massive High-Tech Map Container */}
+                    {/* Bottom: Map Container */}
                     <motion.div
                         initial={{ opacity: 0, y: 100 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -95,24 +108,11 @@ export function AnimatedHome({ locale, content }: { locale: string; content: any
                         <div className="relative w-full h-full drop-shadow-[0_20px_50px_rgba(0,0,0,0.9)]">
                             <MauritaniaMap locale={locale} />
                         </div>
-
-                        {/* Floating badges with new style */}
-                        <div className="absolute top-1/4 right-10 hidden lg:block">
-                            <div className="premium-card px-6 py-4 border-brand-green/30 bg-brand-dark/80 backdrop-blur-xl">
-                                <div className="flex items-center gap-3">
-                                    <Globe2 className="w-5 h-5 text-brand-green" />
-                                    <div>
-                                        <p className="text-white font-black text-lg leading-none">98%</p>
-                                        <p className="text-[10px] text-slate-500 font-black uppercase tracking-widest">{isAr ? 'تغطية وطنية' : 'Couverture'}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </motion.div>
                 </div>
             </motion.section>
 
-            {/* 2. Bento Services - The Radical Grid */}
+            {/* 2. Dynamic Bento Services */}
             <section className="py-40 relative z-30">
                 <div className="max-w-7xl mx-auto px-6">
                     <motion.div
@@ -133,55 +133,30 @@ export function AnimatedHome({ locale, content }: { locale: string; content: any
                     </motion.div>
 
                     <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
-                        {/* Featured Service */}
-                        <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="md:col-span-8 group">
-                            <div className="premium-card p-12 h-[500px] flex flex-col justify-between relative overflow-hidden group">
-                                <div className="absolute top-0 right-0 w-full h-full bg-mesh opacity-20 group-hover:opacity-40 transition-opacity"></div>
-                                <div className="relative z-10">
-                                    <div className="w-16 h-16 bg-brand-green/10 text-brand-green rounded-2xl flex items-center justify-center mb-8 border border-brand-green/20">
-                                        <Tv className="w-8 h-8" />
-                                    </div>
-                                    <h3 className="text-4xl font-black text-white mb-6 leading-tight">{isAr ? 'البث التلفزي الرقمي الشامل' : 'Diffusion TV Numérique'}</h3>
-                                    <p className="text-slate-400 text-xl font-medium max-w-xl">
-                                        {isAr ? 'نغطي كافة التراب الوطني بأحدث تقنيات الإرسال الرقمي عالي الجودة.' : 'Couverture nationale complète avec les dernières technologies de transmission.'}
-                                    </p>
-                                </div>
-                                <div className="relative z-10 flex gap-12 border-t border-white/5 pt-8">
-                                    <div>
-                                        <p className="text-white font-black text-3xl">45+</p>
-                                        <p className="text-[10px] text-slate-500 font-black uppercase tracking-widest">{isAr ? 'قناة تلفزية' : 'Chaînes TV'}</p>
-                                    </div>
-                                    <div>
-                                        <p className="text-brand-green font-black text-3xl">HD</p>
-                                        <p className="text-[10px] text-slate-500 font-black uppercase tracking-widest">{isAr ? 'جودة عالية' : 'Haute Qualité'}</p>
+                        {services.map((service, idx) => (
+                            <motion.div 
+                                key={service.id}
+                                initial={{ opacity: 0, scale: 0.95 }} 
+                                whileInView={{ opacity: 1, scale: 1 }} 
+                                viewport={{ once: true }} 
+                                className={`${idx === 0 ? 'md:col-span-8' : 'md:col-span-4'} group`}
+                            >
+                                <div className={`premium-card p-10 h-full flex flex-col justify-between relative overflow-hidden group hover:bg-white/[0.04]`}>
+                                    <div className="relative z-10">
+                                        <div className="w-12 h-12 bg-brand-green/10 text-brand-green rounded-xl flex items-center justify-center mb-6 border border-brand-green/20 group-hover:bg-brand-green group-hover:text-white transition-all">
+                                            {serviceIcons[idx] || <Zap className="w-6 h-6" />}
+                                        </div>
+                                        <h3 className={`${idx === 0 ? 'text-4xl' : 'text-2xl'} font-black text-white mb-4 leading-tight`}>{service.title?.[locale]}</h3>
+                                        <p className="text-slate-400 font-medium text-sm leading-relaxed">{service.description?.[locale]}</p>
                                     </div>
                                 </div>
-                            </div>
-                        </motion.div>
-
-                        {/* Secondary Services */}
-                        <div className="md:col-span-4 grid gap-8">
-                            <motion.div initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="premium-card p-10 hover:bg-white/[0.04] group">
-                                <div className="w-12 h-12 bg-brand-yellow/10 text-brand-yellow rounded-xl flex items-center justify-center mb-6 border border-brand-yellow/20">
-                                    <Radio className="w-6 h-6" />
-                                </div>
-                                <h4 className="text-2xl font-black text-white mb-4">{isAr ? 'البث الإذاعي' : 'Radio FM'}</h4>
-                                <p className="text-slate-400 font-medium text-sm leading-relaxed">{isAr ? 'نقاء صوتي وتغطية لا تضاهى للإذاعات.' : 'Pureté sonore et couverture inégalée.'}</p>
                             </motion.div>
-                            
-                            <motion.div initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="premium-card p-10 hover:bg-white/[0.04] group">
-                                <div className="w-12 h-12 bg-brand-green/10 text-brand-green rounded-xl flex items-center justify-center mb-6 border border-brand-green/20">
-                                    <Share2 className="w-6 h-6" />
-                                </div>
-                                <h4 className="text-2xl font-black text-white mb-4">{isAr ? 'نقل البيانات' : 'Données'}</h4>
-                                <p className="text-slate-400 font-medium text-sm leading-relaxed">{isAr ? 'ربط آمن وسريع للمؤسسات الإعلامية.' : 'Liaison sécurisée et rapide pour les médias.'}</p>
-                            </motion.div>
-                        </div>
+                        ))}
                     </div>
                 </div>
             </section>
 
-            {/* 3. News Section - Clean & Institutional */}
+            {/* 3. Dynamic News Section */}
             <section className="py-40 bg-slate-950/20 relative border-t border-white/5">
                 <div className="max-w-7xl mx-auto px-6">
                     <div className="flex items-center justify-between mb-20">
@@ -190,7 +165,7 @@ export function AnimatedHome({ locale, content }: { locale: string; content: any
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {content.sections.news?.items?.slice(0, 3).map((newsItem: any, i: number) => (
+                        {news.slice(0, 3).map((newsItem: any, i: number) => (
                             <motion.div
                                 key={newsItem.id}
                                 initial={{ opacity: 0, y: 20 }}

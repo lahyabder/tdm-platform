@@ -1,8 +1,7 @@
 'use client';
 
-import { useState, useEffect, use } from 'react';
+import { use, useEffect, useState } from 'react';
 import { useContentStore } from '@/store/useContentStore';
-import { useRouter } from 'next/navigation';
 
 export default function AdminHomeEditor({
     params,
@@ -10,161 +9,171 @@ export default function AdminHomeEditor({
     params: Promise<{ locale: string }>;
 }) {
     const { locale } = use(params) as any;
-    const { pages, updatePageContent } = useContentStore();
+    const { pages, updatePageContent, fetchContent } = useContentStore();
     const [isClient, setIsClient] = useState(false);
     
     const [title, setTitle] = useState({ ar: '', fr: '' });
-    const [sections, setSections] = useState<any>({});
+    const [hero, setHero] = useState<any>({ title: { ar: '', fr: '' }, subtitle: { ar: '', fr: '' } });
+    const [stats, setStats] = useState<any[]>([]);
 
     useEffect(() => {
         setIsClient(true);
+        fetchContent();
+    }, []);
+
+    useEffect(() => {
         const homeContent = pages.home;
         if (homeContent) {
             setTitle(homeContent.title);
-            setSections(homeContent.sections);
+            setHero(homeContent.sections.hero || { title: { ar: '', fr: '' }, subtitle: { ar: '', fr: '' } });
+            setStats(homeContent.sections.stats?.items || []);
         }
     }, [pages.home]);
 
-    const isAr = locale === 'ar';
-
     const handleSave = async () => {
         try {
-            await updatePageContent('home', { id: 'home', title, sections });
-            alert(isAr ? '✅ تم حفظ التغييرات بنجاح' : '✅ Changements enregistrés');
-        } catch (err) {
-            console.error(err);
-            alert(isAr ? '❌ فشل الحفظ' : '❌ Échec de l\'enregistrement');
+            await updatePageContent('home', { 
+                id: 'home', 
+                title, 
+                sections: { 
+                    ...pages.home?.sections,
+                    hero,
+                    stats: { items: stats }
+                } 
+            });
+            alert(locale === 'ar' ? '✅ تم حفظ التغييرات بنجاح' : '✅ Enregistré avec succès');
+        } catch (err: any) {
+            alert(`❌ Error: ${err.message}`);
         }
     };
 
-    const updateSection = (path: string[], value: any) => {
-        const newSections = { ...sections };
-        let current = newSections;
-        for (let i = 0; i < path.length - 1; i++) {
-            current = current[path[i]];
-        }
-        current[path[path.length - 1]] = value;
-        setSections(newSections);
-    };
+    if (!isClient) return null;
 
-    if (!isClient || !sections.hero) return null;
+    const isAr = locale === 'ar';
 
     return (
-        <div className="space-y-8 pb-20">
-            <div className="flex items-center justify-between sticky top-0 bg-slate-50/80 backdrop-blur-md z-50 py-4 border-b">
+        <div className="space-y-10 pb-20">
+            <div className="flex items-center justify-between border-b border-slate-200 pb-6">
                 <div>
-                    <h1 className="text-2xl font-extrabold text-slate-800">
-                        {isAr ? 'تعديل الصفحة الرئيسية' : 'Éditer la Page d\'Accueil'}
+                    <h1 className="text-3xl font-black text-slate-800 uppercase tracking-tight">
+                        {isAr ? 'تعديل الصفحة الرئيسية' : 'Edit Home Page'}
                     </h1>
+                    <p className="text-slate-500 font-bold mt-1">
+                        {isAr ? 'تحديث نصوص الواجهة والإحصائيات' : 'Update Hero section and Statistics'}
+                    </p>
                 </div>
-                <button
+                <button 
                     onClick={handleSave}
-                    className="px-10 py-2 bg-brand-green text-white font-black rounded-sm hover:bg-brand-green/90 transition-all shadow-lg shadow-brand-green/20"
+                    className="bg-brand-green text-white px-10 py-4 rounded-sm font-black hover:bg-brand-green/90 transition-all shadow-lg shadow-brand-green/20"
                 >
-                    {isAr ? 'حفظ التغييرات' : 'Enregistrer'}
+                    {isAr ? 'حفظ التغييرات' : 'Save Changes'}
                 </button>
             </div>
 
-            <div className="space-y-12">
+            <div className="grid grid-cols-1 gap-10">
                 {/* Hero Section */}
-                <div className="bg-white p-8 rounded-sm border border-slate-200 shadow-sm space-y-8">
-                    <h2 className="text-xl font-black text-slate-800 border-b pb-4 flex items-center gap-3">
-                        <span className="w-2 h-8 bg-brand-green rounded-full"></span>
-                        {isAr ? 'قسم الواجهة (Hero)' : 'Section Hero'}
-                    </h2>
-                    
+                <section className="bg-white p-8 rounded-sm border-2 border-slate-100 shadow-sm space-y-8">
+                    <div className="flex items-center gap-3 mb-4">
+                        <div className="w-2 h-8 bg-brand-yellow"></div>
+                        <h2 className="text-xl font-black text-slate-800 uppercase tracking-wider">{isAr ? 'قسم الواجهة (Hero)' : 'Hero Section'}</h2>
+                    </div>
+
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div className="space-y-4">
-                            <label className="admin-label">{isAr ? 'العنوان الرئيسي (عربي)' : 'Titre Principal (AR)'}</label>
-                            <textarea className="admin-textarea" value={sections.hero.title.ar} onChange={e => updateSection(['hero', 'title', 'ar'], e.target.value)} />
+                        <div className="space-y-3">
+                            <label className="admin-label">{isAr ? 'العنوان الرئيسي (عربي)' : 'Hero Title (AR)'}</label>
+                            <input 
+                                className="admin-field"
+                                value={hero.title.ar}
+                                onChange={(e) => setHero({...hero, title: {...hero.title, ar: e.target.value}})}
+                            />
                         </div>
-                        <div className="space-y-4">
-                            <label className="admin-label">{isAr ? 'العنوان الرئيسي (فرنسي)' : 'Titre Principal (FR)'}</label>
-                            <textarea className="admin-textarea" value={sections.hero.title.fr} onChange={e => updateSection(['hero', 'title', 'fr'], e.target.value)} />
+                        <div className="space-y-3">
+                            <label className="admin-label">{isAr ? 'العنوان الرئيسي (فرنسي)' : 'Hero Title (FR)'}</label>
+                            <input 
+                                className="admin-field"
+                                value={hero.title.fr}
+                                onChange={(e) => setHero({...hero, title: {...hero.title, fr: e.target.value}})}
+                            />
                         </div>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div className="space-y-4">
-                            <label className="admin-label">{isAr ? 'العنوان الفرعي (عربي)' : 'Sous-titre (AR)'}</label>
-                            <textarea rows={4} className="admin-textarea" value={sections.hero.subtitle.ar} onChange={e => updateSection(['hero', 'subtitle', 'ar'], e.target.value)} />
+                        <div className="space-y-3">
+                            <label className="admin-label">{isAr ? 'الوصف الفرعي (عربي)' : 'Hero Subtitle (AR)'}</label>
+                            <textarea 
+                                className="admin-textarea"
+                                rows={3}
+                                value={hero.subtitle.ar}
+                                onChange={(e) => setHero({...hero, subtitle: {...hero.subtitle, ar: e.target.value}})}
+                            />
                         </div>
-                        <div className="space-y-4">
-                            <label className="admin-label">{isAr ? 'العنوان الفرعي (فرنسي)' : 'Sous-titre (FR)'}</label>
-                            <textarea rows={4} className="admin-textarea" value={sections.hero.subtitle.fr} onChange={e => updateSection(['hero', 'subtitle', 'fr'], e.target.value)} />
+                        <div className="space-y-3">
+                            <label className="admin-label">{isAr ? 'الوصف الفرعي (فرنسي)' : 'Hero Subtitle (FR)'}</label>
+                            <textarea 
+                                className="admin-textarea"
+                                rows={3}
+                                value={hero.subtitle.fr}
+                                onChange={(e) => setHero({...hero, subtitle: {...hero.subtitle, fr: e.target.value}})}
+                            />
                         </div>
                     </div>
-                </div>
+                </section>
 
                 {/* Statistics Section */}
-                <div className="bg-white p-8 rounded-sm border border-slate-200 shadow-sm space-y-8">
-                    <h2 className="text-xl font-black text-slate-800 border-b pb-4 flex items-center gap-3">
-                        <span className="w-2 h-8 bg-brand-yellow rounded-full"></span>
-                        {isAr ? 'الإحصائيات' : 'Statistiques'}
-                    </h2>
-                    
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                        {sections.stats.items.map((stat: any, idx: number) => (
-                            <div key={stat.id} className="p-4 bg-slate-50 border border-slate-200 rounded-sm space-y-4">
-                                <div>
-                                    <label className="admin-label">{isAr ? 'القيمة' : 'Valeur'}</label>
-                                    <input className="admin-input" value={stat.value} onChange={e => {
-                                        const items = [...sections.stats.items];
-                                        items[idx].value = e.target.value;
-                                        updateSection(['stats', 'items'], items);
-                                    }} />
-                                </div>
-                                <div>
-                                    <label className="admin-label">{isAr ? 'التسمية (عربي)' : 'Label (AR)'}</label>
-                                    <input className="admin-input text-xs" value={stat.label.ar} onChange={e => {
-                                        const items = [...sections.stats.items];
-                                        items[idx].label.ar = e.target.value;
-                                        updateSection(['stats', 'items'], items);
-                                    }} />
-                                </div>
-                                <div>
-                                    <label className="admin-label">{isAr ? 'التسمية (فرنسي)' : 'Label (FR)'}</label>
-                                    <input className="admin-input text-xs" value={stat.label.fr} onChange={e => {
-                                        const items = [...sections.stats.items];
-                                        items[idx].label.fr = e.target.value;
-                                        updateSection(['stats', 'items'], items);
-                                    }} />
-                                </div>
-                            </div>
-                        ))}
+                <section className="bg-white p-8 rounded-sm border-2 border-slate-100 shadow-sm space-y-8">
+                    <div className="flex items-center gap-3 mb-4">
+                        <div className="w-2 h-8 bg-brand-green"></div>
+                        <h2 className="text-xl font-black text-slate-800 uppercase tracking-wider">{isAr ? 'الإحصائيات' : 'Statistics'}</h2>
                     </div>
-                </div>
 
-                {/* News Section */}
-                <div className="bg-white p-8 rounded-sm border border-slate-200 shadow-sm space-y-8">
-                    <h2 className="text-xl font-black text-slate-800 border-b pb-4 flex items-center gap-3">
-                        <span className="w-2 h-8 bg-brand-red rounded-full"></span>
-                        {isAr ? 'آخر الأنشطة' : 'Dernières Activités'}
-                    </h2>
-                    
-                    <div className="space-y-6">
-                        {sections.news.items.map((item: any, idx: number) => (
-                            <div key={item.id} className="p-6 bg-slate-50 border border-slate-200 rounded-sm grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div className="space-y-4">
-                                    <label className="admin-label">{isAr ? 'العنوان (عربي)' : 'Titre (AR)'}</label>
-                                    <input className="admin-input" value={item.title.ar} onChange={e => {
-                                        const items = [...sections.news.items];
-                                        items[idx].title.ar = e.target.value;
-                                        updateSection(['news', 'items'], items);
-                                    }} />
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {stats.map((stat, idx) => (
+                            <div key={idx} className="p-6 bg-slate-50 border border-slate-200 rounded-sm space-y-4">
+                                <div className="flex justify-between items-center mb-2">
+                                    <span className="text-xs font-black text-slate-400">STAT #{idx + 1}</span>
                                 </div>
-                                <div className="space-y-4">
-                                    <label className="admin-label">{isAr ? 'العنوان (فرنسي)' : 'Titre (FR)'}</label>
-                                    <input className="admin-input" value={item.title.fr} onChange={e => {
-                                        const items = [...sections.news.items];
-                                        items[idx].title.fr = e.target.value;
-                                        updateSection(['news', 'items'], items);
-                                    }} />
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="space-y-2">
+                                        <label className="admin-label text-[10px]">{isAr ? 'القيمة' : 'Value'}</label>
+                                        <input 
+                                            className="admin-field py-2 text-lg"
+                                            value={stat.value}
+                                            onChange={(e) => {
+                                                const newStats = [...stats];
+                                                newStats[idx].value = e.target.value;
+                                                setStats(newStats);
+                                            }}
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="admin-label text-[10px]">{isAr ? 'التسمية (عربي)' : 'Label (AR)'}</label>
+                                        <input 
+                                            className="admin-field py-2"
+                                            value={stat.label.ar}
+                                            onChange={(e) => {
+                                                const newStats = [...stats];
+                                                newStats[idx].label.ar = e.target.value;
+                                                setStats(newStats);
+                                            }}
+                                        />
+                                    </div>
+                                    <div className="space-y-2 col-span-2">
+                                        <label className="admin-label text-[10px]">{isAr ? 'التسمية (فرنسي)' : 'Label (FR)'}</label>
+                                        <input 
+                                            className="admin-field py-2"
+                                            value={stat.label.fr}
+                                            onChange={(e) => {
+                                                const newStats = [...stats];
+                                                newStats[idx].label.fr = e.target.value;
+                                                setStats(newStats);
+                                            }}
+                                        />
+                                    </div>
                                 </div>
                             </div>
                         ))}
                     </div>
-                </div>
+                </section>
             </div>
         </div>
     );

@@ -13,18 +13,32 @@ export default function ProjectsPage({
     params: Promise<{ locale: string }>;
 }) {
     const { locale } = use(params) as any;
-    const { pages, fetchContent } = useContentStore();
+    const { pages, fetchContent, isLoading } = useContentStore();
     const [isClient, setIsClient] = useState(false);
+    const [hasFetched, setHasFetched] = useState(false);
 
     useEffect(() => {
         setIsClient(true);
-        fetchContent();
+        fetchContent().then(() => setHasFetched(true));
     }, []);
 
     const content = pages.projects;
     const isAr = locale === 'ar';
 
-    if (!isClient || !content) return <div className="min-h-screen bg-brand-dark"></div>;
+    if (!isClient) return <div className="min-h-screen bg-brand-dark"></div>;
+    
+    // Prevent flashing initial content by waiting for the fetch to complete
+    if (!hasFetched || isLoading) {
+        return (
+            <div className="min-h-screen bg-brand-dark flex items-center justify-center">
+                <div className="w-8 h-8 border-4 border-brand-green border-t-transparent rounded-full animate-spin"></div>
+            </div>
+        );
+    }
+
+    if (!content) return <div className="min-h-screen bg-brand-dark"></div>;
+
+    const projectsItems = content.sections.items || [];
 
     const t = {
         ar: {
@@ -74,7 +88,7 @@ export default function ProjectsPage({
 
                 {/* Projects Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                    {projectsData.map((project, i) => (
+                    {projectsItems.map((project: any, i: number) => (
                         <motion.div
                             key={project.id}
                             initial={{ opacity: 0, y: 20 }}

@@ -12,18 +12,30 @@ export default function AboutPage({
     params: Promise<{ locale: string }>;
 }) {
     const { locale } = use(params) as any;
-    const { pages, fetchContent } = useContentStore();
+    const { pages, fetchContent, isLoading } = useContentStore();
     const [isClient, setIsClient] = useState(false);
+    const [hasFetched, setHasFetched] = useState(false);
 
     useEffect(() => {
         setIsClient(true);
-        fetchContent();
+        fetchContent().then(() => setHasFetched(true));
     }, []);
 
     const content = pages.about;
     const isAr = locale === 'ar';
 
-    if (!isClient || !content) return <div className="min-h-screen bg-brand-dark"></div>;
+    if (!isClient) return <div className="min-h-screen bg-brand-dark"></div>;
+    
+    // Prevent flashing initial content by waiting for the fetch to complete
+    if (!hasFetched || isLoading) {
+        return (
+            <div className="min-h-screen bg-brand-dark flex items-center justify-center">
+                <div className="w-8 h-8 border-4 border-brand-green border-t-transparent rounded-full animate-spin"></div>
+            </div>
+        );
+    }
+
+    if (!content) return <div className="min-h-screen bg-brand-dark"></div>;
 
     const stats = [
         { icon: <Zap className="w-5 h-5" />, value: "98%", label: { ar: "تغطية شاملة", fr: "Couverture" } },
@@ -32,7 +44,7 @@ export default function AboutPage({
     ];
 
     return (
-        <main className="min-h-screen pb-32 pt-28 bg-brand-dark relative waves-pattern selection:bg-brand-green selection:text-white">
+        <main className="min-h-screen pb-32 pt-20 bg-brand-dark relative waves-pattern selection:bg-brand-green selection:text-white">
             {/* Ultra-Premium Glowing Background */}
             <div className="fixed inset-0 pointer-events-none">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[800px] bg-gradient-to-b from-brand-green/10 via-brand-dark to-transparent"></div>
@@ -42,7 +54,7 @@ export default function AboutPage({
             <div className="max-w-7xl mx-auto px-6 relative z-10">
                 
                 {/* 1. Institutional Hero Header */}
-                <header className="mb-32 text-center relative">
+                <header className="mb-12 text-center relative">
                     <motion.div 
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
@@ -78,16 +90,16 @@ export default function AboutPage({
                 </header>
 
                 {/* 2. Director's Word - The Golden Card */}
-                <section className="mb-40">
+                <section className="mb-20">
                     <div className="premium-card p-1 md:p-2 group">
-                        <div className="bg-slate-950/40 rounded-[2.4rem] p-8 md:p-20 relative overflow-hidden">
+                        <div className="bg-slate-950/40 rounded-[2.4rem] p-6 md:p-10 relative overflow-hidden">
                             {/* Abstract signal pattern background */}
                             <div className="absolute inset-0 opacity-10 pointer-events-none">
                                 <div className="absolute top-0 right-0 w-full h-full border-[1px] border-white/10 rounded-full scale-150 -translate-y-1/2 translate-x-1/2"></div>
                             </div>
 
-                            <div className="flex flex-col lg:flex-row gap-20 items-center lg:items-start relative z-10">
-                                <div className="w-full lg:w-[450px] shrink-0">
+                            <div className="flex flex-col lg:flex-row gap-12 items-center lg:items-start relative z-10">
+                                <div className="w-full lg:w-[320px] shrink-0">
                                     <div className="relative">
                                         <div className="absolute -inset-4 bg-brand-green/20 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000"></div>
                                         <div className="relative rounded-[3.5rem] overflow-hidden border-2 border-white/10 shadow-2xl bg-slate-900">
@@ -113,7 +125,7 @@ export default function AboutPage({
                                     </div>
                                     
                                     <div className="relative">
-                                        <p className="text-slate-300 text-xl md:text-2xl leading-[1.8] font-medium italic whitespace-pre-line">
+                                        <p className="text-slate-300 text-lg md:text-xl leading-[1.6] font-medium italic whitespace-pre-line">
                                             {content.sections.director_word?.content?.[locale]}
                                         </p>
                                     </div>
