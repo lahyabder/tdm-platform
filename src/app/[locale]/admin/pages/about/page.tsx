@@ -9,7 +9,7 @@ export default function AdminAboutEditor({
     params: Promise<{ locale: string }>;
 }) {
     const { locale } = use(params) as any;
-    const { pages, updatePageContent } = useContentStore();
+    const { pages, updatePageContent, fetchContent } = useContentStore();
     const [isClient, setIsClient] = useState(false);
     
     const [title, setTitle] = useState({ ar: '', fr: '' });
@@ -17,6 +17,10 @@ export default function AdminAboutEditor({
 
     useEffect(() => {
         setIsClient(true);
+        fetchContent();
+    }, []);
+
+    useEffect(() => {
         const aboutContent = pages.about;
         if (aboutContent) {
             setTitle(aboutContent.title);
