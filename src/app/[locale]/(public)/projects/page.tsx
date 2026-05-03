@@ -4,6 +4,8 @@ import { useState, useEffect, use } from 'react';
 import { useContentStore } from '@/store/useContentStore';
 import { projectsData } from '@/mock/projects';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { Rocket, Clock, CheckCircle2, ArrowRight, Target, LayoutGrid } from 'lucide-react';
 
 export default function ProjectsPage({
     params,
@@ -11,16 +13,17 @@ export default function ProjectsPage({
     params: Promise<{ locale: string }>;
 }) {
     const { locale } = use(params) as any;
-    const { getPageContent } = useContentStore();
-    const [content, setContent] = useState<any>(null);
+    const { pages } = useContentStore();
     const [isClient, setIsClient] = useState(false);
 
     useEffect(() => {
         setIsClient(true);
-        setContent(getPageContent('projects'));
-    }, [getPageContent]);
+    }, []);
 
+    const content = pages.projects;
     const isAr = locale === 'ar';
+
+    if (!isClient || !content) return <div className="min-h-screen bg-brand-dark"></div>;
 
     const t = {
         ar: {
@@ -39,69 +42,112 @@ export default function ProjectsPage({
         }
     }[locale as 'ar' | 'fr'];
 
-    if (!isClient || !content) return <div className="min-h-screen bg-[#050B14]"></div>;
-
     return (
-        <div className="min-h-screen py-12 px-6">
-            <div className="max-w-6xl mx-auto space-y-12">
-
-                <div className="text-center space-y-4">
-                    <h1 className="text-4xl md:text-5xl font-black text-white tracking-tight">
-                        {content.sections.intro?.title?.[locale] || t.title}
+        <main className="min-h-screen pb-32 pt-28 bg-brand-dark waves-pattern relative overflow-hidden">
+            {/* Background Glows */}
+            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-green/5 blur-[120px] rounded-full"></div>
+            
+            <div className="max-w-7xl mx-auto px-6 relative z-10">
+                {/* Header Section */}
+                <header className="mb-24 text-center">
+                    <motion.div 
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full mb-6 backdrop-blur-xl"
+                    >
+                        <Rocket className="w-3.5 h-3.5 text-brand-green" />
+                        <span className="text-[10px] font-black text-brand-green uppercase tracking-[0.3em]">
+                            {isAr ? 'خارطة الطريق الرقمية' : 'Digital Roadmap'}
+                        </span>
+                    </motion.div>
+                    
+                    <h1 className="text-5xl md:text-7xl font-black text-white tracking-tighter mb-8 leading-tight">
+                        {isAr ? 'المشاريع' : 'Strategic'}{" "}
+                        <span className="glow-text-gold">{isAr ? 'الاستراتيجية' : 'Projects'}</span>
                     </h1>
-                    <p className="text-lg text-slate-300 max-w-2xl mx-auto">
+                    
+                    <p className="max-w-2xl mx-auto text-lg text-slate-400 font-medium leading-relaxed">
                         {content.sections.intro?.content?.[locale] || t.subtitle}
                     </p>
-                </div>
+                </header>
 
+                {/* Projects Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                    {projectsData.map(project => (
-                        <div key={project.id} className="bg-brand-card rounded-2xl border border-white/20 overflow-hidden flex flex-col group hover:border-brand-green transition-all transform hover:-translate-y-1">
-                            <div className="h-48 bg-brand-dark-2 relative overflow-hidden">
-                                <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/80 to-transparent z-10"></div>
-                                <div className={`absolute top-4 ${locale === 'ar' ? 'right-4' : 'left-4'} z-20`}>
-                                    <span className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase text-white shadow-lg border ${project.status === 'ongoing' ? 'bg-brand-yellow border-brand-yellow/20' : 'bg-brand-green border-brand-green/20'}`}>
-                                        {t.status[project.status]}
-                                    </span>
-                                </div>
-                                <div className="absolute bottom-4 left-4 right-4 z-20">
-                                    <span className="text-xs font-bold text-white/80 uppercase tracking-widest">{project.category[locale as 'ar' | 'fr']}</span>
-                                </div>
-                            </div>
+                    {projectsData.map((project, i) => (
+                        <motion.div
+                            key={project.id}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: i * 0.1 }}
+                        >
+                            <Link href={`/${locale}/projects/${project.id}`} className="group block h-full">
+                                <div className="premium-card h-full p-1 group-hover:border-brand-green/30 transition-all">
+                                    <div className="bg-slate-950/40 rounded-[2.4rem] p-8 md:p-12 h-full flex flex-col relative overflow-hidden">
+                                        {/* Status Badge */}
+                                        <div className="flex justify-between items-start mb-10">
+                                            <div className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest flex items-center gap-2 ${
+                                                project.status === 'ongoing' 
+                                                ? 'bg-brand-yellow/10 text-brand-yellow border border-brand-yellow/20' 
+                                                : 'bg-brand-green/10 text-brand-green border border-brand-green/20'
+                                            }`}>
+                                                {project.status === 'ongoing' ? <Clock className="w-3 h-3" /> : <CheckCircle2 className="w-3 h-3" />}
+                                                {t.status[project.status]}
+                                            </div>
+                                            <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center border border-white/10 group-hover:bg-brand-green group-hover:text-white transition-all duration-500">
+                                                <Target className="w-6 h-6" />
+                                            </div>
+                                        </div>
 
-                            <div className="p-8 space-y-4 flex-1 flex flex-col">
-                                <h2 className="text-2xl font-black text-white leading-tight group-hover:text-brand-green transition-colors">
-                                    {project.title[locale as 'ar' | 'fr']}
-                                </h2>
-                                <p className="text-slate-300 text-sm leading-relaxed line-clamp-2">
-                                    {project.description[locale as 'ar' | 'fr']}
-                                </p>
+                                        <div className="space-y-4 mb-10 flex-1">
+                                            <h2 className="text-3xl font-black text-white group-hover:text-brand-green transition-colors leading-tight">
+                                                {project.title[locale as 'ar' | 'fr']}
+                                            </h2>
+                                            <p className="text-slate-400 font-medium leading-relaxed">
+                                                {project.description[locale as 'ar' | 'fr']}
+                                            </p>
+                                        </div>
 
-                                <div className="mt-auto space-y-3">
-                                    <div className="flex justify-between items-center text-xs font-bold text-slate-400 uppercase tracking-widest">
-                                        <span>{t.progress}</span>
-                                        <span className="text-white">{project.progress}%</span>
+                                        <div className="mt-auto space-y-6">
+                                            <div className="space-y-3">
+                                                <div className="flex justify-between items-end">
+                                                    <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">{t.progress}</span>
+                                                    <span className="text-lg font-black text-white">{project.progress}%</span>
+                                                </div>
+                                                <div className="h-2 w-full bg-white/5 rounded-full overflow-hidden border border-white/5">
+                                                    <motion.div
+                                                        initial={{ width: 0 }}
+                                                        whileInView={{ width: `${project.progress}%` }}
+                                                        transition={{ duration: 1, ease: "easeOut" }}
+                                                        className={`h-full ${project.status === 'ongoing' ? 'bg-brand-yellow shadow-[0_0_15px_rgba(255,204,0,0.3)]' : 'bg-brand-green shadow-[0_0_15px_rgba(0,169,92,0.3)]'}`}
+                                                    ></motion.div>
+                                                </div>
+                                            </div>
+
+                                            <div className="flex items-center gap-3 text-xs font-black text-brand-green group-hover:gap-5 transition-all">
+                                                <span>{t.viewDetails}</span>
+                                                <ArrowRight className={`w-4 h-4 ${isAr ? 'rotate-180' : ''}`} />
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div className="h-2 w-full bg-white/10 rounded-full overflow-hidden">
-                                        <div
-                                            className={`h-full transition-all duration-1000 ${project.status === 'ongoing' ? 'bg-brand-yellow' : 'bg-brand-green'}`}
-                                            style={{ width: `${project.progress}%` }}
-                                        ></div>
-                                    </div>
-
-                                    <Link
-                                        href={`/${locale}/projects/${project.id}`}
-                                        className="block w-full text-center py-4 bg-brand-green text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-brand-green/80 transition-all mt-6"
-                                    >
-                                        {t.viewDetails}
-                                    </Link>
                                 </div>
-                            </div>
-                        </div>
+                            </Link>
+                        </motion.div>
                     ))}
                 </div>
 
+                {/* Info Box */}
+                <div className="mt-32 p-12 bg-white/5 rounded-[3rem] border border-white/10 flex flex-col md:flex-row items-center gap-12 group backdrop-blur-xl">
+                    <div className="w-24 h-24 bg-brand-yellow/10 text-brand-yellow rounded-3xl flex items-center justify-center shrink-0 border border-brand-yellow/20">
+                        <LayoutGrid className="w-10 h-10" />
+                    </div>
+                    <div>
+                        <h3 className="text-2xl font-black text-white mb-2">{isAr ? 'التزام بالتطوير المستمر' : 'Engagement au développement'}</h3>
+                        <p className="text-slate-400 font-medium max-w-2xl">
+                            {isAr ? 'نسعى من خلال هذه المشاريع إلى بناء بنية تحتية رقمية تضمن للمواطن الموريتاني وصولاً سهلاً وموثوقاً لكافة الخدمات الإعلامية.' : 'À travers ces projets, nous visons à construire une infrastructure numérique robuste.'}
+                        </p>
+                    </div>
+                </div>
             </div>
-        </div>
+        </main>
     );
 }

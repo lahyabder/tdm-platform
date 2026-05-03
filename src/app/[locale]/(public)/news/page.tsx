@@ -2,7 +2,7 @@
 
 import { useState, use, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ExternalLink, Calendar, Tag, ChevronRight, Share2 } from 'lucide-react';
+import { X, ExternalLink, Calendar, Tag, ChevronRight, Share2, Newspaper, ArrowRight } from 'lucide-react';
 import { useNewsStore } from '@/store/useNewsStore';
 
 const tagColors: Record<string, string> = {
@@ -43,36 +43,47 @@ export default function NewsPage({
         subtitle: isAr
             ? "آخر الأخبار والأحداث من شركة البث الإذاعي والتلفزي الموريتاني"
             : "Les dernières nouvelles et événements de la Télédiffusion de Mauritanie",
-        readMore: isAr ? "اقرأ المزيد ←" : "Lire la suite →",
-        source: isAr ? "المصدر: siteweb.tdm.mr" : "Source: siteweb.tdm.mr",
+        readMore: isAr ? "اقرأ المزيد" : "Lire la suite",
+        source: isAr ? "المصدر الرسمي" : "Source Officielle",
         close: isAr ? "إغلاق" : "Fermer",
-        share: isAr ? "مشاركة" : "Partager",
+        share: isAr ? "مشاركة الخبر" : "Partager",
     };
 
     if (!isClient) return <div className="min-h-screen bg-brand-dark"></div>;
 
     return (
-        <main className="min-h-screen pb-24">
-            {/* Header */}
-            <section className="bg-brand-dark pt-24 pb-32 text-white relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-brand-dark via-brand-dark to-brand-green/20"></div>
-                <div className="absolute inset-0 opacity-10"
-                    style={{ backgroundImage: 'radial-gradient(circle at 20% 50%, #00A95C 0%, transparent 50%), radial-gradient(circle at 80% 20%, #FFD700 0%, transparent 40%)' }}
-                ></div>
-                <div className="absolute bottom-0 w-full h-1 bg-gradient-to-r from-brand-green via-brand-yellow to-brand-red z-10"></div>
-                <div className="max-w-6xl mx-auto px-6 relative z-10 text-center">
-                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-green/10 border border-brand-green/30 text-brand-green text-xs font-bold uppercase tracking-widest mb-6">
-                        <span className="w-1.5 h-1.5 rounded-full bg-brand-green animate-pulse"></span>
-                        {isAr ? "آخر المستجدات" : "Dernières nouvelles"}
-                    </div>
-                    <h1 className="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight">{t.title}</h1>
-                    <p className="text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl mx-auto">{t.subtitle}</p>
-                </div>
-            </section>
+        <main className="min-h-screen pb-32 pt-28 bg-brand-dark waves-pattern relative overflow-hidden">
+             {/* Background Glows */}
+             <div className="fixed inset-0 pointer-events-none">
+                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-green/5 blur-[120px] rounded-full"></div>
+            </div>
 
-            {/* News Grid */}
-            <div className="max-w-6xl mx-auto px-6 -mt-16 relative z-20">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="max-w-7xl mx-auto px-6 relative z-10">
+                {/* Header */}
+                <header className="mb-24 text-center">
+                    <motion.div 
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full mb-6 backdrop-blur-xl"
+                    >
+                        <Newspaper className="w-3.5 h-3.5 text-brand-green" />
+                        <span className="text-[10px] font-black text-brand-green uppercase tracking-[0.3em]">
+                            {isAr ? 'المركز الإعلامي' : 'Média Center'}
+                        </span>
+                    </motion.div>
+                    
+                    <h1 className="text-5xl md:text-7xl font-black text-white tracking-tighter mb-8 leading-tight">
+                        {isAr ? 'أخبار' : 'Latest'}{" "}
+                        <span className="glow-text-gold">{isAr ? 'المؤسسة' : 'Updates'}</span>
+                    </h1>
+                    
+                    <p className="max-w-2xl mx-auto text-lg text-slate-400 font-medium leading-relaxed">
+                        {t.subtitle}
+                    </p>
+                </header>
+
+                {/* News Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                     {articles.map((article, idx) => {
                         const tagText = isAr ? article.tag.ar : article.tag.fr;
                         const tagClass = tagColors[tagText] || "bg-white/10 text-slate-300 border-white/20";
@@ -81,41 +92,38 @@ export default function NewsPage({
                                 key={article.id}
                                 layoutId={`article-${article.id}`}
                                 onClick={() => setSelectedArticle(article)}
-                                className={`group cursor-pointer bg-brand-card rounded-2xl border border-white/15 hover:border-brand-green/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,169,92,0.15)] overflow-hidden ${idx === 0 ? 'md:col-span-2 lg:col-span-2' : ''}`}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: idx * 0.1 }}
+                                className={`premium-card h-full group cursor-pointer overflow-hidden flex flex-col ${idx === 0 ? 'md:col-span-2' : ''}`}
                             >
-                                {/* Image */}
-                                <div className={`relative overflow-hidden bg-brand-dark-2 ${idx === 0 ? 'h-64' : 'h-48'}`}>
+                                <div className={`relative overflow-hidden bg-slate-900 ${idx === 0 ? 'h-80' : 'h-64'}`}>
                                     <img
                                         src={article.imageUrl}
                                         alt={isAr ? article.title.ar : article.title.fr}
-                                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                        className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
                                     />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/80 via-transparent to-transparent"></div>
-                                    <div className="absolute top-4 start-4">
-                                        <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider border ${tagClass}`}>
+                                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-transparent"></div>
+                                    <div className="absolute top-6 start-6">
+                                        <span className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest border backdrop-blur-md ${tagClass}`}>
                                             {tagText}
                                         </span>
                                     </div>
-                                    <div className="absolute bottom-4 start-4 text-xs font-bold text-white/70 uppercase tracking-widest">
+                                    <div className="absolute bottom-6 start-6 text-[10px] font-black text-white/60 bg-black/40 backdrop-blur-sm px-3 py-1 rounded-md uppercase tracking-[0.2em]">
                                         {isAr ? article.date.ar : article.date.fr}
                                     </div>
                                 </div>
 
-                                {/* Content */}
-                                <div className="p-6 space-y-3">
-                                    <h2 className={`font-black text-white leading-snug group-hover:text-brand-green transition-colors ${idx === 0 ? 'text-xl' : 'text-base'}`}>
+                                <div className="p-8 md:p-10 flex flex-col flex-1">
+                                    <h2 className={`font-black text-white leading-tight mb-4 group-hover:text-brand-green transition-colors ${idx === 0 ? 'text-3xl' : 'text-xl'}`}>
                                         {isAr ? article.title.ar : article.title.fr}
                                     </h2>
-                                    <p className="text-slate-300 text-sm leading-relaxed line-clamp-2">
+                                    <p className="text-slate-400 font-medium leading-relaxed line-clamp-3 mb-8 flex-1">
                                         {isAr ? article.description.ar : article.description.fr}
                                     </p>
-                                    <div className="pt-2 flex items-center justify-between">
-                                        <span className="text-brand-green text-xs font-black uppercase tracking-widest flex items-center gap-1 group-hover:gap-2 transition-all">
-                                            {t.readMore}
-                                        </span>
-                                        <div className="p-2 rounded-full bg-white/5 border border-white/10 group-hover:bg-brand-green/10 group-hover:border-brand-green/30 transition-colors">
-                                            <ChevronRight className={`w-4 h-4 text-white/50 group-hover:text-brand-green transition-colors ${isAr ? 'rotate-180' : ''}`} />
-                                        </div>
+                                    <div className="flex items-center gap-3 text-xs font-black text-brand-green group-hover:gap-5 transition-all">
+                                        <span>{t.readMore}</span>
+                                        <ArrowRight className={`w-4 h-4 ${isAr ? 'rotate-180' : ''}`} />
                                     </div>
                                 </div>
                             </motion.div>
@@ -123,21 +131,16 @@ export default function NewsPage({
                     })}
                 </div>
 
-                {/* Source Attribution */}
-                <div className="mt-12 text-center">
-                    <a
-                        href="https://siteweb.tdm.mr"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 text-xs text-slate-400 hover:text-brand-green transition-colors border border-white/10 px-4 py-2 rounded-full hover:border-brand-green/30"
-                    >
-                        <ExternalLink className="w-3.5 h-3.5" />
+                {/* Source Link */}
+                <div className="mt-20 text-center">
+                    <a href="https://siteweb.tdm.mr" target="_blank" rel="noopener noreferrer" className="glass-button inline-flex items-center gap-3 text-xs">
+                        <ExternalLink className="w-4 h-4" />
                         {t.source}
                     </a>
                 </div>
             </div>
 
-            {/* Premium Modal */}
+            {/* Premium Modal View */}
             <AnimatePresence>
                 {selectedArticle && (
                     <>
@@ -146,75 +149,63 @@ export default function NewsPage({
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             onClick={() => setSelectedArticle(null)}
-                            className="fixed inset-0 bg-brand-dark/90 backdrop-blur-md z-[110] cursor-zoom-out"
+                            className="fixed inset-0 bg-brand-dark/95 backdrop-blur-xl z-[110] cursor-zoom-out"
                         />
                         <motion.div
                             layoutId={`article-${selectedArticle.id}`}
-                            className="fixed inset-4 md:inset-x-20 md:inset-y-10 lg:inset-x-64 lg:inset-y-20 z-[120] bg-brand-card rounded-3xl border border-white/10 shadow-2xl overflow-hidden flex flex-col"
+                            className="fixed inset-4 md:inset-x-12 md:inset-y-8 lg:inset-x-32 lg:inset-y-12 z-[120] premium-card overflow-hidden flex flex-col p-1"
                         >
-                            <button
-                                onClick={() => setSelectedArticle(null)}
-                                className="absolute top-6 right-6 z-[130] p-2 rounded-full bg-brand-dark/50 backdrop-blur-md border border-white/10 text-white hover:bg-brand-red/20 hover:border-brand-red/30 transition-all group"
-                            >
-                                <X className="w-6 h-6 group-hover:rotate-90 transition-transform" />
-                            </button>
+                            <div className="bg-slate-950/60 rounded-[2.4rem] h-full overflow-y-auto custom-scrollbar relative">
+                                <button
+                                    onClick={() => setSelectedArticle(null)}
+                                    className="absolute top-8 right-8 z-[130] w-12 h-12 rounded-full bg-white/5 backdrop-blur-xl border border-white/10 text-white flex items-center justify-center hover:bg-brand-red transition-all group"
+                                >
+                                    <X className="w-6 h-6 group-hover:rotate-90 transition-transform" />
+                                </button>
 
-                            <div className="flex-1 overflow-y-auto custom-scrollbar pb-12">
-                                {/* Modal Header Image */}
-                                <div className="h-[300px] md:h-[400px] relative">
+                                <div className="h-[400px] md:h-[500px] relative">
                                     <img
                                         src={selectedArticle.imageUrl}
                                         alt={isAr ? selectedArticle.title.ar : selectedArticle.title.fr}
                                         className="w-full h-full object-cover"
                                     />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-brand-card via-transparent to-transparent"></div>
-                                    <div className="absolute bottom-8 left-8 right-8">
-                                        <div className="flex flex-wrap items-center gap-4 mb-4">
-                                            <span className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest border ${tagColors[isAr ? selectedArticle.tag.ar : selectedArticle.tag.fr]}`}>
+                                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
+                                    <div className="absolute bottom-12 left-12 right-12 max-w-4xl">
+                                        <div className="flex gap-4 mb-6">
+                                             <span className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest border backdrop-blur-md ${tagColors[isAr ? selectedArticle.tag.ar : selectedArticle.tag.fr]}`}>
                                                 {isAr ? selectedArticle.tag.ar : selectedArticle.tag.fr}
                                             </span>
-                                            <span className="flex items-center gap-2 text-xs font-bold text-white/70 bg-brand-dark/40 backdrop-blur-sm px-3 py-1.5 rounded-full border border-white/5">
-                                                <Calendar className="w-3.5 h-3.5" />
-                                                {isAr ? selectedArticle.date.ar : selectedArticle.date.fr}
-                                            </span>
                                         </div>
-                                        <h2 className="text-2xl md:text-4xl font-black text-white leading-tight">
+                                        <h2 className="text-4xl md:text-6xl font-black text-white leading-tight">
                                             {isAr ? selectedArticle.title.ar : selectedArticle.title.fr}
                                         </h2>
                                     </div>
                                 </div>
 
-                                {/* Modal Content Body */}
-                                <div className="px-8 md:px-12 py-8 max-w-3xl mx-auto">
-                                    <div className="prose prose-invert max-w-none">
-                                        <p className="text-slate-100 text-lg md:text-xl leading-relaxed whitespace-pre-line border-l-4 border-brand-green pl-6 italic mb-12">
-                                            {isAr ? selectedArticle.description.ar : selectedArticle.description.fr}
+                                <div className="px-12 py-16 max-w-4xl mx-auto">
+                                    <p className="text-slate-300 text-xl md:text-2xl leading-relaxed italic border-s-4 border-brand-green ps-8 mb-16">
+                                        {isAr ? selectedArticle.description.ar : selectedArticle.description.fr}
+                                    </p>
+                                    
+                                    <div className="space-y-8 text-slate-400 text-lg md:text-xl font-medium leading-relaxed">
+                                        <p>
+                                            {isAr 
+                                                ? "في خطوة استراتيجية جديدة، تواصل شركة البث الإذاعي والتلفزي الموريتاني (TDM) ريادتها في تحديث البنية التحتية للإعلام الوطني، مع التركيز على تقديم خدمات بث عالية الجودة تخدم كافة التطلعات."
+                                                : "Dans une nouvelle étape stratégique, la Télédiffusion de Mauritanie (TDM) poursuit son leadership dans la modernisation de l'infrastructure médiatique nationale."}
                                         </p>
-                                        
-                                        <div className="space-y-6 text-slate-300 leading-relaxed text-base md:text-lg">
-                                            <p>
-                                                {isAr 
-                                                    ? "في إطار جهودها المستمرة لتطوير البنية التحتية الإعلامية في موريتانيا، تواصل شركة البث الإذاعي والتلفزي الموريتاني (TDM) تنفيذ مشاريعها الاستراتيجية الرامية إلى ضمان وصول المحتوى السمعي البصري إلى كافة المواطنين بأعلى معايير الجودة الممكنة."
-                                                    : "Dans le cadre de ses efforts continus pour développer l'infrastructure médiatique en Mauritanie, la Télédiffusion de Mauritanie (TDM) poursuit la mise en œuvre de ses projets stratégiques visant à garantir l'accès au contenu audiovisuel."}
-                                            </p>
-                                            <p>
-                                                {isAr 
-                                                    ? "وقد أكدت الإدارة العامة للشركة أن هذه الخطوة تأتي تنفيذاً للرؤية الوطنية الشاملة لتحديث قطاع الاتصالات، وتعزيز قدرة المؤسسات الإعلامية الوطنية على المنافسة في الفضاء الرقمي المتطور باستمرار."
-                                                    : "La direction générale de la société a souligné que cette étape s'inscrit dans la mise en œuvre de la vision nationale globale de modernisation du secteur des télécommunications."}
-                                            </p>
-                                        </div>
+                                        <p>
+                                            {isAr 
+                                                ? "وتؤكد المؤسسة التزامها الدائم بالابتكار التقني كركيزة أساسية لتطوير المشهد السمعي البصري، بما يضمن السيادة الرقمية والتميز في الأداء."
+                                                : "L'institution confirme son engagement permanent envers l'innovation technique comme pilier fondamental du développement du paysage audiovisuel."}
+                                        </p>
                                     </div>
 
-                                    {/* Action Buttons */}
-                                    <div className="mt-16 flex flex-col sm:flex-row items-center justify-center gap-4 border-t border-white/10 pt-12">
-                                        <button className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-brand-green text-brand-dark px-10 py-4 rounded-xl font-black text-sm uppercase tracking-widest hover:bg-white hover:scale-105 transition-all shadow-xl shadow-brand-green/20">
+                                    <div className="mt-20 pt-12 border-t border-white/5 flex flex-wrap gap-6">
+                                        <button className="glass-button bg-brand-green border-brand-green flex items-center gap-3">
                                             <Share2 className="w-5 h-5" />
                                             {t.share}
                                         </button>
-                                        <button 
-                                            onClick={() => setSelectedArticle(null)}
-                                            className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-white/5 border border-white/10 text-white px-10 py-4 rounded-xl font-black text-sm uppercase tracking-widest hover:bg-white/10 transition-all"
-                                        >
+                                        <button onClick={() => setSelectedArticle(null)} className="glass-button">
                                             {t.close}
                                         </button>
                                     </div>

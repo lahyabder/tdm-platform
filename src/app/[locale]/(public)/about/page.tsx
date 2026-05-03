@@ -2,95 +2,123 @@
 
 import { use, useEffect, useState } from 'react';
 import { useContentStore } from '@/store/useContentStore';
+import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { Target, Eye, Shield, Award, Users, MapPin, Zap, Radio, Globe } from 'lucide-react';
 
 export default function AboutPage({
     params,
 }: {
     params: Promise<{ locale: string }>;
 }) {
-    const resolvedParams = use(params) as any;
-    const locale = resolvedParams.locale;
-    const isAr = locale === 'ar';
-    const { getPageContent } = useContentStore();
-    const [content, setContent] = useState<any>(null);
+    const { locale } = use(params) as any;
+    const { pages } = useContentStore();
     const [isClient, setIsClient] = useState(false);
 
     useEffect(() => {
         setIsClient(true);
-        setContent(getPageContent('about'));
-    }, [getPageContent]);
+    }, []);
+
+    const content = pages.about;
+    const isAr = locale === 'ar';
 
     if (!isClient || !content) return <div className="min-h-screen bg-brand-dark"></div>;
 
-    return (
-        <main className="min-h-screen pb-20 pt-20">
-            <div className="max-w-6xl mx-auto px-6">
-                
-                {/* Director's Word - Premium Redesign */}
-                <section className="relative max-w-5xl mx-auto mb-24 mt-12">
-                    <div className="bg-gradient-to-br from-[#0a1628] to-[#050b14] rounded-[3rem] border border-white/10 p-8 md:p-12 shadow-2xl relative overflow-hidden group">
-                        
-                        {/* Decorative Background Elements */}
-                        <div className="absolute top-0 right-0 w-64 h-64 bg-brand-green/5 blur-[100px] rounded-full -mr-32 -mt-32"></div>
-                        <div className="absolute bottom-0 left-0 w-64 h-64 bg-brand-yellow/5 blur-[100px] rounded-full -ml-32 -mb-32"></div>
+    const stats = [
+        { icon: <Zap className="w-5 h-5" />, value: "98%", label: { ar: "تغطية شاملة", fr: "Couverture" } },
+        { icon: <Radio className="w-5 h-5" />, value: "45+", label: { ar: "محطة بث", fr: "Stations" } },
+        { icon: <Globe className="w-5 h-5" />, value: "100%", label: { ar: "سيادة رقمية", fr: "Souveraineté" } }
+    ];
 
-                        <div className="flex flex-col lg:flex-row gap-12 items-center lg:items-start relative z-10">
-                            
-                            {/* Prominent Portrait Container */}
-                            <div className="w-full lg:w-[40%] shrink-0 text-center lg:text-start">
-                                <div className="relative mx-auto lg:mx-0">
-                                    <div className="absolute inset-0 bg-brand-green/20 blur-3xl rounded-full scale-75 group-hover:scale-100 transition-transform duration-1000 opacity-30"></div>
-                                    <div className="relative rounded-[2.5rem] overflow-hidden border border-white/20 shadow-2xl bg-brand-dark/40 backdrop-blur-sm group-hover:border-brand-green/50 transition-colors duration-500">
-                                        <img 
-                                            src={content.sections.director_word?.image || "/images/dg.png"} 
-                                            alt={content.sections.director_word?.author?.[locale]} 
-                                            className="w-full h-auto max-h-[500px] object-contain transition-all duration-700 hover:scale-105"
-                                        />
-                                    </div>
-                                    
-                                    {/* Signature Badge */}
-                                    <div className={`absolute -bottom-6 ${isAr ? '-left-4' : '-right-4'} bg-brand-green px-6 py-3 rounded-2xl shadow-xl border border-white/10 hidden md:block`}>
-                                        <p className="text-white text-xs font-black uppercase tracking-tighter whitespace-nowrap">
-                                            {isAr ? 'المدير العام' : 'Directeur Général'}
-                                        </p>
-                                    </div>
-                                </div>
-                                
-                                <div className="mt-12 space-y-2 px-4 lg:px-0">
-                                    <h3 className="text-2xl font-black text-white leading-tight">
-                                        {content.sections.director_word?.author?.[locale]}
-                                    </h3>
-                                    <div className="w-12 h-1 bg-brand-green rounded-full mx-auto lg:mx-0"></div>
-                                </div>
+    return (
+        <main className="min-h-screen pb-32 pt-28 bg-brand-dark relative waves-pattern selection:bg-brand-green selection:text-white">
+            {/* Ultra-Premium Glowing Background */}
+            <div className="fixed inset-0 pointer-events-none">
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[800px] bg-gradient-to-b from-brand-green/10 via-brand-dark to-transparent"></div>
+                <div className="absolute top-[20%] right-[-10%] w-[600px] h-[600px] bg-brand-yellow/5 blur-[150px] rounded-full animate-pulse"></div>
+            </div>
+
+            <div className="max-w-7xl mx-auto px-6 relative z-10">
+                
+                {/* 1. Institutional Hero Header */}
+                <header className="mb-32 text-center relative">
+                    <motion.div 
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.8 }}
+                        className="inline-flex items-center gap-3 px-6 py-2 bg-white/5 border border-white/10 rounded-full mb-8 backdrop-blur-xl"
+                    >
+                        <span className="w-2 h-2 bg-brand-green rounded-full animate-ping"></span>
+                        <span className="text-[10px] font-black text-slate-300 uppercase tracking-[0.4em]">
+                            {isAr ? 'البث الإذاعي والتلفزيوني الموريتاني' : 'Télédiffusion de Mauritanie'}
+                        </span>
+                    </motion.div>
+                    
+                    <h1 className="text-6xl md:text-8xl font-black text-white tracking-tighter leading-none mb-8">
+                        {isAr ? 'ريادة' : 'Leadership'}{" "}
+                        <span className="glow-text-gold">{isAr ? 'المشهد' : 'Digital'}</span>
+                        <br />
+                        {isAr ? 'الرقمي' : 'Excellence'}
+                    </h1>
+                    
+                    <p className="max-w-2xl mx-auto text-lg text-slate-400 font-medium leading-relaxed mb-12">
+                         {isAr ? 'نحن المحرك التقني للسيادة الإعلامية الموريتانية، نربط الوطن بالعالم عبر أحدث تكنولوجيات البث.' : 'Le moteur technologique de la souveraineté médiatique mauritanienne.'}
+                    </p>
+
+                    <div className="flex flex-wrap justify-center gap-8 md:gap-16">
+                        {stats.map((s, i) => (
+                            <div key={i} className="flex flex-col items-center">
+                                <div className="text-brand-green mb-2">{s.icon}</div>
+                                <span className="text-3xl font-black text-white">{s.value}</span>
+                                <span className="text-[10px] text-slate-500 font-black uppercase tracking-widest">{s.label[locale as 'ar' | 'fr']}</span>
+                            </div>
+                        ))}
+                    </div>
+                </header>
+
+                {/* 2. Director's Word - The Golden Card */}
+                <section className="mb-40">
+                    <div className="premium-card p-1 md:p-2 group">
+                        <div className="bg-slate-950/40 rounded-[2.4rem] p-8 md:p-20 relative overflow-hidden">
+                            {/* Abstract signal pattern background */}
+                            <div className="absolute inset-0 opacity-10 pointer-events-none">
+                                <div className="absolute top-0 right-0 w-full h-full border-[1px] border-white/10 rounded-full scale-150 -translate-y-1/2 translate-x-1/2"></div>
                             </div>
 
-                            {/* Refined Content Area */}
-                            <div className="flex-1 space-y-8">
-                                <div className="flex items-center gap-4">
-                                    <span className="h-px w-12 bg-brand-yellow/50"></span>
-                                    <span className="text-brand-yellow text-xs font-black uppercase tracking-[0.2em]">
-                                        {content.sections.director_word?.title?.[locale]}
-                                    </span>
-                                </div>
-
-                                <div className="relative">
-                                    <svg className={`absolute -top-6 ${isAr ? '-right-6' : '-left-6'} w-12 h-12 text-white/5`} fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H15.017C14.4647 8 14.017 8.44772 14.017 9V11M14.017 21H7.017C5.91243 21 5.017 20.1046 5.017 19V12C5.017 10.8954 5.91243 10 7.017 10H10.017C10.5693 10 11.017 9.55228 11.017 9V5C11.017 4.44772 10.5693 4 10.017 4H5.017C4.46472 4 4.017 4.44772 4.017 5V12.5C4.017 13.0523 4.46472 13.5 5.017 13.5H9.017C9.56928 13.5 10.017 13.9477 10.017 14.5V17C10.017 17.5523 9.56928 18 9.017 18H5.017C4.46472 18 4.017 18.4477 4.017 19V21H14.017Z" />
-                                    </svg>
-                                    <p className="text-slate-200 text-base md:text-lg leading-[1.8] whitespace-pre-line font-light italic">
-                                        {content.sections.director_word?.content?.[locale]}
-                                    </p>
-                                </div>
-
-                                <div className="pt-8 flex justify-end">
-                                    <div className="flex flex-col items-end opacity-40 group-hover:opacity-100 transition-opacity duration-1000">
-                                        <div className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">{isAr ? 'الإدارة العامة' : 'Direction Générale'}</div>
-                                        <div className="flex items-center gap-2">
-                                            <div className="w-8 h-8 rounded-full bg-brand-green/20 flex items-center justify-center">
-                                                <div className="w-1.5 h-1.5 rounded-full bg-brand-green animate-pulse"></div>
-                                            </div>
-                                            <span className="text-white font-bold text-xs">TDM - 2024</span>
+                            <div className="flex flex-col lg:flex-row gap-20 items-center lg:items-start relative z-10">
+                                <div className="w-full lg:w-[450px] shrink-0">
+                                    <div className="relative">
+                                        <div className="absolute -inset-4 bg-brand-green/20 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000"></div>
+                                        <div className="relative rounded-[3.5rem] overflow-hidden border-2 border-white/10 shadow-2xl bg-slate-900">
+                                            <img 
+                                                src={content.sections.director_word?.image || "/images/dg.png"} 
+                                                alt={content.sections.director_word?.author?.[locale]} 
+                                                className="w-full h-auto object-contain transition-all duration-1000 grayscale group-hover:grayscale-0 group-hover:scale-105"
+                                            />
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
                                         </div>
+                                        
+                                        <div className={`absolute -bottom-8 ${isAr ? '-left-8' : '-right-8'} bg-brand-yellow p-6 rounded-3xl shadow-[0_20px_50px_rgba(255,204,0,0.3)] border border-white/20`}>
+                                            <p className="text-black font-black text-lg leading-tight">{content.sections.director_word?.author?.[locale]}</p>
+                                            <p className="text-black/60 text-[10px] font-black uppercase tracking-widest mt-1">{isAr ? 'المدير العام' : 'Directeur Général'}</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="flex-1">
+                                    <div className="flex items-center gap-4 mb-10">
+                                        <div className="w-12 h-1 bg-brand-green"></div>
+                                        <h2 className="text-2xl font-black text-white tracking-wide">{content.sections.director_word?.title?.[locale]}</h2>
+                                    </div>
+                                    
+                                    <div className="relative">
+                                        <p className="text-slate-300 text-xl md:text-2xl leading-[1.8] font-medium italic whitespace-pre-line">
+                                            {content.sections.director_word?.content?.[locale]}
+                                        </p>
+                                    </div>
+                                    
+                                    <div className="mt-12 pt-12 border-t border-white/10">
+                                        <img src="/logo.png" className="h-12 w-auto opacity-30 grayscale brightness-200" alt="TDM Logo" />
                                     </div>
                                 </div>
                             </div>
@@ -98,36 +126,25 @@ export default function AboutPage({
                     </div>
                 </section>
 
-                {/* Additional Sections */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    {Object.entries(content.sections).map(([key, section]: [string, any], idx) => {
-                        if (key === 'director_word') return null;
-                        return (
-                            <motion.div
-                                key={key}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ delay: idx * 0.1 }}
-                                viewport={{ once: true }}
-                                className="bg-brand-card/30 backdrop-blur-sm p-8 rounded-2xl border border-white/5 hover:border-brand-green/30 transition-all group"
-                            >
-                                <div className="flex items-center gap-4 mb-6">
-                                    <div className="w-10 h-10 rounded-lg bg-brand-green/10 flex items-center justify-center text-brand-green font-black group-hover:bg-brand-green group-hover:text-brand-dark transition-all">
-                                        {idx}
-                                    </div>
-                                    <h2 className="text-xl font-black text-white">{section.title?.[locale]}</h2>
-                                </div>
-                                <p className="text-slate-400 leading-relaxed text-sm">
-                                    {section.content?.[locale]}
-                                </p>
-                            </motion.div>
-                        );
-                    })}
-                </div>
+                {/* 3. Strategic Grid */}
+                <section className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    {[
+                         { icon: <Target className="w-8 h-8" />, color: 'brand-green', title: { ar: "رؤيتنا", fr: "Notre Vision" }, text: { ar: "أن نكون القوة الدافعة للتحول الرقمي الشامل في الفضاء السمعي البصري الوطني.", fr: "Être le moteur de la transformation numérique nationale." } },
+                         { icon: <Eye className="w-8 h-8" />, color: 'brand-yellow', title: { ar: "رسالتنا", fr: "Notre Mission" }, text: { ar: "توفير بنية تحتية تقنية عالمية المستوى تضمن السيادة الإعلامية والانتشار الواسع.", fr: "Fournir une infrastructure de classe mondiale assurant la souveraineté." } },
+                         { icon: <Shield className="w-8 h-8" />, color: 'brand-green', title: { ar: "قيمنا", fr: "Nos Valeurs" }, text: { ar: "الالتزام بالتميز التقني، والشفافية المؤسسية، والمسؤولية تجاه المجتمع.", fr: "Engagement envers l'excellence technique et la transparence." } }
+                    ].map((item, i) => (
+                        <div key={i} className="premium-card p-12 group hover:bg-white/[0.04]">
+                            <div className={`w-16 h-16 bg-${item.color}/10 text-${item.color} rounded-2xl flex items-center justify-center mb-8 border border-${item.color}/20 group-hover:scale-110 transition-transform`}>
+                                {item.icon}
+                            </div>
+                            <h3 className="text-2xl font-black text-white mb-4">{item.title[locale as 'ar' | 'fr']}</h3>
+                            <p className="text-slate-400 font-medium leading-relaxed">
+                                {item.text[locale as 'ar' | 'fr']}
+                            </p>
+                        </div>
+                    ))}
+                </section>
             </div>
         </main>
     );
 }
-
-// Added motion import since I used it
-import { motion } from 'framer-motion';
