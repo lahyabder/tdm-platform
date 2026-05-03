@@ -13,7 +13,12 @@ export async function getPageContent(locale: string, pageKey: string) {
     };
 }
 
-export async function getServiceDetailContent(locale: string, id: string) {
-    // For now returning null or generic as we focus on the main pages store
-    return null;
+export async function getServiceDetailContent(locale: string, id: string): Promise<any> {
+    // Basic implementation to avoid build errors and 404s
+    return {
+        title: id.toUpperCase(),
+        definition: "Service definition placeholder",
+        audience: { title: "Audience", items: [] },
+        steps: { title: "Steps", items: [] }
+    };
 }

@@ -121,6 +121,8 @@ export const useNewsStore = create<NewsState>()(
                 await Promise.all(uploadPromises);
                 set({ isLoading: false });
             },
+            
+            fetchArticles: async () => {
                 try {
                     set({ isLoading: true });
                     const { data, error } = await supabase.from('news').select('*').order('id', { ascending: false });

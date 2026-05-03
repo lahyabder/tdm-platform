@@ -7,14 +7,8 @@ import { MauritaniaMap } from '@/components/ui/MauritaniaMap';
 import { ArrowUpRight, Radio, Activity, Globe2, Network, Zap, Tv, Share2, ArrowRight } from 'lucide-react';
 import { useRef, useState, useEffect } from 'react';
 
-export function AnimatedHome({ locale }: { locale: string }) {
-    const { getPageContent } = useContentStore();
-    const [content, setContent] = useState<any>(null);
+export function AnimatedHome({ locale, content }: { locale: string; content: any }) {
     const containerRef = useRef(null);
-
-    useEffect(() => {
-        setContent(getPageContent('home'));
-    }, [getPageContent]);
 
     const { scrollYProgress } = useScroll({
         target: containerRef,

@@ -76,7 +76,7 @@ export default function ServicesPage({
                     </h1>
                     
                     <p className="max-w-2xl mx-auto text-lg text-slate-400 font-medium leading-relaxed">
-                        {content.title?.[locale]}
+                        {content.title?.[locale as 'ar' | 'fr']}
                     </p>
                 </header>
 
