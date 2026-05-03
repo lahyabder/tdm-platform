@@ -151,31 +151,43 @@ export const useContentStore = create<ContentState>()(
 
                 // Push to Supabase
                 try {
-                    await supabase
+                    const { error } = await supabase
                         .from('page_content')
                         .upsert({ 
                             page_key: pageKey, 
                             content: content,
                             updated_at: new Date().toISOString()
                         });
-                } catch (e) {
+                    
+                    if (error) throw error;
+                } catch (e: any) {
                     console.error("Cloud Sync Error:", e);
+                    throw e;
                 }
             },
 
             syncAllToCloud: async () => {
                 set({ isLoading: true });
-                const currentPages = get().pages;
-                const uploadPromises = Object.entries(currentPages).map(([key, content]) => {
-                    return supabase.from('page_content').upsert({
-                        page_key: key,
-                        content: content,
-                        updated_at: new Date().toISOString()
+                try {
+                    const currentPages = get().pages;
+                    const uploadPromises = Object.entries(currentPages).map(([key, content]) => {
+                        return supabase.from('page_content').upsert({
+                            page_key: key,
+                            content: content,
+                            updated_at: new Date().toISOString()
+                        });
                     });
-                });
 
-                await Promise.all(uploadPromises);
-                set({ isLoading: false });
+                    const results = await Promise.all(uploadPromises);
+                    const errors = results.filter(r => r.error);
+                    if (errors.length > 0) throw errors[0].error;
+
+                    set({ isLoading: false });
+                } catch (e: any) {
+                    console.error("Sync All Error:", e);
+                    set({ isLoading: false });
+                    throw e;
+                }
             },
 
             getPageContent: (pageKey) => {

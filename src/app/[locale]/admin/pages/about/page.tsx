@@ -30,9 +30,9 @@ export default function AdminAboutEditor({
         try {
             await updatePageContent('about', { id: 'about', title, sections });
             alert(isAr ? '✅ تم حفظ التغييرات بنجاح' : '✅ Changements enregistrés');
-        } catch (err) {
-            console.error(err);
-            alert(isAr ? '❌ فشل الحفظ' : '❌ Échec de l\'enregistrement');
+        } catch (err: any) {
+            console.error("Save Operation Error:", err);
+            alert(isAr ? `❌ فشل الحفظ: ${err.message || 'خطأ غير معروف'}` : `❌ Échec: ${err.message || 'Erreur inconnue'}`);
         }
     };
 
