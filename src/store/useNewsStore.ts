@@ -91,6 +91,7 @@ interface NewsState {
     addArticle: (article: NewsArticle) => Promise<void>;
     updateArticle: (id: number, updatedArticle: Partial<NewsArticle>) => Promise<void>;
     deleteArticle: (id: number) => Promise<void>;
+    syncAllToCloud: () => Promise<void>;
     getArticleById: (id: number) => NewsArticle | undefined;
     resetArticles: () => void;
 }
@@ -101,7 +102,25 @@ export const useNewsStore = create<NewsState>()(
             articles: initialArticles,
             isLoading: false,
             
-            fetchArticles: async () => {
+            syncAllToCloud: async () => {
+                set({ isLoading: true });
+                const currentArticles = get().articles;
+                const uploadPromises = currentArticles.map(article => {
+                    return supabase.from('news').upsert({
+                        title_ar: article.title.ar,
+                        title_fr: article.title.fr,
+                        desc_ar: article.description.ar,
+                        desc_fr: article.description.fr,
+                        tag_ar: article.tag.ar,
+                        tag_fr: article.tag.fr,
+                        image_url: article.imageUrl,
+                        date_ar: article.date.ar,
+                        date_fr: article.date.fr
+                    });
+                });
+                await Promise.all(uploadPromises);
+                set({ isLoading: false });
+            },
                 try {
                     set({ isLoading: true });
                     const { data, error } = await supabase.from('news').select('*').order('id', { ascending: false });
