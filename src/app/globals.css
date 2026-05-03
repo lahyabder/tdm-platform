@@ -103,11 +103,30 @@ body {
     radial-gradient(at 0% 100%, rgba(0, 169, 92, 0.05) 0px, transparent 50%);
 }
 
-/* Global Admin Input Overrides (if needed) */
-.admin-field {
-  @apply w-full bg-white/5 border border-white/10 rounded-2xl p-5 text-white font-bold outline-none transition-all;
+/* --- Global Admin Form Styles (Ultra-Legible & Bold) --- */
+.admin-label {
+  display: block !important;
+  font-size: 0.95rem !important;
+  font-weight: 900 !important; /* Extremely Bold */
+  color: #020617 !important; /* Deepest black */
+  text-transform: uppercase !important;
+  letter-spacing: 0.02em !important;
+  margin-bottom: 0.8rem !important;
+  opacity: 1 !important;
 }
 
-.admin-field:focus {
-  @apply border-brand-green bg-white/10 ring-4 ring-brand-green/10;
+.admin-input, .admin-textarea, .admin-field {
+  @apply w-full bg-white border-2 border-slate-300 rounded-xl p-5 text-slate-950 font-black outline-none transition-all;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+  line-height: 1.6;
+}
+
+.admin-input:focus, .admin-textarea:focus, .admin-field:focus {
+  @apply border-brand-green ring-4 ring-brand-green/10 bg-slate-50;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+}
+
+/* Fix for light background on some admin pages */
+.bg-slate-50 {
+  background-color: #f8fafc !important;
 }
