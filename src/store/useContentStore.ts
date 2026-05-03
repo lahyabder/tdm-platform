@@ -66,7 +66,7 @@ export const useContentStore = create<ContentState>((set, get) => ({
                     page_key: pageKey, 
                     content: content,
                     updated_at: new Date().toISOString()
-                });
+                }, { onConflict: 'page_key' });
             if (error) throw error;
         } catch (e: any) {
             console.error("Cloud Sync Error:", e);
@@ -83,7 +83,7 @@ export const useContentStore = create<ContentState>((set, get) => ({
                     page_key: key,
                     content: content,
                     updated_at: new Date().toISOString()
-                });
+                }, { onConflict: 'page_key' });
             });
             await Promise.all(uploadPromises);
             set({ isLoading: false });
