@@ -1,5 +1,6 @@
 'use client';
-// Deployment trigger: Final Ultra-Premium Admin Build
+export const dynamic = 'force-dynamic';
+// Deployment trigger: Final Ultra-Premium Admin Build v2
 
 import { use, useEffect, useState } from 'react';
 import { useNewsStore } from '@/store/useNewsStore';
