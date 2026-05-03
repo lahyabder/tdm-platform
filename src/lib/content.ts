@@ -1,15 +1,28 @@
 import { INITIAL_CONTENT } from '@/store/useContentStore';
+import { supabase } from './supabase';
 
 export async function getPageContent(locale: string, pageKey: string) {
-    const page = INITIAL_CONTENT[pageKey];
-    if (!page) return { title: "", sections: {} };
+    let content = INITIAL_CONTENT[pageKey];
+    
+    try {
+        const { data, error } = await supabase
+            .from('page_content')
+            .select('content')
+            .eq('page_key', pageKey)
+            .single();
 
-    // Return the content in a format expected by the components
-    // but now they use the bilingual store anyway.
-    // This is mainly for initial server-side load.
+        if (data && !error) {
+            content = data.content;
+        }
+    } catch (e) {
+        console.error(`Error fetching content for ${pageKey}:`, e);
+    }
+
+    if (!content) return { title: "", sections: {} };
+
     return {
-        title: page.title[locale as 'ar' | 'fr'],
-        sections: page.sections
+        title: content.title[locale as 'ar' | 'fr'],
+        sections: content.sections
     };
 }
 

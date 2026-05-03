@@ -11,12 +11,13 @@ export default function ContactPage({
     params: Promise<{ locale: string }>;
 }) {
     const { locale } = use(params) as any;
-    const { pages } = useContentStore();
+    const { pages, fetchContent } = useContentStore();
     const [isClient, setIsClient] = useState(false);
     const [formStatus, setFormStatus] = useState<'idle' | 'success'>('idle');
 
     useEffect(() => {
         setIsClient(true);
+        fetchContent();
     }, []);
 
     const content = pages.contact;

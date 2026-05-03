@@ -13,11 +13,12 @@ export default function ProjectsPage({
     params: Promise<{ locale: string }>;
 }) {
     const { locale } = use(params) as any;
-    const { pages } = useContentStore();
+    const { pages, fetchContent } = useContentStore();
     const [isClient, setIsClient] = useState(false);
 
     useEffect(() => {
         setIsClient(true);
+        fetchContent();
     }, []);
 
     const content = pages.projects;
