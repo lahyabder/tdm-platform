@@ -1,0 +1,54 @@
+{
+    "title": "Intégration OTT et Gestion de Contenu Numérique",
+    "definition": "Dans le cadre de la transition de la distribution de contenus audiovisuels du linéaire vers l'Internet délinéarisé, la TDM a intégré l'OTT (Over The Top) dans sa gamme de services pour compléter l'infrastructure de diffusion traditionnelle.",
+    "audience": {
+        "title": "Avantages de l'OTT",
+        "items": [
+            "Accès au contenu partout, tout le temps, sur tout terminal",
+            "Extension rapide de la couverture nationale et internationale",
+            "Adaptation à tous types de téléviseurs (via box externes)",
+            "Nouveaux modes de consommation (Smartphone, Tablette, PC)",
+            "Performance haute définition (4K/8K via 5G)"
+        ]
+    },
+    "steps": {
+        "title": "Projet Plateforme OTT TDM",
+        "items": [
+            {
+                "step": "1",
+                "title": "Phase Initiale (Live)",
+                "description": "Diffusion exclusive du contenu en direct du multiplex national DTH (16 chaînes TV et 4 radios)."
+            },
+            {
+                "step": "2",
+                "title": "Expansion VOD",
+                "description": "Intégration de tous types de vidéo à la demande : SVOD, TVOD et AVOD."
+            },
+            {
+                "step": "3",
+                "title": "Disponibilité Multi-plateforme",
+                "description": "Application disponible sur IOS, Android et Web sous une charte graphique personnalisée."
+            },
+            {
+                "step": "4",
+                "title": "Gestion Adaptive (ABR)",
+                "description": "Débit adaptatif (Multi-bitrate) s'ajustant automatiquement à la connexion de l'utilisateur."
+            }
+        ]
+    },
+    "technicalData": {
+        "title": "Détails Techniques",
+        "networks": [
+            {
+                "name": "Multiplex OTT",
+                "description": "Capacité de diffusion et gestion de flux.",
+                "parameters": [
+                    { "label": "Chaînes TV", "value": "16 nationales" },
+                    { "label": "Stations Radio", "value": "4 nationales" },
+                    { "label": "Débit Vidéo", "value": "600-1200 kbps" },
+                    { "label": "Standard", "value": "OTT / HLS" }
+                ]
+            }
+        ]
+    }
+}

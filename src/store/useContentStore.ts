@@ -45,6 +45,11 @@ export const INITIAL_CONTENT: Record<string, PageContent> = {
                     id: 'dtt', 
                     title: { ar: "البث التلفزيوني الأرضي (DTT)", fr: "Télévision Numérique Terrestre (DTT)" }, 
                     description: { ar: "تعهدت موريتانيا بالتحول الكامل إلى البث الرقمي الأرضي لضمان السيادة الإعلامية واستغلال أمثل للترددات.", fr: "La Mauritanie s'est engagée dans la transition vers le numérique terrestre pour assurer la souveraineté médiatique." }
+                },
+                { 
+                    id: 'ott', 
+                    title: { ar: "دمج OTT في خدمات المحتوى الرقمي", fr: "Intégration OTT et Contenu Numérique" }, 
+                    description: { ar: "نقدم منصة OTT متكاملة تتيح الوصول للمحتوى في كل وقت ومكان وعلى كافة الأجهزة، مكملة للبث التقليدي.", fr: "Plateforme OTT intégrée permettant l'accès au contenu partout et tout le temps sur tous les terminaux." }
                 }
             ] 
         } 
