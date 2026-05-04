@@ -52,7 +52,7 @@ export default async function ServiceDetailPage({
                         <div className="hidden lg:block relative">
                             <div className="absolute inset-0 bg-brand-green/20 blur-[100px] rounded-full"></div>
                             <div className="relative premium-card p-12 aspect-square flex items-center justify-center border-white/10">
-                                {id === 'tv' ? <Tv className="w-32 h-32 text-brand-green opacity-50" /> : <Radio className="w-32 h-32 text-brand-yellow opacity-50" />}
+                                {id === 'tv' || id === 'dtt' ? <Tv className="w-32 h-32 text-brand-green opacity-50" /> : <Radio className="w-32 h-32 text-brand-yellow opacity-50" />}
                             </div>
                         </div>
                     </div>

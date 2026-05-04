@@ -1,0 +1,55 @@
+{
+    "title": "Télévision Numérique Terrestre (DTT)",
+    "definition": "Les pays signataires du traité GE06 se sont engagés à remplacer la télévision analogique par le numérique. Pour la Mauritanie, les échéances étaient fixées au 17 juin 2015 (UHF) et 17 juin 2020 (VHF). La Mauritanie a respecté ses engagements en arrêtant l'analogique avant le 17 juin 2017.",
+    "audience": {
+        "title": "Objectifs de la Transition",
+        "items": [
+            "Amélioration de la qualité d'image et de son",
+            "Augmentation du nombre de chaînes disponibles",
+            "Souveraineté médiatique nationale",
+            "Indépendance technologique vis-à-vis du satellite",
+            "Optimisation de l'usage des fréquences"
+        ]
+    },
+    "steps": {
+        "title": "Stratégie et Plan d'Action",
+        "items": [
+            {
+                "step": "1",
+                "title": "Création de la CNMN",
+                "description": "Mise en place de la Commission Nationale pour la Transition vers le Numérique pour piloter le projet."
+            },
+            {
+                "step": "2",
+                "title": "Définition de la Stratégie",
+                "description": "Élaboration d'un plan d'action incluant les aspects techniques, juridiques et financiers."
+            },
+            {
+                "step": "3",
+                "title": "Modernisation Technique",
+                "description": "Acquisition d'une nouvelle tête de réseau DTH-DVB-T2 SIS incluant l'option DTT."
+            },
+            {
+                "step": "4",
+                "title": "Phase Pilote",
+                "description": "Mise en service d'un émetteur DVB-T2 de 1,5 kW à Nouakchott pour la phase de test."
+            }
+        ]
+    },
+    "technicalData": {
+        "title": "Capacités Techniques",
+        "networks": [
+            {
+                "name": "Station de Base",
+                "description": "Infrastructure prête pour le déploiement national du multiplex DTT.",
+                "parameters": [
+                    { "label": "Capacité TV", "value": "30 chaînes" },
+                    { "label": "Chaînes HD", "value": "8" },
+                    { "label": "Chaînes SD", "value": "22" },
+                    { "label": "Stations Radio", "value": "21" },
+                    { "label": "Standard", "value": "DVB-T2" }
+                ]
+            }
+        ]
+    }
+}

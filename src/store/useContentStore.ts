@@ -39,7 +39,12 @@ export const INITIAL_CONTENT: Record<string, PageContent> = {
                 { 
                     id: 'data', 
                     title: { ar: "خدمات نقل البيانات", fr: "Services de Données" }, 
-                    description: { ar: "بنية تحتية متينة لنقل البيانات والربط الفني بين المؤسسات الإعلامية عبر شبكاتنا المخصصة.", fr: "Infrastructure solide pour le transfert de données et la liaison technique entre médias." }
+                    description: { ar: "بنية تحتية متينة لنقل البيانات والربط الفني بين المؤسسات الإعلامية عبر شبكاتنا المخصصة.", fr: "Infrastructure solide pour le transfert de données et la livraison technique entre médias." }
+                },
+                { 
+                    id: 'dtt', 
+                    title: { ar: "البث التلفزيوني الأرضي (DTT)", fr: "Télévision Numérique Terrestre (DTT)" }, 
+                    description: { ar: "تعهدت موريتانيا بالتحول الكامل إلى البث الرقمي الأرضي لضمان السيادة الإعلامية واستغلال أمثل للترددات.", fr: "La Mauritanie s'est engagée dans la transition vers le numérique terrestre pour assurer la souveraineté médiatique." }
                 }
             ] 
         } 
