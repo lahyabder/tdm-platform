@@ -89,55 +89,6 @@ export default function AboutPage({
                     </div>
                 </header>
 
-                {/* 2. Director's Word - The Golden Card */}
-                <section className="mb-20">
-                    <div className="premium-card p-1 md:p-2 group">
-                        <div className="bg-slate-950/40 rounded-[2.4rem] p-6 md:p-10 relative overflow-hidden">
-                            {/* Abstract signal pattern background */}
-                            <div className="absolute inset-0 opacity-10 pointer-events-none">
-                                <div className="absolute top-0 right-0 w-full h-full border-[1px] border-white/10 rounded-full scale-150 -translate-y-1/2 translate-x-1/2"></div>
-                            </div>
-
-                            <div className="flex flex-col lg:flex-row gap-12 items-center lg:items-start relative z-10">
-                                <div className="w-full lg:w-[320px] shrink-0">
-                                    <div className="relative">
-                                        <div className="absolute -inset-4 bg-brand-green/20 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000"></div>
-                                        <div className="relative rounded-[3.5rem] overflow-hidden border-2 border-white/10 shadow-2xl bg-slate-900">
-                                            <img 
-                                                src={content.sections.director_word?.image || "/images/dg.png"} 
-                                                alt={content.sections.director_word?.author?.[locale]} 
-                                                className="w-full h-auto object-contain transition-all duration-1000 grayscale group-hover:grayscale-0 group-hover:scale-105"
-                                            />
-                                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
-                                        </div>
-                                        
-                                        <div className={`absolute -bottom-8 ${isAr ? '-left-8' : '-right-8'} bg-brand-yellow p-6 rounded-3xl shadow-[0_20px_50px_rgba(255,204,0,0.3)] border border-white/20`}>
-                                            <p className="text-black font-black text-lg leading-tight">{content.sections.director_word?.author?.[locale]}</p>
-                                            <p className="text-black/60 text-[10px] font-black uppercase tracking-widest mt-1">{isAr ? 'المدير العام' : 'Directeur Général'}</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="flex-1">
-                                    <div className="flex items-center gap-4 mb-10">
-                                        <div className="w-12 h-1 bg-brand-green"></div>
-                                        <h2 className="text-2xl font-black text-white tracking-wide">{content.sections.director_word?.title?.[locale]}</h2>
-                                    </div>
-                                    
-                                    <div className="relative">
-                                        <p className="text-slate-300 text-lg md:text-xl leading-[1.6] font-medium italic whitespace-pre-line">
-                                            {content.sections.director_word?.content?.[locale]}
-                                        </p>
-                                    </div>
-                                    
-                                    <div className="mt-12 pt-12 border-t border-white/10">
-                                        <img src="/logo.png" className="h-12 w-auto opacity-30 grayscale brightness-200" alt="TDM Logo" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
 
                 {/* 3. Strategic Grid */}
                 <section className="grid grid-cols-1 md:grid-cols-3 gap-8">

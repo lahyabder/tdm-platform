@@ -50,7 +50,7 @@ export default function AdminAboutEditor({
         setSections(newSections);
     };
 
-    if (!isClient || !sections.director_word) return null;
+    if (!isClient || !sections) return null;
 
     return (
         <div className="space-y-8 pb-20">
@@ -64,63 +64,9 @@ export default function AdminAboutEditor({
             </div>
 
             <div className="space-y-12">
-                {/* Director Word Section */}
-                <div className="bg-white p-8 rounded-sm border border-slate-200 shadow-sm space-y-8">
-                    <h2 className="text-xl font-black text-slate-800 border-b pb-4 flex items-center gap-3">
-                        <span className="w-2 h-8 bg-brand-yellow rounded-full"></span>
-                        {isAr ? 'كلمة المدير العام' : 'Mot du Directeur Général'}
-                    </h2>
-                    
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-                        {/* Image Upload */}
-                        <div className="space-y-4">
-                            <label className="admin-label">{isAr ? 'صورة المدير العام' : 'Photo du DG'}</label>
-                            <div className="relative aspect-[3/4] bg-slate-100 border-2 border-dashed border-slate-200 rounded-sm overflow-hidden flex items-center justify-center group">
-                                {sections.director_word.image ? (
-                                    <img src={sections.director_word.image} alt="DG" className="w-full h-full object-cover" />
-                                ) : (
-                                    <span className="text-slate-400 text-[10px] uppercase font-black">{isAr ? 'رفع صورة' : 'Uploader'}</span>
-                                )}
-                                <input type="file" className="absolute inset-0 opacity-0 cursor-pointer" onChange={(e) => {
-                                    const file = e.target.files?.[0];
-                                    if (file) {
-                                        const reader = new FileReader();
-                                        reader.onloadend = () => updateNestedField('director_word', 'image', null, reader.result);
-                                        reader.readAsDataURL(file);
-                                    }
-                                }} />
-                            </div>
-                        </div>
-
-                        {/* Text Content */}
-                        <div className="md:col-span-3 space-y-6">
-                            <div className="grid grid-cols-2 gap-4">
-                                <div className="space-y-2">
-                                    <label className="admin-label">{isAr ? 'الاسم (عربي)' : 'Nom (AR)'}</label>
-                                    <input className="admin-input" value={sections.director_word.author.ar} onChange={e => updateNestedField('director_word', 'author', 'ar', e.target.value)} />
-                                </div>
-                                <div className="space-y-2">
-                                    <label className="admin-label">{isAr ? 'الاسم (فرنسي)' : 'Nom (FR)'}</label>
-                                    <input className="admin-input" value={sections.director_word.author.fr} onChange={e => updateNestedField('director_word', 'author', 'fr', e.target.value)} />
-                                </div>
-                            </div>
-                            <div className="grid grid-cols-2 gap-4">
-                                <div className="space-y-2">
-                                    <label className="admin-label">{isAr ? 'المحتوى (عربي)' : 'Contenu (AR)'}</label>
-                                    <textarea rows={8} className="admin-textarea" value={sections.director_word.content.ar} onChange={e => updateNestedField('director_word', 'content', 'ar', e.target.value)} />
-                                </div>
-                                <div className="space-y-2">
-                                    <label className="admin-label">{isAr ? 'المحتوى (فرنسي)' : 'Contenu (FR)'}</label>
-                                    <textarea rows={8} className="admin-textarea" value={sections.director_word.content.fr} onChange={e => updateNestedField('director_word', 'content', 'fr', e.target.value)} />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
                 {/* Other Sections */}
                 {Object.entries(sections).map(([key, section]: [string, any]) => {
-                    if (key === 'director_word') return null;
                     return (
                         <div key={key} className="bg-white p-8 rounded-sm border border-slate-200 shadow-sm space-y-8">
                             <h2 className="text-xl font-black text-slate-800 border-b pb-4 flex items-center gap-3">
