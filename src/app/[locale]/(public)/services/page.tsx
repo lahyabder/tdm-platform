@@ -93,7 +93,7 @@ export default function ServicesPage({
                                         {item.title[locale as 'ar' | 'fr']}
                                     </h3>
                                     
-                                    <p className="text-slate-400 font-medium leading-relaxed mb-8 flex-1">
+                                    <p className="text-slate-300 font-medium leading-relaxed mb-8 flex-1">
                                         {item.description[locale as 'ar' | 'fr']}
                                     </p>
                                     
@@ -101,7 +101,7 @@ export default function ServicesPage({
                                         {(item.features?.[locale as 'ar' | 'fr'] || []).map((f: any, idx: number) => (
                                             <div key={idx} className="flex items-center gap-3">
                                                 <div className="w-1.5 h-1.5 bg-brand-yellow rounded-full"></div>
-                                                <span className="text-xs font-bold text-slate-300">{f}</span>
+                                                <span className="text-xs font-bold text-slate-100">{f}</span>
                                             </div>
                                         ))}
                                     </div>

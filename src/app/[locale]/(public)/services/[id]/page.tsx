@@ -105,9 +105,9 @@ export default async function ServiceDetailPage({
                                 <div className="shrink-0 w-12 h-12 rounded-full bg-brand-dark border-2 border-brand-yellow flex items-center justify-center font-black text-white shadow-[0_0_15px_rgba(234,179,8,0.3)]">
                                     {step.step}
                                 </div>
-                                <div className="flex-1 bg-white/[0.03] p-6 rounded-2xl border border-white/10 group hover:border-brand-yellow/30 transition-all">
+                                        <div className="flex-1 bg-white/[0.05] p-6 rounded-2xl border border-white/20 group hover:border-brand-yellow/50 transition-all">
                                     <h3 className="text-xl font-black text-white mb-3">{step.title}</h3>
-                                    <p className="text-slate-400 font-medium leading-relaxed">
+                                    <p className="text-slate-200 font-medium leading-relaxed">
                                         {step.description}
                                     </p>
                                 </div>
@@ -132,11 +132,11 @@ export default async function ServiceDetailPage({
                                     <h3 className="text-lg font-bold text-white mb-2">{network.name}</h3>
                                     <p className="text-sm text-slate-200 mb-4">{network.description}</p>
                                     {network.parameters && network.parameters.length > 0 && (
-                                        <div className="space-y-2 mt-4 bg-white/5 p-5 rounded-2xl border border-white/10">
+                                        <div className="space-y-2 mt-4 bg-brand-dark/40 p-5 rounded-2xl border border-white/20">
                                             {network.parameters.map((param: any, pIdx: number) => (
                                                 <div key={pIdx} className="flex justify-between items-center text-sm border-b border-white/10 pb-2 last:border-0 last:pb-0">
-                                                    <span className="font-semibold text-slate-300">{param.label}</span>
-                                                    <span className="text-brand-green font-mono font-bold bg-brand-green/5 px-2 py-0.5 rounded">{param.value}</span>
+                                                    <span className="font-black text-slate-100">{param.label}</span>
+                                                    <span className="text-brand-green font-mono font-black bg-brand-green/10 px-2 py-0.5 rounded">{param.value}</span>
                                                 </div>
                                             ))}
                                         </div>
@@ -163,11 +163,11 @@ export default async function ServiceDetailPage({
                             {content.pricing.categories.map((category: any, idx: number) => (
                                 <div key={idx} className="bg-brand-card p-6 rounded-sm border border-white/20 hover:border-brand-green/50 transition-colors">
                                     <h3 className="text-lg font-bold text-white mb-4">{category.name}</h3>
-                                    <div className="space-y-3 bg-white/5 p-5 rounded-2xl border border-white/10">
+                                    <div className="space-y-3 bg-brand-dark/40 p-5 rounded-2xl border border-white/20">
                                         {category.items.map((item: any, iIdx: number) => (
                                             <div key={iIdx} className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-4 text-sm border-b border-white/10 pb-3 last:border-0 last:pb-0">
-                                                <span className="font-medium text-slate-200 leading-relaxed flex-1">{item.label}</span>
-                                                <span className="text-brand-green font-mono font-bold bg-brand-green/5 px-3 py-1.5 rounded text-right w-full sm:w-auto break-words">{item.value}</span>
+                                                <span className="font-black text-slate-100 leading-relaxed flex-1">{item.label}</span>
+                                                <span className="text-brand-green font-mono font-black bg-brand-green/10 px-3 py-1.5 rounded text-right w-full sm:w-auto break-words">{item.value}</span>
                                             </div>
                                         ))}
                                     </div>

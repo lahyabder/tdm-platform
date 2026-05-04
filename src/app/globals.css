@@ -19,8 +19,8 @@
   --color-brand-dark-2: #081220;
 
   /* Card surfaces — glassmorphism inspired */
-  --color-brand-card: rgba(255, 255, 255, 0.03);
-  --color-brand-card-hover: rgba(255, 255, 255, 0.06);
+  --color-brand-card: rgba(255, 255, 255, 0.04);
+  --color-brand-card-hover: rgba(255, 255, 255, 0.08);
 
   /* Font System */
   --font-sans: var(--font-louguiya, var(--font-louguiya-fr, var(--font-tajawal, var(--font-inter, sans-serif))));
@@ -60,9 +60,10 @@
 
 body {
   background: var(--color-brand-dark);
-  color: var(--foreground);
+  color: #f8fafc; /* Brighter foreground for better contrast */
   font-family: 'Louguiya', 'LouguiyaFR', var(--font-tajawal), sans-serif !important;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 /* --- Ultra-Premium Design System --- */
@@ -75,29 +76,29 @@ body {
 }
 
 .premium-card {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 2rem;
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .premium-card:hover {
   background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(0, 169, 92, 0.3);
+  border-color: rgba(0, 169, 92, 0.4);
   transform: translateY(-5px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(0, 169, 92, 0.05);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(0, 169, 92, 0.1);
 }
 
 .waves-pattern {
-  background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.02) 1px, transparent 0);
-  background-size: 40px 40px;
+  background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.03) 1px, transparent 0);
+  background-size: 50px 50px;
 }
 
 .glass-button {
   @apply px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-[0.2em] transition-all duration-500 flex items-center justify-center gap-3;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   color: white;
 }
 

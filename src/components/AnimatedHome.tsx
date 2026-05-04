@@ -83,7 +83,7 @@ export function AnimatedHome({ locale, content: initialContent }: { locale: stri
                             </span>
                         </motion.h1>
 
-                        <motion.p variants={itemFadeUp} className="text-base sm:text-lg text-slate-400 font-normal leading-relaxed max-w-3xl mx-auto">
+                        <motion.p variants={itemFadeUp} className="text-base sm:text-lg text-slate-200 font-medium leading-relaxed max-w-3xl mx-auto">
                             {hero.subtitle?.[locale]}
                         </motion.p>
 
@@ -147,7 +147,7 @@ export function AnimatedHome({ locale, content: initialContent }: { locale: stri
                                             {serviceIcons[idx] || <Zap className="w-6 h-6" />}
                                         </div>
                                         <h3 className={`${idx === 0 ? 'text-4xl' : 'text-2xl'} font-black text-white mb-4 leading-tight`}>{service.title?.[locale]}</h3>
-                                        <p className="text-slate-400 font-medium text-sm leading-relaxed">{service.description?.[locale]}</p>
+                                        <p className="text-slate-300 font-bold text-sm leading-relaxed">{service.description?.[locale]}</p>
                                     </div>
                                 </div>
                             </motion.div>
@@ -179,7 +179,7 @@ export function AnimatedHome({ locale, content: initialContent }: { locale: stri
                                             <ArrowUpRight className="w-5 h-5 text-slate-600 group-hover:text-brand-green group-hover:rotate-45 transition-all" />
                                         </div>
                                         <h3 className="text-xl font-bold text-white mb-4 group-hover:text-brand-green transition-colors leading-tight">{newsItem.title?.[locale]}</h3>
-                                        <p className="text-slate-400 text-sm font-medium leading-relaxed line-clamp-3 mb-6 flex-1">{newsItem.summary?.[locale]}</p>
+                                        <p className="text-slate-300 text-sm font-bold leading-relaxed line-clamp-3 mb-6 flex-1">{newsItem.summary?.[locale]}</p>
                                     </div>
                                 </Link>
                             </motion.div>

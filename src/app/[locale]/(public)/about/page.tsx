@@ -125,7 +125,7 @@ export default function AboutPage({
                         {isAr ? 'الرقمي' : 'Excellence'}
                     </h1>
                     
-                    <p className="max-w-2xl mx-auto text-sm text-slate-400 font-normal leading-relaxed mb-10">
+                    <p className="max-w-2xl mx-auto text-sm md:text-base text-slate-200 font-bold leading-relaxed mb-10">
                          {isAr ? 'المحرك التقني للسيادة الإعلامية الموريتانية، نربط الوطن بالعالم عبر أحدث تكنولوجيات البث.' : 'Le moteur technologique de la souveraineté médiatique mauritanienne.'}
                     </p>
 
@@ -152,9 +152,9 @@ export default function AboutPage({
                                 {item.icon}
                             </div>
                             <h3 className="text-lg font-bold text-white mb-3">{item.title[locale as 'ar' | 'fr']}</h3>
-                            <p className="text-sm text-slate-400 font-normal leading-relaxed">
-                                {item.text[locale as 'ar' | 'fr']}
-                            </p>
+                             <p className="text-sm text-slate-200 font-bold leading-relaxed">
+                                 {item.text[locale as 'ar' | 'fr']}
+                             </p>
                         </div>
                     ))}
                 </section>
