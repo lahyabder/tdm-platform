@@ -90,16 +90,16 @@ export default function AboutPage({
                 </header>
 
                 {/* 2. Director's Word - The Golden Card */}
-                <section className="mb-20">
+                <section className="mb-16">
                     <div className="premium-card p-1 md:p-2 group">
-                        <div className="bg-slate-950/40 rounded-[2.4rem] p-6 md:p-10 relative overflow-hidden">
+                        <div className="bg-slate-950/40 rounded-[2.4rem] p-6 md:p-8 relative overflow-hidden">
                             {/* Abstract signal pattern background */}
                             <div className="absolute inset-0 opacity-10 pointer-events-none">
                                 <div className="absolute top-0 right-0 w-full h-full border-[1px] border-white/10 rounded-full scale-150 -translate-y-1/2 translate-x-1/2"></div>
                             </div>
 
-                            <div className="flex flex-col lg:flex-row gap-12 items-center lg:items-start relative z-10">
-                                <div className="w-full lg:w-[320px] shrink-0">
+                            <div className="flex flex-col lg:flex-row gap-8 items-center lg:items-center relative z-10">
+                                <div className="w-full lg:w-[260px] shrink-0">
                                     <div className="relative">
                                         <div className="absolute -inset-4 bg-brand-green/20 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000"></div>
                                         <div className="relative rounded-[3.5rem] overflow-hidden border-2 border-white/10 shadow-2xl bg-slate-900">
@@ -132,8 +132,8 @@ export default function AboutPage({
                                         </p>
                                     </div>
                                     
-                                    <div className="mt-12 pt-12 border-t border-white/10">
-                                        <img src="/logo.png" className="h-12 w-auto opacity-30 grayscale brightness-200" alt="TDM Logo" />
+                                    <div className="mt-8 pt-8 border-t border-white/10">
+                                        <img src="/logo.png" className="h-10 w-auto opacity-30 grayscale brightness-200" alt="TDM Logo" />
                                     </div>
                                 </div>
                             </div>
