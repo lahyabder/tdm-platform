@@ -92,21 +92,25 @@ export default async function DataHubPage({
     return (
         <main className="min-h-screen pb-32 bg-mesh">
             {/* Header / Hero Section */}
-            <section className="bg-brand-dark pt-32 pb-48 text-white relative overflow-hidden">
-                <div className="absolute inset-0 opacity-20">
-                    <div className="absolute top-0 left-0 w-full h-full waves-pattern"></div>
+            <section className="bg-brand-dark pt-32 pb-56 text-white relative overflow-hidden">
+                <div className="absolute inset-0">
+                    <img src="/data_bg.jpg" alt="Data background" className="w-full h-full object-cover opacity-10 mix-blend-luminosity" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-brand-dark via-brand-dark/90 to-brand-dark"></div>
                 </div>
                 
                 {/* Decorative mesh blobs */}
-                <div className="absolute -top-24 -right-24 w-96 h-96 bg-brand-green/10 blur-[120px] rounded-full"></div>
-                <div className="absolute bottom-0 -left-24 w-96 h-96 bg-brand-yellow/5 blur-[120px] rounded-full"></div>
+                <div className="absolute -top-24 -right-24 w-96 h-96 bg-brand-green/20 blur-[120px] rounded-full"></div>
+                <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-brand-yellow/10 blur-[120px] rounded-full"></div>
 
                 <div className="max-w-5xl mx-auto px-6 relative z-10 text-center">
-                    <h1 className="text-5xl md:text-7xl font-black mb-8 tracking-tighter leading-tight glow-text-gold">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-8 backdrop-blur-md">
+                        <span className="w-2 h-2 rounded-full bg-brand-green animate-pulse"></span>
+                        <span className="text-xs font-black uppercase tracking-widest text-slate-300">{locale === 'ar' ? 'البيانات المفتوحة' : 'Open Data'}</span>
+                    </div>
+                    <h1 className="text-6xl md:text-8xl font-black mb-8 tracking-tighter leading-[0.9] glow-text-gold">
                         {content.title}
                     </h1>
-                    <div className="w-24 h-2 bg-gradient-to-r from-brand-green via-brand-yellow to-brand-red mx-auto mb-10 rounded-full"></div>
-                    <p className="text-xl md:text-2xl text-slate-300 leading-relaxed max-w-3xl mx-auto font-medium">
+                    <p className="text-xl md:text-2xl text-slate-400 leading-relaxed max-w-3xl mx-auto font-medium">
                         {content.subtitle}
                     </p>
                 </div>
