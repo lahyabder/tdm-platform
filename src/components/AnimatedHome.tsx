@@ -133,7 +133,7 @@ export function AnimatedHome({ locale, content: initialContent }: { locale: stri
                     </motion.div>
 
                     <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
-                        {services.map((service, idx) => (
+                        {services.map((service: any, idx: number) => (
                             <motion.div 
                                 key={service.id}
                                 initial={{ opacity: 0, scale: 0.95 }} 

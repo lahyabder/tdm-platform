@@ -2,6 +2,7 @@
 
 import { useState, useEffect, use } from 'react';
 import { useContentStore } from '@/store/useContentStore';
+import Link from 'next/link';
 
 export default function AdminLegalEditor({
     params,

@@ -73,7 +73,7 @@ export default function ServicesPage({
 
                 {/* Services Grid */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    {servicesItems.map((item, i) => (
+                    {servicesItems.map((item: any, i: number) => (
                         <motion.div
                             key={item.id}
                             initial={{ opacity: 0, y: 30 }}
@@ -98,7 +98,7 @@ export default function ServicesPage({
                                     </p>
                                     
                                     <div className="space-y-3 mb-10">
-                                        {item.features[locale as 'ar' | 'fr'].map((f, idx) => (
+                                        {item.features[locale as 'ar' | 'fr'].map((f: any, idx: number) => (
                                             <div key={idx} className="flex items-center gap-3">
                                                 <div className="w-1.5 h-1.5 bg-brand-yellow rounded-full"></div>
                                                 <span className="text-xs font-bold text-slate-300">{f}</span>
