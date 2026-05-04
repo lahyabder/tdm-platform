@@ -105,9 +105,9 @@ export default async function ServiceDetailPage({
                                 <div className="shrink-0 w-12 h-12 rounded-full bg-brand-dark border-2 border-brand-yellow flex items-center justify-center font-black text-white shadow-[0_0_15px_rgba(234,179,8,0.3)]">
                                     {step.step}
                                 </div>
-                                        <div className="flex-1 bg-white/[0.05] p-6 rounded-2xl border border-white/20 group hover:border-brand-yellow/50 transition-all">
-                                    <h3 className="text-xl font-black text-white mb-3">{step.title}</h3>
-                                    <p className="text-slate-200 font-medium leading-relaxed">
+                                <div className="flex-1 bg-slate-900 p-6 rounded-2xl border border-white/20 group hover:border-brand-yellow/50 transition-all">
+                                    <h3 className="text-2xl font-black text-white mb-3">{step.title}</h3>
+                                    <p className="text-white font-bold leading-relaxed">
                                         {step.description}
                                     </p>
                                 </div>
@@ -132,11 +132,11 @@ export default async function ServiceDetailPage({
                                     <h3 className="text-lg font-bold text-white mb-2">{network.name}</h3>
                                     <p className="text-sm text-slate-200 mb-4">{network.description}</p>
                                     {network.parameters && network.parameters.length > 0 && (
-                                        <div className="space-y-2 mt-4 bg-brand-dark/40 p-5 rounded-2xl border border-white/20">
+                                        <div className="space-y-2 mt-4 bg-slate-950 p-6 rounded-2xl border border-white/20 shadow-inner">
                                             {network.parameters.map((param: any, pIdx: number) => (
-                                                <div key={pIdx} className="flex justify-between items-center text-sm border-b border-white/10 pb-2 last:border-0 last:pb-0">
-                                                    <span className="font-black text-slate-100">{param.label}</span>
-                                                    <span className="text-brand-green font-mono font-black bg-brand-green/10 px-2 py-0.5 rounded">{param.value}</span>
+                                                <div key={pIdx} className="flex justify-between items-center text-sm border-b border-white/10 pb-3 last:border-0 last:pb-0">
+                                                    <span className="font-black text-white">{param.label}</span>
+                                                    <span className="text-brand-yellow font-mono font-black bg-brand-yellow/10 px-3 py-1 rounded">{param.value}</span>
                                                 </div>
                                             ))}
                                         </div>
@@ -163,11 +163,11 @@ export default async function ServiceDetailPage({
                             {content.pricing.categories.map((category: any, idx: number) => (
                                 <div key={idx} className="bg-brand-card p-6 rounded-sm border border-white/20 hover:border-brand-green/50 transition-colors">
                                     <h3 className="text-lg font-bold text-white mb-4">{category.name}</h3>
-                                    <div className="space-y-3 bg-brand-dark/40 p-5 rounded-2xl border border-white/20">
+                                    <div className="space-y-4 bg-slate-950 p-6 rounded-2xl border border-white/20 shadow-inner">
                                         {category.items.map((item: any, iIdx: number) => (
-                                            <div key={iIdx} className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-4 text-sm border-b border-white/10 pb-3 last:border-0 last:pb-0">
-                                                <span className="font-black text-slate-100 leading-relaxed flex-1">{item.label}</span>
-                                                <span className="text-brand-green font-mono font-black bg-brand-green/10 px-3 py-1.5 rounded text-right w-full sm:w-auto break-words">{item.value}</span>
+                                            <div key={iIdx} className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-6 text-sm border-b border-white/10 pb-4 last:border-0 last:pb-0">
+                                                <span className="font-black text-white leading-relaxed flex-1">{item.label}</span>
+                                                <span className="text-brand-green font-mono font-black bg-brand-green/20 px-4 py-2 rounded text-right w-full sm:w-auto break-words shadow-sm">{item.value}</span>
                                             </div>
                                         ))}
                                     </div>
@@ -203,8 +203,8 @@ export default async function ServiceDetailPage({
                             {content.channels.items.map((channel: any, idx: number) => {
                                 const initials = channel.name.split(' ').map((n: string) => n[0]).join('').substring(0, 2);
                                 return (
-                                    <div key={idx} className="flex items-center gap-4 bg-brand-card p-4 rounded-sm border border-white/20 hover:border-brand-red/50 hover:bg-brand-card-hover transition-all group">
-                                        <div className="w-14 h-14 flex-shrink-0 rounded-xl flex items-center justify-center border border-white/20 shadow-sm overflow-hidden group-hover:border-brand-red/40 transition-colors relative bg-brand-dark">
+                                    <div key={idx} className="flex items-center gap-4 bg-slate-900/80 p-5 rounded-2xl border border-white/10 hover:border-brand-red/50 hover:bg-slate-900 transition-all group shadow-lg">
+                                        <div className="w-16 h-16 flex-shrink-0 rounded-xl flex items-center justify-center border-2 border-white/10 shadow-sm overflow-hidden group-hover:border-brand-red/40 transition-colors relative bg-brand-dark">
                                             {channel.logo ? (
                                                 <img 
                                                     src={channel.logo} 
@@ -247,8 +247,8 @@ export default async function ServiceDetailPage({
                             {content.stations.items.map((station: any, idx: number) => {
                                 const initials = station.name.split(' ').map((n: string) => n[0]).join('').substring(0, 2);
                                 return (
-                                    <div key={idx} className="flex items-center gap-4 bg-brand-card p-4 rounded-sm border border-white/20 hover:border-brand-green/50 hover:bg-brand-card-hover transition-all group">
-                                        <div className="w-14 h-14 flex-shrink-0 rounded-xl flex items-center justify-center border border-white/20 overflow-hidden group-hover:border-brand-green/40 transition-colors relative bg-brand-dark">
+                                    <div key={idx} className="flex items-center gap-4 bg-slate-900/80 p-5 rounded-2xl border border-white/10 hover:border-brand-green/50 hover:bg-slate-900 transition-all group shadow-lg">
+                                        <div className="w-16 h-16 flex-shrink-0 rounded-xl flex items-center justify-center border-2 border-white/10 overflow-hidden group-hover:border-brand-green/40 transition-colors relative bg-brand-dark">
                                             {station.logo ? (
                                                 <img
                                                     src={station.logo}

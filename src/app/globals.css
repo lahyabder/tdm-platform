@@ -14,13 +14,13 @@
   --color-brand-green: #00A95C;
   --color-brand-red: #D01C1F;
 
-  /* Unified Dark Background — deep midnight blue/green */
-  --color-brand-dark: #050B14;
-  --color-brand-dark-2: #081220;
+  /* Unified Dark Background — deepest possible midnight blue */
+  --color-brand-dark: #020617;
+  --color-brand-dark-2: #030712;
 
-  /* Card surfaces — glassmorphism inspired */
-  --color-brand-card: rgba(255, 255, 255, 0.04);
-  --color-brand-card-hover: rgba(255, 255, 255, 0.08);
+  /* Card surfaces — high contrast dark */
+  --color-brand-card: rgba(15, 23, 42, 0.6);
+  --color-brand-card-hover: rgba(30, 41, 59, 0.8);
 
   /* Font System */
   --font-sans: var(--font-louguiya, var(--font-louguiya-fr, var(--font-tajawal, var(--font-inter, sans-serif))));
