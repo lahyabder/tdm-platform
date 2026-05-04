@@ -53,43 +53,8 @@ export default function AboutPage({
 
             <div className="max-w-7xl mx-auto px-6 relative z-10">
                 
-                {/* 1. Institutional Hero Header */}
-                <header className="mb-12 text-center relative">
-                    <motion.div 
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.8 }}
-                        className="inline-flex items-center gap-3 px-6 py-2 bg-white/5 border border-white/10 rounded-full mb-8 backdrop-blur-xl"
-                    >
-                        <span className="w-2 h-2 bg-brand-green rounded-full animate-ping"></span>
-                        <span className="text-[10px] font-black text-slate-300 uppercase tracking-[0.4em]">
-                            {isAr ? 'البث الإذاعي والتلفزيوني الموريتاني' : 'Télédiffusion de Mauritanie'}
-                        </span>
-                    </motion.div>
-                    
-                    <h1 className="text-3xl md:text-4xl lg:text-4xl font-bold text-white tracking-tight leading-tight mb-6">
-                        {isAr ? 'ريادة' : 'Leadership'}{" "}
-                        <span className="glow-text-gold">{isAr ? 'المشهد' : 'Digital'}</span>{" "}
-                        {isAr ? 'الرقمي' : 'Excellence'}
-                    </h1>
-                    
-                    <p className="max-w-2xl mx-auto text-sm text-slate-400 font-normal leading-relaxed mb-10">
-                         {isAr ? 'المحرك التقني للسيادة الإعلامية الموريتانية، نربط الوطن بالعالم عبر أحدث تكنولوجيات البث.' : 'Le moteur technologique de la souveraineté médiatique mauritanienne.'}
-                    </p>
-
-                    <div className="flex flex-wrap justify-center gap-8 md:gap-16">
-                        {stats.map((s, i) => (
-                            <div key={i} className="flex flex-col items-center">
-                                <div className="text-brand-green mb-2">{s.icon}</div>
-                                <span className="text-xl font-bold text-white mb-1">{s.value}</span>
-                                <span className="text-[10px] text-slate-500 font-semibold uppercase tracking-wider">{s.label[locale as 'ar' | 'fr']}</span>
-                            </div>
-                        ))}
-                    </div>
-                </header>
-
                 {/* 2. Director's Word - The Golden Card */}
-                <section className="mb-16">
+                <section className="mb-24">
                     <div className="premium-card p-1 md:p-2 group">
                         <div className="bg-slate-950/40 rounded-[2.4rem] p-6 md:p-8 relative overflow-hidden">
                             {/* Abstract signal pattern background */}
@@ -139,6 +104,41 @@ export default function AboutPage({
                         </div>
                     </div>
                 </section>
+
+                {/* 1. Institutional Hero Header */}
+                <header className="mb-24 text-center relative">
+                    <motion.div 
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.8 }}
+                        className="inline-flex items-center gap-3 px-6 py-2 bg-white/5 border border-white/10 rounded-full mb-8 backdrop-blur-xl"
+                    >
+                        <span className="w-2 h-2 bg-brand-green rounded-full animate-ping"></span>
+                        <span className="text-[10px] font-black text-slate-300 uppercase tracking-[0.4em]">
+                            {isAr ? 'البث الإذاعي والتلفزيوني الموريتاني' : 'Télédiffusion de Mauritanie'}
+                        </span>
+                    </motion.div>
+                    
+                    <h1 className="text-3xl md:text-4xl lg:text-4xl font-bold text-white tracking-tight leading-tight mb-6">
+                        {isAr ? 'ريادة' : 'Leadership'}{" "}
+                        <span className="glow-text-gold">{isAr ? 'المشهد' : 'Digital'}</span>{" "}
+                        {isAr ? 'الرقمي' : 'Excellence'}
+                    </h1>
+                    
+                    <p className="max-w-2xl mx-auto text-sm text-slate-400 font-normal leading-relaxed mb-10">
+                         {isAr ? 'المحرك التقني للسيادة الإعلامية الموريتانية، نربط الوطن بالعالم عبر أحدث تكنولوجيات البث.' : 'Le moteur technologique de la souveraineté médiatique mauritanienne.'}
+                    </p>
+
+                    <div className="flex flex-wrap justify-center gap-8 md:gap-16">
+                        {stats.map((s, i) => (
+                            <div key={i} className="flex flex-col items-center">
+                                <div className="text-brand-green mb-2">{s.icon}</div>
+                                <span className="text-xl font-bold text-white mb-1">{s.value}</span>
+                                <span className="text-[10px] text-slate-500 font-semibold uppercase tracking-wider">{s.label[locale as 'ar' | 'fr']}</span>
+                            </div>
+                        ))}
+                    </div>
+                </header>
 
                 {/* 3. Strategic Grid */}
                 <section className="grid grid-cols-1 md:grid-cols-3 gap-8">
