@@ -29,10 +29,14 @@ export async function getPageContent(locale: string, pageKey: string) {
 const SERVICE_ID_MAP: Record<string, string> = {
     'tv': 'tv_broadcasting',
     'radio': 'radio_broadcasting',
+    'fm': 'radio_broadcasting',
     'data': 'data_transmission',
     'internet': 'internet_broadcasting',
+    'ott': 'internet_broadcasting',
     'infrastructure': 'multimedia_services',
-    'commercial': 'commercial_service'
+    'multimedia': 'multimedia_services',
+    'commercial': 'commercial_service',
+    'hosting': 'commercial_service'
 };
 
 export async function getServiceDetailContent(locale: string, id: string): Promise<any> {

@@ -4,14 +4,7 @@ import Link from 'next/link';
 import { Tv, Radio } from 'lucide-react';
 import { ClientLogo } from '@/components/ui/ClientLogo';
 
-const SERVICE_ID_MAP: Record<string, string> = {
-    'tv': 'tv_broadcasting',
-    'radio': 'radio_broadcasting',
-    'data': 'data_transmission',
-    'internet': 'internet_broadcasting',
-    'infrastructure': 'multimedia_services',
-    'commercial': 'commercial_service'
-};
+
 
 export default async function ServiceDetailPage({
     params,
@@ -21,7 +14,7 @@ export default async function ServiceDetailPage({
     const resolvedParams = await params;
     const { locale, id } = resolvedParams;
     const content = await getServiceDetailContent(locale, id);
-    const fileId = SERVICE_ID_MAP[id] || id;
+    const fileId = id; // The mapping is now handled inside getServiceDetailContent
 
     if (!content) {
         return notFound();
@@ -68,9 +61,8 @@ export default async function ServiceDetailPage({
 
             <div className="max-w-4xl mx-auto px-6 -mt-16 space-y-12 relative z-20">
 
-                {/* 2. Target Audience */}
-                {content.audience && (
-                <div className="premium-card p-10 border-t-4 border-t-brand-green relative overflow-hidden">
+                {content.audience && content.audience.items && content.audience.items.length > 0 && (
+                <div className="premium-card p-10 border-t-4 border-t-brand-green relative overflow-hidden bg-slate-900/90 shadow-2xl">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-brand-green/5 blur-3xl rounded-full"></div>
                     <h2 className="text-3xl font-black text-white mb-10 flex items-center gap-4">
                         <div className="w-12 h-12 bg-brand-green/10 text-brand-green rounded-xl flex items-center justify-center border border-brand-green/20">
@@ -89,9 +81,8 @@ export default async function ServiceDetailPage({
                 </div>
                 )}
 
-                {/* 3. Steps / How to Benefit */}
-                {content.steps && (
-                <div className="premium-card p-10 border-t-4 border-t-brand-yellow relative overflow-hidden">
+                {content.steps && content.steps.items && content.steps.items.length > 0 && (
+                <div className="premium-card p-10 border-t-4 border-t-brand-yellow relative overflow-hidden bg-slate-900/90 shadow-2xl">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-brand-yellow/5 blur-3xl rounded-full"></div>
                     <h2 className="text-3xl font-black text-white mb-12 flex items-center gap-4">
                         <div className="w-12 h-12 bg-brand-yellow/10 text-brand-yellow rounded-xl flex items-center justify-center border border-brand-yellow/20">
