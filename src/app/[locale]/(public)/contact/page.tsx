@@ -135,13 +135,6 @@ export default function ContactPage({
                             ))}
                         </div>
 
-                        {/* Visual Ornament */}
-                        <div className="mt-12 p-8 bg-gradient-to-br from-brand-green/20 to-transparent rounded-[2.5rem] border border-white/5 relative overflow-hidden group">
-                             <div className="absolute inset-0 bg-mesh opacity-20"></div>
-                             <p className="mt-4 text-slate-300 font-medium text-sm leading-relaxed relative z-10">
-                                {isAr ? 'تقع مكاتبنا في قلب العاصمة انواكشوط، مجهزة بأحدث مراكز التحكم والإدارة.' : 'Nos bureaux sont situés au cœur de Nouakchott, équipés de centres de contrôle.'}
-                             </p>
-                        </div>
                     </div>
 
                     {/* Right: Premium Form */}
