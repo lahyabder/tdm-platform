@@ -112,7 +112,7 @@ export default function AboutPage({
                                                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent"></div>
                                                 <div className="absolute bottom-6 left-6 right-6">
                                                     <div className="w-8 h-1 bg-brand-green mb-3"></div>
-                                                    <h3 className="text-white font-bold text-lg">{content.sections.director_word?.name?.[locale]}</h3>
+                                                    <h3 className="text-white font-bold text-lg">{content.sections.director_word?.name?.[locale] || content.sections.director_word?.author?.[locale]}</h3>
                                                     <p className="text-brand-yellow font-normal text-xs">{content.sections.director_word?.role?.[locale]}</p>
                                                 </div>
                                             </div>
