@@ -90,41 +90,68 @@ export default async function DataHubPage({
     }[locale as 'ar' | 'fr'];
 
     return (
-        <main className="min-h-screen pb-24">
-            {/* Header */}
-            <section className="bg-brand-dark pt-24 pb-32 text-white relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-brand-dark to-brand-green/20"></div>
-                <div className="absolute bottom-0 w-full h-1 bg-gradient-to-r from-brand-green via-brand-yellow to-brand-red"></div>
-                <div className="max-w-6xl mx-auto px-6 relative z-10 text-center">
-                    <h1 className="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight">
+        <main className="min-h-screen pb-32 bg-mesh">
+            {/* Header / Hero Section */}
+            <section className="bg-brand-dark pt-32 pb-48 text-white relative overflow-hidden">
+                <div className="absolute inset-0 opacity-20">
+                    <div className="absolute top-0 left-0 w-full h-full waves-pattern"></div>
+                </div>
+                
+                {/* Decorative mesh blobs */}
+                <div className="absolute -top-24 -right-24 w-96 h-96 bg-brand-green/10 blur-[120px] rounded-full"></div>
+                <div className="absolute bottom-0 -left-24 w-96 h-96 bg-brand-yellow/5 blur-[120px] rounded-full"></div>
+
+                <div className="max-w-5xl mx-auto px-6 relative z-10 text-center">
+                    <h1 className="text-5xl md:text-7xl font-black mb-8 tracking-tighter leading-tight glow-text-gold">
                         {content.title}
                     </h1>
-                    <p className="text-lg md:text-xl text-slate-100 leading-relaxed max-w-2xl mx-auto">
+                    <div className="w-24 h-2 bg-gradient-to-r from-brand-green via-brand-yellow to-brand-red mx-auto mb-10 rounded-full"></div>
+                    <p className="text-xl md:text-2xl text-slate-300 leading-relaxed max-w-3xl mx-auto font-medium">
                         {content.subtitle}
                     </p>
                 </div>
             </section>
 
-            {/* Grid */}
-            <div className="max-w-6xl mx-auto px-6 -mt-16 relative z-20">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    {content.cards.map((card: any) => (
-                        <Link key={card.id} href={`/${locale}${card.link}`} className="block group">
-                            <div className={`bg-brand-card p-8 rounded-sm border border-white/20 hover:border-${card.color} hover:shadow-md transition-all h-full flex items-start gap-6`}>
-                                <div className={`p-4 bg-${card.color}/10 text-${card.color} rounded-sm group-hover:bg-${card.color} group-hover:text-white transition-colors shrink-0`}>
-                                    <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={card.icon} />
-                                    </svg>
+            {/* Grid of Interactive Cards */}
+            <div className="max-w-6xl mx-auto px-6 -mt-24 relative z-20">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    {content.cards.map((card: any) => {
+                        const iconColor = card.color === 'brand-green' ? 'text-brand-green' : 
+                                         card.color === 'brand-red' ? 'text-brand-red' : 
+                                         card.color === 'brand-yellow' ? 'text-brand-yellow' : 'text-white';
+                        
+                        const bgColor = card.color === 'brand-green' ? 'bg-brand-green/10' : 
+                                       card.color === 'brand-red' ? 'bg-brand-red/10' : 
+                                       card.color === 'brand-yellow' ? 'bg-brand-yellow/10' : 'bg-white/10';
+
+                        const hoverBorder = card.color === 'brand-green' ? 'hover:border-brand-green/40' : 
+                                           card.color === 'brand-red' ? 'hover:border-brand-red/40' : 
+                                           card.color === 'brand-yellow' ? 'hover:border-brand-yellow/40' : 'hover:border-white/40';
+
+                        return (
+                            <Link key={card.id} href={`/${locale}${card.link}`} className="block group">
+                                <div className={`premium-card p-10 h-full flex flex-col md:flex-row items-start gap-8 border-white/5 ${hoverBorder}`}>
+                                    <div className={`w-20 h-20 shrink-0 ${bgColor} ${iconColor} rounded-2xl flex items-center justify-center border border-white/10 group-hover:scale-110 transition-transform duration-500 shadow-xl`}>
+                                        <svg className="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d={card.icon} />
+                                        </svg>
+                                    </div>
+                                    <div className="flex-1">
+                                        <h2 className="text-3xl font-black text-white mb-4 group-hover:text-brand-green transition-colors leading-tight">
+                                            {card.title}
+                                        </h2>
+                                        <p className="text-lg text-slate-300 leading-relaxed font-bold opacity-80 group-hover:opacity-100 transition-opacity">
+                                            {card.desc}
+                                        </p>
+                                        <div className="mt-8 flex items-center gap-2 text-sm font-black text-brand-green uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-all transform translate-x-[-10px] group-hover:translate-x-0">
+                                            <span>{locale === 'ar' ? 'استكشاف' : 'Explorer'}</span>
+                                            <svg className={`w-4 h-4 ${locale === 'ar' ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div>
-                                    <h2 className={`text-2xl font-bold text-white mb-3 group-hover:text-${card.color} transition-colors`}>{card.title}</h2>
-                                    <p className="text-slate-100 leading-relaxed">
-                                        {card.desc}
-                                    </p>
-                                </div>
-                            </div>
-                        </Link>
-                    ))}
+                            </Link>
+                        );
+                    })}
                 </div>
             </div>
         </main>
