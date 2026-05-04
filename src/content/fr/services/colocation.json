@@ -1,0 +1,89 @@
+{
+    "title": "Colocalisation et Location",
+    "definition": "La TDM met ses infrastructures stratégiques à la disposition des chaînes TV, radios et opérateurs télécoms. La mutualisation vise à réduire les coûts d'investissement (CAPEX) et d'exploitation (OPEX), tout en améliorant la qualité de service et la rapidité de déploiement.",
+    "audience": {
+        "title": "Avantages de la Mutualisation",
+        "items": [
+            "Réduction des coûts d'énergie et de maintenance",
+            "Optimisation de la couverture réseau",
+            "Gestion efficace du spectre des fréquences",
+            "Déploiement rapide sur des sites existants",
+            "Réduction de l'empreinte carbone (RSE)"
+        ]
+    },
+    "steps": {
+        "title": "Offres de Colocalisation",
+        "items": [
+            {
+                "step": "1",
+                "title": "Pylônes et Antennes",
+                "description": "Partage des infrastructures verticales pour une couverture FM et DVB-T optimale."
+            },
+            {
+                "step": "2",
+                "title": "Salles Techniques",
+                "description": "Hébergement en salles climatisées et sécurisées avec énergie secourue."
+            },
+            {
+                "step": "3",
+                "title": "Contrats de Location",
+                "description": "Location d'équipements de diffusion pour les radios privées et partenaires."
+            },
+            {
+                "step": "4",
+                "title": "Support Technique",
+                "description": "Maintenance et assistance technique assurées 24h/24 et 7j/7."
+            }
+        ]
+    },
+    "technicalData": {
+        "title": "Pourquoi choisir TDM ?",
+        "networks": [
+            {
+                "name": "Services et Garanties",
+                "description": "Un environnement professionnel pour vos équipements.",
+                "parameters": [
+                    { "label": "Infrastructure", "value": "Moderne et performante" },
+                    { "label": "Sites", "value": "Stratégiques" },
+                    { "label": "Sécurité", "value": "Renforcée" },
+                    { "label": "Assistance", "value": "24/7" }
+                ]
+            }
+        ]
+    },
+    "pricing": {
+        "title": "Tarifs de Colocalisation",
+        "description": "Calculés selon le catalogue de prix approuvé par l'Autorité de Régulation (ARE).",
+        "categories": [
+            {
+                "name": "Bâtiments et Shelters",
+                "items": [
+                    { "label": "Espace climatisé", "value": "272 MRU / m³ / mois" },
+                    { "label": "Espace non climatisé", "value": "55 MRU / m³ / mois" }
+                ]
+            },
+            {
+                "name": "Terrains et Pylônes",
+                "items": [
+                    { "label": "Terrains nus", "value": "30 MRU / m² / mois" },
+                    { "label": "Accès par antenne", "value": "550 MRU / mois" },
+                    { "label": "Redevance par mètre", "value": "10 MRU / mois" }
+                ]
+            },
+            {
+                "name": "Énergie",
+                "items": [
+                    { "label": "Énergie Hôte", "value": "8.5 MRU / KWh" },
+                    { "label": "Énergie SOMELEC", "value": "1.2 × Tarif" }
+                ]
+            }
+        ],
+        "conditionsTitle": "Conditions de Paiement",
+        "conditions": [
+            "Paiement en deux tranches semestrielles égales.",
+            "Règlement sous 30 jours après réception.",
+            "Pénalités de retard de 3% applicables.",
+            "Paiement par virement bancaire uniquement."
+        ]
+    }
+}

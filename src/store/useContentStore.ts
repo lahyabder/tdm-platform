@@ -50,6 +50,11 @@ export const INITIAL_CONTENT: Record<string, PageContent> = {
                     id: 'ott', 
                     title: { ar: "دمج OTT في خدمات المحتوى الرقمي", fr: "Intégration OTT et Contenu Numérique" }, 
                     description: { ar: "نقدم منصة OTT متكاملة تتيح الوصول للمحتوى في كل وقت ومكان وعلى كافة الأجهزة، مكملة للبث التقليدي.", fr: "Plateforme OTT intégrée permettant l'accès au contenu partout et tout le temps sur tous les terminaux." }
+                },
+                { 
+                    id: 'colocation', 
+                    title: { ar: "التجميع المشترك والتأجير", fr: "Colocalisation et Location" }, 
+                    description: { ar: "استغلال البنية التحتية لـ TDM لتقليص تكاليف الاستثمار والتشغيل (CAPEX و OPEX) وتسريع النشر.", fr: "Exploitation de l'infrastructure TDM pour réduire les coûts CAPEX/OPEX et accélérer le déploiement." }
                 }
             ] 
         } 
