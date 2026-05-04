@@ -74,7 +74,7 @@ export default function AboutPage({
                     </h1>
                     
                     <p className="max-w-2xl mx-auto text-sm text-slate-400 font-normal leading-relaxed mb-10">
-                         {isAr ? 'نحن المحرك التقني للسيادة الإعلامية الموريتانية، نربط الوطن بالعالم عبر أحدث تكنولوجيات البث.' : 'Le moteur technologique de la souveraineté médiatique mauritanienne.'}
+                         {isAr ? 'المحرك التقني للسيادة الإعلامية الموريتانية، نربط الوطن بالعالم عبر أحدث تكنولوجيات البث.' : 'Le moteur technologique de la souveraineté médiatique mauritanienne.'}
                     </p>
 
                     <div className="flex flex-wrap justify-center gap-8 md:gap-16">
