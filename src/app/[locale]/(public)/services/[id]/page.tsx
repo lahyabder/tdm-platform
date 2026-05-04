@@ -72,10 +72,10 @@ export default async function ServiceDetailPage({
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {content.audience.items.map((item: string, i: number) => (
-                            <div key={i} className="flex items-center gap-4 bg-white/5 p-5 rounded-2xl border border-white/10 group hover:border-brand-green/30 transition-all">
-                                <div className="w-2.5 h-2.5 bg-brand-green rounded-full shadow-[0_0_10px_rgba(34,197,94,0.5)]"></div>
-                                <span className="text-slate-200 font-bold">{item}</span>
-                            </div>
+                                <div key={i} className="flex items-center gap-4 bg-white/10 p-5 rounded-2xl border border-white/20 group hover:border-brand-green/30 transition-all shadow-lg">
+                                    <div className="w-3 h-3 bg-brand-green rounded-full shadow-[0_0_15px_rgba(34,197,94,0.6)]"></div>
+                                    <span className="text-white text-lg font-black leading-tight">{item}</span>
+                                </div>
                         ))}
                     </div>
                 </div>
