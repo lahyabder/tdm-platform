@@ -80,22 +80,22 @@ export function AnimatedHome({ locale, content: initialContent }: { locale: stri
                             </span>
                         </motion.div>
 
-                        <motion.h1 variants={itemFadeUp} className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight tracking-tight">
+                        <motion.h1 variants={itemFadeUp} className="text-4xl sm:text-5xl lg:text-7xl xl:text-8xl font-black leading-[1.1] tracking-tighter">
                             <span className="text-white block mb-2">
                                 {hero.title?.[locale] || (isAr ? 'نحن نصل' : 'Connecting')}
                             </span>
                         </motion.h1>
 
-                        <motion.p variants={itemFadeUp} className="text-base sm:text-lg text-slate-200 font-medium leading-relaxed max-w-3xl mx-auto">
+                        <motion.p variants={itemFadeUp} className="text-lg sm:text-xl lg:text-2xl text-slate-200 font-medium leading-relaxed max-w-4xl mx-auto">
                             {hero.subtitle?.[locale]}
                         </motion.p>
 
-                        <motion.div variants={itemFadeUp} className="flex flex-wrap justify-center gap-6 pt-8">
-                            <Link href={`/${locale}/services`} className="glass-button bg-brand-green border-brand-green text-white shadow-[0_10px_40px_rgba(0,169,92,0.3)]">
+                        <motion.div variants={itemFadeUp} className="flex flex-wrap justify-center gap-6 pt-12">
+                            <Link href={`/${locale}/services`} className="glass-button bg-brand-green border-brand-green text-white shadow-[0_10px_40px_rgba(0,169,92,0.3)] px-10 py-5 text-lg">
                                 {hero.cta?.services?.[locale] || (isAr ? 'خدماتنا' : 'Services')}
                             </Link>
-                            <Link href={`/${locale}/live`} className="glass-button flex items-center gap-3">
-                                <div className="w-2 h-2 rounded-full bg-brand-red animate-ping" />
+                            <Link href={`/${locale}/live`} className="glass-button flex items-center gap-4 px-10 py-5 text-lg">
+                                <div className="w-3 h-3 rounded-full bg-brand-red animate-ping" />
                                 {isAr ? 'البث المباشر' : 'Live Streaming'}
                             </Link>
                         </motion.div>
@@ -106,9 +106,9 @@ export function AnimatedHome({ locale, content: initialContent }: { locale: stri
                         initial={{ opacity: 0, y: 100 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1.5, delay: 0.4, type: 'spring' }}
-                        className="w-[100vw] lg:w-[95vw] xl:w-[1600px] max-w-full relative z-20 mt-12 perspective-[1500px]"
+                        className="w-[100vw] lg:w-[98vw] xl:w-[1800px] 2xl:w-[2200px] max-w-full relative z-20 mt-12 perspective-[2000px]"
                     >
-                        <div className="relative w-full h-full drop-shadow-[0_20px_50px_rgba(0,0,0,0.9)]">
+                        <div className="relative w-full h-full drop-shadow-[0_30px_70px_rgba(0,0,0,0.9)]">
                             <MauritaniaMap locale={locale} />
                         </div>
                     </motion.div>

@@ -3,7 +3,7 @@ export function Footer({ locale, dict }: { locale: string; dict: any }) {
 
     return (
         <footer className="w-full bg-brand-dark border-t border-white/20">
-            <div className="max-w-7xl mx-auto px-6 py-12">
+            <div className="max-w-[1600px] mx-auto px-6 py-12">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                     <div className="md:col-span-1">
                         <div className="flex items-center gap-3 mb-4">
