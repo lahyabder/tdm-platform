@@ -1,19 +1,25 @@
+'use client';
+
 import { legislationData } from '@/mock/legislation';
 import Link from 'next/link';
+import { use, useState } from 'react';
+import DocModal from '@/components/ui/DocModal';
 
-export default async function LegalLibraryPage({
+export default function LegalLibraryPage({
     params,
 }: {
     params: Promise<{ locale: string }>;
 }) {
-    const resolvedParams = await params;
+    const resolvedParams = use(params) as any;
     const locale = resolvedParams.locale as "ar" | "fr";
+    
+    const [selectedDoc, setSelectedDoc] = useState<any>(null);
 
     const content = {
         ar: {
             title: "مكتبة التشريعات والمرجعيات",
             subtitle: "النصوص القانونية والمراسيم والقرارات التنظيمية الخاصة بقطاع السمعي البصري.",
-            back: "العودة לבوابة البيانات",
+            back: "العودة لبوابة البيانات",
             searchPlaceholder: "ابحث عن قانون، مرسوم...",
             types: {
                 law: "قانون",
@@ -92,19 +98,24 @@ export default async function LegalLibraryPage({
                                         </div>
                                     </div>
                                 </div>
-                                <a 
-                                    href={item.url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
+                                <button 
+                                    onClick={() => setSelectedDoc(item)}
                                     className="shrink-0 px-4 py-2 rounded-lg text-brand-green font-medium hover:bg-brand-green hover:text-white border border-brand-green/20 transition-all self-start md:self-auto text-center"
                                 >
                                     {locale === 'ar' ? 'عرض الوثيقة' : 'Voir le document'}
-                                </a>
+                                </button>
                             </div>
                         ))}
                     </div>
                 </div>
             </div>
+
+            <DocModal 
+                isOpen={!!selectedDoc} 
+                onClose={() => setSelectedDoc(null)} 
+                url={selectedDoc?.url || ''} 
+                title={selectedDoc?.title[locale] || ''} 
+            />
         </main>
     );
 }
