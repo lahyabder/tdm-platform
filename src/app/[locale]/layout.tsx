@@ -66,7 +66,7 @@ export default async function RootLayout({
     return (
         <html lang={locale} dir={isRtl ? 'rtl' : 'ltr'}>
             <body
-                className={`${isRtl ? louguiyaAr.variable : louguiyaFr.variable} ${tajawal.variable} ${inter.variable} ${notoKufi.variable} font-sans antialiased text-slate-900 bg-slate-50 min-h-screen flex flex-col`}
+                className={`${isRtl ? louguiyaAr.className : louguiyaFr.className} ${tajawal.variable} ${inter.variable} ${notoKufi.variable} font-sans antialiased text-slate-900 bg-slate-50 min-h-screen flex flex-col`}
             >
                 {children}
             </body>

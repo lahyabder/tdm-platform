@@ -29,7 +29,7 @@
 body {
   background: var(--color-brand-dark);
   color: var(--foreground);
-  font-family: var(--font-sans);
+  font-family: var(--font-louguiya), var(--font-louguiya-fr), var(--font-tajawal), sans-serif !important;
   -webkit-font-smoothing: antialiased;
 }
 
