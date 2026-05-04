@@ -25,16 +25,16 @@ export function Footer({ locale, dict }: { locale: string; dict: any }) {
                     <div className="md:col-span-1">
                         <h3 className="font-bold text-white mb-4">{locale === 'ar' ? 'الدعم الفني' : 'Support technique'}</h3>
                         <ul className="space-y-3 text-sm text-slate-300">
-                            <li><a href="#" className="hover:text-brand-green transition-colors">{locale === 'ar' ? 'اتصل بنا' : 'Contactez-nous'}</a></li>
-                            <li><a href="#" className="hover:text-brand-green transition-colors">{locale === 'ar' ? 'الأسئلة الشائعة' : 'FAQ'}</a></li>
+                            <li><a href={`/${locale}/contact`} className="hover:text-brand-green transition-colors">{locale === 'ar' ? 'اتصل بنا' : 'Contactez-nous'}</a></li>
+                            <li><a href={`/${locale}/faq`} className="hover:text-brand-green transition-colors">{locale === 'ar' ? 'الأسئلة الشائعة' : 'FAQ'}</a></li>
                         </ul>
                     </div>
 
                     <div className="md:col-span-1">
                         <h3 className="font-bold text-white mb-4">{locale === 'ar' ? 'الشروط والأحكام' : 'Termes et conditions'}</h3>
                         <ul className="space-y-3 text-sm text-slate-300">
-                            <li><a href="#" className="hover:text-brand-green transition-colors">{locale === 'ar' ? 'سياسة الخصوصية' : 'Politique de confidentialité'}</a></li>
-                            <li><a href="#" className="hover:text-brand-green transition-colors">{locale === 'ar' ? 'إمكانية الوصول' : 'Accessibilité'}</a></li>
+                            <li><a href={`/${locale}/privacy`} className="hover:text-brand-green transition-colors">{locale === 'ar' ? 'سياسة الخصوصية' : 'Politique de confidentialité'}</a></li>
+                            <li><a href={`/${locale}/accessibility`} className="hover:text-brand-green transition-colors">{locale === 'ar' ? 'إمكانية الوصول' : 'Accessibilité'}</a></li>
                         </ul>
                     </div>
                 </div>
