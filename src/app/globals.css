@@ -26,10 +26,42 @@
   --font-sans: var(--font-louguiya, var(--font-louguiya-fr, var(--font-tajawal, var(--font-inter, sans-serif))));
 }
 
+@font-face {
+  font-family: 'Louguiya';
+  src: url('/fonts/Louguiya.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Louguiya';
+  src: url('/fonts/Louguiya-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'LouguiyaFR';
+  src: url('/fonts/LouguiyaFR.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'LouguiyaFR';
+  src: url('/fonts/LouguiyaFR-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
 body {
   background: var(--color-brand-dark);
   color: var(--foreground);
-  font-family: var(--font-louguiya), var(--font-louguiya-fr), var(--font-tajawal), sans-serif !important;
+  font-family: 'Louguiya', 'LouguiyaFR', var(--font-tajawal), sans-serif !important;
   -webkit-font-smoothing: antialiased;
 }
 

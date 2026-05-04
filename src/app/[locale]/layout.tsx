@@ -13,40 +13,6 @@ const tajawal = Tajawal({
     display: 'swap'
 });
 
-const louguiyaAr = localFont({
-    src: [
-        {
-            path: '../../../public/fonts/Louguiya.ttf',
-            weight: '400',
-            style: 'normal',
-        },
-        {
-            path: '../../../public/fonts/Louguiya-Bold.ttf',
-            weight: '700',
-            style: 'normal',
-        },
-    ],
-    variable: '--font-louguiya',
-    display: 'swap',
-});
-
-const louguiyaFr = localFont({
-    src: [
-        {
-            path: '../../../public/fonts/LouguiyaFR.ttf',
-            weight: '400',
-            style: 'normal',
-        },
-        {
-            path: '../../../public/fonts/LouguiyaFR-Bold.ttf',
-            weight: '700',
-            style: 'normal',
-        },
-    ],
-    variable: '--font-louguiya-fr',
-    display: 'swap',
-});
-
 export const metadata: Metadata = {
     title: 'TDM platform',
     description: 'Official Demo Platform',
@@ -66,7 +32,7 @@ export default async function RootLayout({
     return (
         <html lang={locale} dir={isRtl ? 'rtl' : 'ltr'}>
             <body
-                className={`${isRtl ? louguiyaAr.className : louguiyaFr.className} ${tajawal.variable} ${inter.variable} ${notoKufi.variable} font-sans antialiased text-slate-900 bg-slate-50 min-h-screen flex flex-col`}
+                className={`${tajawal.variable} ${inter.variable} ${notoKufi.variable} font-sans antialiased text-slate-900 bg-slate-50 min-h-screen flex flex-col`}
             >
                 {children}
             </body>
