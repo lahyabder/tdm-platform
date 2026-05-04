@@ -4,6 +4,15 @@ import Link from 'next/link';
 import { Tv, Radio } from 'lucide-react';
 import { ClientLogo } from '@/components/ui/ClientLogo';
 
+const SERVICE_ID_MAP: Record<string, string> = {
+    'tv': 'tv_broadcasting',
+    'radio': 'radio_broadcasting',
+    'data': 'data_transmission',
+    'internet': 'internet_broadcasting',
+    'infrastructure': 'multimedia_services',
+    'commercial': 'commercial_service'
+};
+
 export default async function ServiceDetailPage({
     params,
 }: {
@@ -12,6 +21,7 @@ export default async function ServiceDetailPage({
     const resolvedParams = await params;
     const { locale, id } = resolvedParams;
     const content = await getServiceDetailContent(locale, id);
+    const fileId = SERVICE_ID_MAP[id] || id;
 
     if (!content) {
         return notFound();
@@ -20,20 +30,39 @@ export default async function ServiceDetailPage({
     return (
         <main className="min-h-screen pb-24">
             {/* 1. Header / Definition */}
-            <section className="bg-brand-dark pt-24 pb-32 text-white relative overflow-hidden">
-                <img src={`/${id}.jpg`} alt={content.title} className="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-overlay" />
-                <div className="absolute inset-0 bg-gradient-to-br from-brand-dark/90 to-brand-green/30"></div>
-                <div className="absolute bottom-0 w-full h-1 bg-gradient-to-r from-brand-green via-brand-yellow to-brand-red z-10"></div>
-                <div className="max-w-4xl mx-auto px-6 relative z-10 text-center">
-                    <Link href={`/${locale}/services`} className="inline-block text-brand-green hover:text-white font-medium mb-8 text-sm opacity-80 transition-colors">
-                        &larr; {locale === 'ar' ? 'العودة للخدمات' : 'Retour aux services'}
+            <section className="bg-brand-dark pt-32 pb-40 text-white relative overflow-hidden">
+                <div className="absolute inset-0">
+                    <img src={`/${fileId}.jpg`} alt={content.title} className="w-full h-full object-cover opacity-20 mix-blend-luminosity" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-brand-dark via-brand-dark/95 to-brand-dark"></div>
+                </div>
+                
+                {/* Decorative blobs */}
+                <div className="absolute top-1/4 -right-20 w-96 h-96 bg-brand-green/10 blur-[120px] rounded-full"></div>
+                <div className="absolute bottom-1/4 -left-20 w-96 h-96 bg-brand-yellow/10 blur-[120px] rounded-full"></div>
+
+                <div className="max-w-5xl mx-auto px-6 relative z-10">
+                    <Link href={`/${locale}/services`} className="inline-flex items-center gap-2 text-brand-green hover:text-white font-bold mb-12 text-sm transition-all hover:gap-4">
+                        <span className={locale === 'ar' ? 'rotate-180' : ''}>&larr;</span>
+                        {locale === 'ar' ? 'العودة لقائمة الخدمات' : 'Retour aux services'}
                     </Link>
-                    <h1 className="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight">
-                        {content.title}
-                    </h1>
-                    <p className="text-lg md:text-xl text-slate-100 leading-relaxed max-w-2xl mx-auto border border-white/20 bg-brand-card backdrop-blur-sm p-6 rounded-sm shadow-xl">
-                        {content.definition}
-                    </p>
+                    
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h1 className="text-5xl md:text-7xl font-black mb-8 tracking-tighter leading-tight">
+                                {content.title}
+                            </h1>
+                            <div className="w-24 h-2 bg-gradient-to-r from-brand-green to-brand-yellow rounded-full mb-8"></div>
+                            <p className="text-xl text-slate-300 leading-relaxed font-medium">
+                                {content.definition}
+                            </p>
+                        </div>
+                        <div className="hidden lg:block relative">
+                            <div className="absolute inset-0 bg-brand-green/20 blur-[100px] rounded-full"></div>
+                            <div className="relative premium-card p-12 aspect-square flex items-center justify-center border-white/10">
+                                {id === 'tv' ? <Tv className="w-32 h-32 text-brand-green opacity-50" /> : <Radio className="w-32 h-32 text-brand-yellow opacity-50" />}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -41,42 +70,44 @@ export default async function ServiceDetailPage({
 
                 {/* 2. Target Audience */}
                 {content.audience && (
-                <div className="bg-brand-card p-8 rounded-sm border border-white/20 border-t-4 border-t-brand-green">
-                    <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-                        <div className="p-2 bg-brand-green/10 text-brand-green rounded-sm">
-                            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+                <div className="premium-card p-10 border-t-4 border-t-brand-green relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-brand-green/5 blur-3xl rounded-full"></div>
+                    <h2 className="text-3xl font-black text-white mb-10 flex items-center gap-4">
+                        <div className="w-12 h-12 bg-brand-green/10 text-brand-green rounded-xl flex items-center justify-center border border-brand-green/20">
+                            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
                         </div>
                         {content.audience.title}
                     </h2>
-                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {content.audience.items.map((item: string, i: number) => (
-                            <li key={i} className="flex items-center gap-3 bg-brand-card p-4 rounded-sm border border-white/20">
-                                <div className="w-2 h-2 bg-brand-green rounded-full"></div>
-                                <span className="text-slate-200">{item}</span>
-                            </li>
+                            <div key={i} className="flex items-center gap-4 bg-white/5 p-5 rounded-2xl border border-white/10 group hover:border-brand-green/30 transition-all">
+                                <div className="w-2.5 h-2.5 bg-brand-green rounded-full shadow-[0_0_10px_rgba(34,197,94,0.5)]"></div>
+                                <span className="text-slate-200 font-bold">{item}</span>
+                            </div>
                         ))}
-                    </ul>
+                    </div>
                 </div>
                 )}
 
                 {/* 3. Steps / How to Benefit */}
                 {content.steps && (
-                <div className="bg-brand-card p-8 rounded-sm border border-white/20 border-t-4 border-t-brand-yellow">
-                    <h2 className="text-2xl font-bold text-white mb-8 flex items-center gap-3">
-                        <div className="p-2 bg-brand-yellow/10 text-brand-yellow rounded-sm">
-                            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg>
+                <div className="premium-card p-10 border-t-4 border-t-brand-yellow relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-brand-yellow/5 blur-3xl rounded-full"></div>
+                    <h2 className="text-3xl font-black text-white mb-12 flex items-center gap-4">
+                        <div className="w-12 h-12 bg-brand-yellow/10 text-brand-yellow rounded-xl flex items-center justify-center border border-brand-yellow/20">
+                            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg>
                         </div>
                         {content.steps.title}
                     </h2>
-                    <div className="space-y-6 relative before:absolute before:inset-0 before:rtl:right-[1.1rem] before:ltr:left-[1.1rem] before:w-0.5 before:bg-brand-card-hover before:z-0">
+                    <div className="space-y-8 relative before:absolute before:inset-0 before:rtl:right-[1.45rem] before:ltr:left-[1.45rem] before:w-0.5 before:bg-white/10 before:z-0">
                         {content.steps.items.map((step: any, i: number) => (
-                            <div key={i} className="relative z-10 flex gap-6">
-                                <div className="shrink-0 w-10 h-10 rounded-full bg-brand-card-hover border-2 border-brand-yellow flex items-center justify-center font-bold text-white shadow-sm">
+                            <div key={i} className="relative z-10 flex gap-8">
+                                <div className="shrink-0 w-12 h-12 rounded-full bg-brand-dark border-2 border-brand-yellow flex items-center justify-center font-black text-white shadow-[0_0_15px_rgba(234,179,8,0.3)]">
                                     {step.step}
                                 </div>
-                                <div className="pt-2">
-                                    <h3 className="text-lg font-bold text-white mb-2">{step.title}</h3>
-                                    <p className="text-slate-100 bg-brand-card p-4 rounded-sm border border-white/20 text-sm leading-relaxed">
+                                <div className="flex-1 bg-white/[0.03] p-6 rounded-2xl border border-white/10 group hover:border-brand-yellow/30 transition-all">
+                                    <h3 className="text-xl font-black text-white mb-3">{step.title}</h3>
+                                    <p className="text-slate-400 font-medium leading-relaxed">
                                         {step.description}
                                     </p>
                                 </div>
@@ -101,7 +132,7 @@ export default async function ServiceDetailPage({
                                     <h3 className="text-lg font-bold text-white mb-2">{network.name}</h3>
                                     <p className="text-sm text-slate-200 mb-4">{network.description}</p>
                                     {network.parameters && network.parameters.length > 0 && (
-                                        <div className="space-y-2 mt-4 bg-white p-4 rounded-sm border border-white/10">
+                                        <div className="space-y-2 mt-4 bg-white/5 p-5 rounded-2xl border border-white/10">
                                             {network.parameters.map((param: any, pIdx: number) => (
                                                 <div key={pIdx} className="flex justify-between items-center text-sm border-b border-white/10 pb-2 last:border-0 last:pb-0">
                                                     <span className="font-semibold text-slate-300">{param.label}</span>
@@ -132,7 +163,7 @@ export default async function ServiceDetailPage({
                             {content.pricing.categories.map((category: any, idx: number) => (
                                 <div key={idx} className="bg-brand-card p-6 rounded-sm border border-white/20 hover:border-brand-green/50 transition-colors">
                                     <h3 className="text-lg font-bold text-white mb-4">{category.name}</h3>
-                                    <div className="space-y-3 bg-white p-4 rounded-sm border border-white/10">
+                                    <div className="space-y-3 bg-white/5 p-5 rounded-2xl border border-white/10">
                                         {category.items.map((item: any, iIdx: number) => (
                                             <div key={iIdx} className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-4 text-sm border-b border-white/10 pb-3 last:border-0 last:pb-0">
                                                 <span className="font-medium text-slate-200 leading-relaxed flex-1">{item.label}</span>
@@ -290,7 +321,7 @@ export default async function ServiceDetailPage({
                                             <span className="text-sm">{faq.question}</span>
                                             <span className="text-brand-green text-xl group-open:rotate-45 transition-transform">+</span>
                                         </summary>
-                                        <div className="p-4 pt-0 text-sm text-slate-200 leading-relaxed border-t border-white/10 bg-white">
+                                        <div className="p-6 pt-0 text-slate-300 leading-relaxed font-medium border-t border-white/10 bg-brand-dark/50">
                                             {faq.answer}
                                         </div>
                                     </details>

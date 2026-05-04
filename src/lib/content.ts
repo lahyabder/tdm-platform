@@ -26,12 +26,37 @@ export async function getPageContent(locale: string, pageKey: string) {
     };
 }
 
+const SERVICE_ID_MAP: Record<string, string> = {
+    'tv': 'tv_broadcasting',
+    'radio': 'radio_broadcasting',
+    'data': 'data_transmission',
+    'internet': 'internet_broadcasting',
+    'infrastructure': 'multimedia_services',
+    'commercial': 'commercial_service'
+};
+
 export async function getServiceDetailContent(locale: string, id: string): Promise<any> {
-    // Basic implementation to avoid build errors and 404s
-    return {
-        title: id.toUpperCase(),
-        definition: "Service definition placeholder",
-        audience: { title: "Audience", items: [] },
-        steps: { title: "Steps", items: [] }
-    };
+    const fileId = SERVICE_ID_MAP[id] || id;
+    
+    try {
+        // We use dynamic imports for JSON content
+        const content = await import(`@/content/${locale}/services/${fileId}.json`);
+        return content.default;
+    } catch (e) {
+        console.error(`Error loading service content for ${id} in ${locale}:`, e);
+        
+        // Fallback placeholders in case file is missing
+        return {
+            title: id.toUpperCase(),
+            definition: locale === 'ar' ? 'تعريف الخدمة غير متوفر حالياً.' : 'La définition du service n\'est pas disponible.',
+            audience: { 
+                title: locale === 'ar' ? 'الفئات المستهدفة' : 'Public Cible', 
+                items: [] 
+            },
+            steps: { 
+                title: locale === 'ar' ? 'خطوات الاستفادة' : 'Comment en bénéficier', 
+                items: [] 
+            }
+        };
+    }
 }
