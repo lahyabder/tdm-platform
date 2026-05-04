@@ -86,7 +86,7 @@ export default function ServicesPage({
                                     <div className="absolute top-0 right-0 w-32 h-32 bg-brand-green/5 blur-3xl rounded-full -translate-y-1/2 translate-x-1/2"></div>
                                     
                                     <div className="w-16 h-16 bg-brand-green/10 text-brand-green rounded-2xl flex items-center justify-center mb-8 border border-brand-green/20 group-hover:bg-brand-green group-hover:text-white transition-all duration-500 shadow-xl shadow-brand-green/5">
-                                        {item.icon}
+                                        {item.icon || <Zap className="w-8 h-8" />}
                                     </div>
                                     
                                     <h3 className="text-2xl font-black text-white mb-6 group-hover:text-brand-green transition-colors duration-300">
@@ -98,7 +98,7 @@ export default function ServicesPage({
                                     </p>
                                     
                                     <div className="space-y-3 mb-10">
-                                        {item.features[locale as 'ar' | 'fr'].map((f: any, idx: number) => (
+                                        {(item.features?.[locale as 'ar' | 'fr'] || []).map((f: any, idx: number) => (
                                             <div key={idx} className="flex items-center gap-3">
                                                 <div className="w-1.5 h-1.5 bg-brand-yellow rounded-full"></div>
                                                 <span className="text-xs font-bold text-slate-300">{f}</span>
