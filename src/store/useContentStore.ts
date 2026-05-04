@@ -66,7 +66,7 @@ export const INITIAL_CONTENT: Record<string, PageContent> = {
             ] 
         } 
     },
-    contact: { id: 'contact', title: { ar: "تواصل معنا", fr: "Contactez-nous" }, sections: { info: { address: { ar: "نواكشوط، موريتانيا - حي الصحافة", fr: "Nouakchott, Mauritanie - Quartier Presse" }, phone: { ar: "+222 45 25 25 25", fr: "+222 45 25 25 25" }, email: { ar: "contact@tdm.mr", fr: "contact@tdm.mr" }, hours: { ar: "الأحد - الخميس: 08:00 - 16:00", fr: "Dimanche - Jeudi: 08h00 - 16h00" } } } },
+    contact: { id: 'contact', title: { ar: "تواصل معنا", fr: "Contactez-nous" }, sections: { info: { address: { ar: "نواكشوط، موريتانيا", fr: "Nouakchott, Mauritanie" }, phone: { ar: "+222 45 25 25 25", fr: "+222 45 25 25 25" }, email: { ar: "contact@tdm.mr", fr: "contact@tdm.mr" }, hours: { ar: "الأحد - الخميس: 08:00 - 16:00", fr: "Dimanche - Jeudi: 08h00 - 16h00" } } } },
     legal: { id: 'legal', title: { ar: "المرجعيات التشريعية", fr: "Cadre Légal" }, sections: { intro: { title: { ar: "الإطار القانوني والتشريعي", fr: "Cadre Juridique" }, content: { ar: "تعمل شركة البث الإذاعي والتلفزي الموريتاني وفق ترسانة قانونية تضمن تنظيم الفضاء السمعي البصري الوطني وتحدد التزامات الفاعلين في القطاع.", fr: "La Télédiffusion de Mauritanie opère selon un cadre légal garantissant la régulation de l'espace audiovisuel national." } } } }
 };
 
