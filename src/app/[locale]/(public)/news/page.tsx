@@ -97,11 +97,17 @@ export default function NewsPage({
                                 transition={{ delay: idx * 0.1 }}
                                 className={`premium-card h-full group cursor-pointer overflow-hidden flex flex-col ${idx === 0 ? 'md:col-span-2' : ''}`}
                             >
-                                <div className={`relative overflow-hidden bg-slate-900 ${idx === 0 ? 'h-80' : 'h-64'}`}>
+                                <div className={`relative overflow-hidden bg-slate-900 flex items-center justify-center ${idx === 0 ? 'h-[450px]' : 'h-80'}`}>
+                                    {/* Blurred Backdrop for full image appearance */}
+                                    <img
+                                        src={article.imageUrl}
+                                        alt=""
+                                        className="absolute inset-0 w-full h-full object-cover blur-2xl opacity-20 scale-110"
+                                    />
                                     <img
                                         src={article.imageUrl}
                                         alt={isAr ? article.title.ar : article.title.fr}
-                                        className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                                        className="relative z-10 w-full h-full object-contain transition-transform duration-1000 group-hover:scale-105"
                                     />
                                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-transparent"></div>
                                     <div className="absolute top-6 start-6">
@@ -163,11 +169,16 @@ export default function NewsPage({
                                     <X className="w-6 h-6 group-hover:rotate-90 transition-transform" />
                                 </button>
 
-                                <div className="h-[400px] md:h-[500px] relative">
+                                <div className="h-[400px] md:h-[600px] relative bg-black flex items-center justify-center overflow-hidden">
+                                    <img
+                                        src={selectedArticle.imageUrl}
+                                        alt=""
+                                        className="absolute inset-0 w-full h-full object-cover blur-3xl opacity-30 scale-125"
+                                    />
                                     <img
                                         src={selectedArticle.imageUrl}
                                         alt={isAr ? selectedArticle.title.ar : selectedArticle.title.fr}
-                                        className="w-full h-full object-cover"
+                                        className="relative z-10 w-full h-full object-contain"
                                     />
                                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent"></div>
                                     <div className="absolute bottom-12 left-12 right-12 max-w-4xl">

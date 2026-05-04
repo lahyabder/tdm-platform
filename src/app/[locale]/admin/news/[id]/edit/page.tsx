@@ -219,7 +219,7 @@ export default function AdminEditNewsPage({
                         <div className="aspect-video w-full bg-slate-50 rounded-sm border border-slate-200 overflow-hidden flex items-center justify-center relative group">
                             {formData.imageUrl ? (
                                 <>
-                                    <img src={formData.imageUrl} alt="Preview" className="w-full h-full object-cover" />
+                                    <img src={formData.imageUrl} alt="Preview" className="w-full h-full object-contain" />
                                     <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                                         <button 
                                             onClick={() => setFormData({...formData!, imageUrl: ''})}
