@@ -23,7 +23,7 @@
   --color-brand-card-hover: rgba(255, 255, 255, 0.06);
 
   /* Font System */
-  --font-sans: var(--font-tajawal), var(--font-louguiya), var(--font-inter), var(--font-noto-kufi), var(--font-cairo), sans-serif;
+  --font-sans: var(--font-louguiya), var(--font-louguiya-fr), var(--font-tajawal), var(--font-inter), var(--font-noto-kufi), var(--font-cairo), sans-serif;
 }
 
 body {

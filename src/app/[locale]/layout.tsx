@@ -13,7 +13,7 @@ const tajawal = Tajawal({
     display: 'swap'
 });
 
-const louguiya = localFont({
+const louguiyaAr = localFont({
     src: [
         {
             path: '../../../public/fonts/Louguiya.ttf',
@@ -27,6 +27,23 @@ const louguiya = localFont({
         },
     ],
     variable: '--font-louguiya',
+    display: 'swap',
+});
+
+const louguiyaFr = localFont({
+    src: [
+        {
+            path: '../../../public/fonts/LouguiyaFR.ttf',
+            weight: '400',
+            style: 'normal',
+        },
+        {
+            path: '../../../public/fonts/LouguiyaFR-Bold.ttf',
+            weight: '700',
+            style: 'normal',
+        },
+    ],
+    variable: '--font-louguiya-fr',
     display: 'swap',
 });
 
@@ -49,7 +66,7 @@ export default async function RootLayout({
     return (
         <html lang={locale} dir={isRtl ? 'rtl' : 'ltr'}>
             <body
-                className={`${isRtl ? tajawal.variable + ' ' + louguiya.variable : inter.variable} font-sans antialiased text-slate-900 bg-slate-50 min-h-screen flex flex-col`}
+                className={`${isRtl ? tajawal.variable + ' ' + louguiyaAr.variable : inter.variable + ' ' + louguiyaFr.variable} font-sans antialiased text-slate-900 bg-slate-50 min-h-screen flex flex-col`}
             >
                 {children}
             </body>
