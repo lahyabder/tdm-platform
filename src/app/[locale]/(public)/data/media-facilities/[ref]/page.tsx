@@ -115,9 +115,6 @@ export default function MediaFacilityDetails({
                         </div>
                     </div>
 
-                    <div className="p-6 bg-brand-card border-t border-white/20 text-center print:hidden">
-                        <PrintButton label={locale === 'ar' ? 'طباعة الشهادة' : 'Imprimer le certificat'} />
-                    </div>
                 </div>
             </div>
         </main>
