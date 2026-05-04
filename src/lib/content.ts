@@ -27,11 +27,11 @@ export async function getPageContent(locale: string, pageKey: string) {
 }
 
 export async function getServiceDetailContent(locale: string, id: string): Promise<any> {
-    const fileId = id;
+    const fileId = id.toLowerCase();
     
     try {
-        // We use dynamic imports for JSON content
-        const content = await import(`@/content/${locale}/services/${fileId}.json`);
+        // Use relative path and lowercase for reliability
+        const content = await import(`../content/${locale}/services/${fileId}.json`);
         return content.default;
     } catch (e) {
         console.error(`Error loading service content for ${id} in ${locale}:`, e);
