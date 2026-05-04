@@ -69,8 +69,7 @@ export default function AboutPage({
                     
                     <h1 className="text-3xl md:text-4xl lg:text-4xl font-bold text-white tracking-tight leading-tight mb-6">
                         {isAr ? 'ريادة' : 'Leadership'}{" "}
-                        <span className="glow-text-gold">{isAr ? 'المشهد' : 'Digital'}</span>
-                        <br />
+                        <span className="glow-text-gold">{isAr ? 'المشهد' : 'Digital'}</span>{" "}
                         {isAr ? 'الرقمي' : 'Excellence'}
                     </h1>
                     
