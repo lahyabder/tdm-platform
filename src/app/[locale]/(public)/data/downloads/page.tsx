@@ -1,12 +1,22 @@
-import Link from 'next/link';
+'use client';
 
-export default async function DownloadsPage({
+import Link from 'next/link';
+import { use, useState, useEffect } from 'react';
+import { useDownloadStore } from '@/store/useDownloadStore';
+
+export default function DownloadsPage({
     params,
 }: {
     params: Promise<{ locale: string }>;
 }) {
-    const resolvedParams = await params;
+    const resolvedParams = use(params) as any;
     const locale = resolvedParams.locale as "ar" | "fr";
+    const { files } = useDownloadStore();
+    const [isClient, setIsClient] = useState(false);
+
+    useEffect(() => {
+        setIsClient(true);
+    }, []);
 
     const content = {
         ar: {
@@ -14,17 +24,10 @@ export default async function DownloadsPage({
             subtitle: "استمارات التراخيص، دفاتر الشروط الفنية، والنماذج المتعلقة بالرسوم.",
             back: "العودة لبوابة البيانات",
             categories: {
-                forms: "استمارات التسجيل",
-                specs: "دفاتر الشروط",
-                docs: "وثائق إرشادية"
+                forms: "نماذج",
+                technical: "تقني",
+                guides: "أدلة"
             },
-            files: [
-                { id: "F-01", title: "استمارة طلب ترخيص بث إذاعي", type: "PDF", size: "2.4 MB", cat: "forms", url: "/documents/forms/radio_license_request.pdf" },
-                { id: "F-02", title: "نموذج تجديد رخصة تلفزيونية", type: "DOCX", size: "1.1 MB", cat: "forms", url: "/documents/forms/tv_license_renewal.docx" },
-                { id: "S-01", title: "دفتر الشروط الفنية الخاص بالقنوات الفضائية", type: "PDF", size: "5.8 MB", cat: "specs", url: "/documents/specs/satellite_tv_specs.pdf" },
-                { id: "S-02", title: "المعايير التقنية لأجهزة الإرسال الأرضية", type: "PDF", size: "3.2 MB", cat: "specs", url: "/documents/specs/terrestrial_transmitter_specs.pdf" },
-                { id: "D-01", title: "دليل الإجراءات الإدارية للشبكات الجديدة", type: "PDF", size: "4.5 MB", cat: "docs", url: "/documents/guides/new_network_procedures.pdf" }
-            ],
             downloadBtn: "تحميل"
         },
         fr: {
@@ -32,23 +35,18 @@ export default async function DownloadsPage({
             subtitle: "Formulaires de licence, cahiers des charges techniques et modèles de frais.",
             back: "Retour au portail",
             categories: {
-                forms: "Formulaires d'inscription",
-                specs: "Cahiers des charges",
-                docs: "Documents d'orientation"
+                forms: "Formulaires",
+                technical: "Technique",
+                guides: "Guides"
             },
-            files: [
-                { id: "F-01", title: "Formulaire de demande de licence radiophonique", type: "PDF", size: "2.4 MB", cat: "forms", url: "/documents/forms/radio_license_request.pdf" },
-                { id: "F-02", title: "Formulaire de renouvellement de licence TV", type: "DOCX", size: "1.1 MB", cat: "forms", url: "/documents/forms/tv_license_renewal.docx" },
-                { id: "S-01", title: "Cahier des charges pour les chaînes satellitaires", type: "PDF", size: "5.8 MB", cat: "specs", url: "/documents/specs/satellite_tv_specs.pdf" },
-                { id: "S-02", title: "Normes techniques pour les émetteurs terrestres", type: "PDF", size: "3.2 MB", cat: "specs", url: "/documents/specs/terrestrial_transmitter_specs.pdf" },
-                { id: "D-01", title: "Guide des procédures pour les nouveaux réseaux", type: "PDF", size: "4.5 MB", cat: "docs", url: "/documents/guides/new_network_procedures.pdf" }
-            ],
             downloadBtn: "Télécharger"
         }
     }[locale];
 
+    if (!isClient) return <div className="min-h-screen bg-brand-dark"></div>;
+
     return (
-        <main className="min-h-screen pb-32 bg-mesh">
+        <main className="min-h-screen pb-32 bg-mesh" dir={locale === 'ar' ? 'rtl' : 'ltr'}>
             {/* Header */}
             <section className="bg-brand-dark pt-32 pb-48 text-white relative overflow-hidden">
                 <div className="absolute inset-0">
@@ -73,7 +71,7 @@ export default async function DownloadsPage({
             <div className="max-w-4xl mx-auto px-6 -mt-24 relative z-20">
                 <div className="premium-card p-6 md:p-10 shadow-2xl border-white/5">
                     <div className="grid grid-cols-1 gap-6">
-                        {content.files.map((file) => (
+                        {files.map((file) => (
                             <div key={file.id} className="flex flex-col md:flex-row md:items-center justify-between p-6 rounded-2xl border border-white/10 hover:border-brand-red/40 hover:bg-white/5 transition-all gap-6 group">
                                 <div className="flex items-start gap-6">
                                     <div className="w-16 h-16 rounded-2xl bg-brand-red/10 text-brand-red flex items-center justify-center shrink-0 border border-brand-red/20 group-hover:scale-110 transition-transform">
@@ -81,13 +79,13 @@ export default async function DownloadsPage({
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                                         </svg>
                                     </div>
-                                    <div>
-                                        <h3 className="font-black text-white text-xl mb-2 group-hover:text-brand-red transition-colors leading-tight">
-                                            {file.title}
+                                    <div className="min-w-0">
+                                        <h3 className="font-black text-white text-xl mb-2 group-hover:text-brand-red transition-colors leading-tight truncate">
+                                            {file.title[locale]}
                                         </h3>
-                                        <div className="flex items-center gap-4 text-sm text-slate-400 font-bold">
-                                            <span className="inline-block px-3 py-1 rounded-lg bg-brand-card-hover text-brand-yellow border border-white/5 text-xs">
-                                                {content.categories[file.cat as keyof typeof content.categories]}
+                                        <div className="flex flex-wrap items-center gap-4 text-sm text-slate-400 font-bold uppercase tracking-widest text-[10px]">
+                                            <span className="inline-block px-3 py-1 rounded-lg bg-white/5 text-brand-yellow border border-white/5">
+                                                {content.categories[file.category as keyof typeof content.categories]}
                                             </span>
                                             <span className="text-slate-300">{file.type}</span>
                                             <span className="opacity-30">•</span>

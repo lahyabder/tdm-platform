@@ -4,6 +4,7 @@ import { useState, useEffect, use } from 'react';
 import { useFacilityStore } from '@/store/useFacilityStore';
 import Link from 'next/link';
 import { MediaFacility } from '@/mock/mediaFacilities';
+import { Plus, Edit2, Trash2, Download, Search, Filter } from 'lucide-react';
 
 export default function AdminFacilitiesPage({
     params,
@@ -12,6 +13,7 @@ export default function AdminFacilitiesPage({
 }) {
     const { locale } = use(params) as any;
     const { facilities, deleteFacility, fetchFacilities } = useFacilityStore();
+    const isAr = locale === 'ar';
     const [searchQuery, setSearchQuery] = useState('');
     const [filterType, setFilterType] = useState('all');
     const [filterCity, setFilterCity] = useState('all');
@@ -101,41 +103,42 @@ export default function AdminFacilitiesPage({
     if (!isClient) return null;
 
     return (
-        <div className="space-y-6">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="space-y-8 animate-in fade-in duration-500 pb-20">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
                 <div>
-                    <h1 className="text-2xl font-extrabold text-slate-800">{t.title}</h1>
+                    <h1 className="text-3xl font-black text-slate-900 tracking-tighter">{t.title}</h1>
+                    <p className="text-slate-500 font-bold mt-1 uppercase text-[10px] tracking-widest">{facilities.length} {isAr ? 'منشأة مسجلة' : 'établissements enregistrés'}</p>
                 </div>
-                <div className="flex gap-3">
+                <div className="flex gap-4">
                     <button
                         onClick={handleExportCSV}
-                        className="px-4 py-2 bg-white border border-slate-300 text-slate-700 font-bold rounded-sm hover:bg-slate-50 transition-colors flex items-center gap-2 text-sm"
+                        className="px-6 py-3 bg-white border border-slate-200 text-slate-900 font-black rounded-xl hover:bg-slate-50 transition-all flex items-center gap-3 text-xs uppercase tracking-widest shadow-sm"
                     >
-                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                        <Download className="w-4 h-4" />
                         {t.export}
                     </button>
                     <Link
                         href={`/${locale}/admin/facilities/new`}
-                        className="px-4 py-2 bg-brand-green text-white font-bold rounded-sm hover:bg-brand-green/90 transition-colors flex items-center gap-2 text-sm shadow-sm"
+                        className="px-8 py-3 bg-brand-green text-white font-black rounded-xl hover:bg-brand-green/90 transition-all flex items-center gap-3 text-xs uppercase tracking-widest shadow-lg shadow-brand-green/20"
                     >
-                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" /></svg>
+                        <Plus className="w-4 h-4" />
                         {t.add}
                     </Link>
                 </div>
             </div>
 
-            <div className="bg-white p-4 rounded-sm border border-slate-200 shadow-sm grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-xl grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="relative">
                     <input
                         type="text"
                         placeholder={t.search}
-                        className="w-full bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-sm focus:ring-brand-green focus:border-brand-green p-2.5 outline-none"
+                        className="w-full bg-slate-50 border border-slate-200 text-slate-900 text-sm font-bold rounded-xl focus:ring-4 focus:ring-brand-green/10 focus:border-brand-green p-4 outline-none transition-all"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                     />
                 </div>
                 <select
-                    className="bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-sm focus:ring-brand-green focus:border-brand-green p-2.5 outline-none"
+                    className="bg-slate-50 border border-slate-200 text-slate-900 text-sm font-black rounded-xl focus:ring-4 focus:ring-brand-green/10 focus:border-brand-green p-4 outline-none appearance-none transition-all cursor-pointer"
                     value={filterType}
                     onChange={(e) => setFilterType(e.target.value)}
                 >
@@ -143,7 +146,7 @@ export default function AdminFacilitiesPage({
                     {Object.entries(t.types).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
                 </select>
                 <select
-                    className="bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-sm focus:ring-brand-green focus:border-brand-green p-2.5 outline-none"
+                    className="bg-slate-50 border border-slate-200 text-slate-900 text-sm font-black rounded-xl focus:ring-4 focus:ring-brand-green/10 focus:border-brand-green p-4 outline-none appearance-none transition-all cursor-pointer"
                     value={filterCity}
                     onChange={(e) => setFilterCity(e.target.value)}
                 >
@@ -152,44 +155,46 @@ export default function AdminFacilitiesPage({
                 </select>
             </div>
 
-            <div className="bg-white rounded-sm border border-slate-200 shadow-sm overflow-hidden">
+            <div className="bg-white rounded-[2.5rem] border border-slate-100 shadow-2xl overflow-hidden">
                 <div className="overflow-x-auto">
                     <table className="w-full text-sm text-left rtl:text-right text-slate-600">
-                        <thead className="text-xs text-slate-700 uppercase bg-slate-50 border-b border-slate-200">
+                        <thead className="text-[10px] text-slate-400 uppercase font-black tracking-[0.2em] bg-slate-50/50 border-b border-slate-100">
                             <tr>
-                                <th className="px-6 py-4">{t.table.ref}</th>
-                                <th className="px-6 py-4">{t.table.name}</th>
-                                <th className="px-6 py-4">{t.table.type}</th>
-                                <th className="px-6 py-4">{t.table.city}</th>
-                                <th className="px-6 py-4">{t.table.status}</th>
-                                <th className="px-6 py-4 text-center">{t.table.actions}</th>
+                                <th className="px-8 py-6">{t.table.ref}</th>
+                                <th className="px-8 py-6">{t.table.name}</th>
+                                <th className="px-8 py-6">{t.table.type}</th>
+                                <th className="px-8 py-6">{t.table.city}</th>
+                                <th className="px-8 py-6">{t.table.status}</th>
+                                <th className="px-8 py-6 text-center">{t.table.actions}</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-slate-100">
+                        <tbody className="divide-y divide-slate-50">
                             {filteredFacilities.map((f) => (
-                                <tr key={f.ref} className="hover:bg-slate-50 transition-colors">
-                                    <td className="px-6 py-4 font-mono font-medium text-slate-900">{f.ref}</td>
-                                    <td className="px-6 py-4 font-bold text-slate-800">{f.name[locale as 'ar' | 'fr']}</td>
-                                    <td className="px-6 py-4 text-slate-600">{t.types[f.type]}</td>
-                                    <td className="px-6 py-4 text-slate-600">{f.city[locale as 'ar' | 'fr']}</td>
-                                    <td className="px-6 py-4">
-                                        <span className={`px-2.5 py-0.5 rounded-sm text-xs font-bold border ${getStatusStyle(f.status)}`}>
+                                <tr key={f.ref} className="hover:bg-slate-50/50 transition-colors group">
+                                    <td className="px-8 py-6 font-mono font-black text-[10px] text-slate-400">{f.ref}</td>
+                                    <td className="px-8 py-6">
+                                        <p className="font-black text-slate-900 text-base group-hover:text-brand-green transition-colors">{f.name[locale as 'ar' | 'fr']}</p>
+                                    </td>
+                                    <td className="px-8 py-6 font-bold text-slate-500 uppercase text-[10px] tracking-widest">{t.types[f.type]}</td>
+                                    <td className="px-8 py-6 font-bold text-slate-500 uppercase text-[10px] tracking-widest">{f.city[locale as 'ar' | 'fr']}</td>
+                                    <td className="px-8 py-6">
+                                        <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest border ${getStatusStyle(f.status)}`}>
                                             {t.statuses[f.status]}
                                         </span>
                                     </td>
-                                    <td className="px-6 py-4">
-                                        <div className="flex items-center justify-center gap-3">
+                                    <td className="px-8 py-6">
+                                        <div className="flex items-center justify-center gap-4">
                                             <Link
                                                 href={`/${locale}/admin/facilities/${f.ref}/edit`}
-                                                className="text-brand-green hover:underline font-bold text-xs"
+                                                className="w-10 h-10 rounded-xl border border-slate-100 flex items-center justify-center text-slate-400 hover:bg-slate-950 hover:text-white transition-all shadow-sm"
                                             >
-                                                {t.actions.edit}
+                                                <Edit2 className="w-4 h-4" />
                                             </Link>
                                             <button
                                                 onClick={() => handleDelete(f.ref)}
-                                                className="text-brand-red hover:underline font-bold text-xs"
+                                                className="w-10 h-10 rounded-xl border border-slate-100 flex items-center justify-center text-slate-400 hover:bg-brand-red hover:text-white transition-all shadow-sm"
                                             >
-                                                {t.actions.delete}
+                                                <Trash2 className="w-4 h-4" />
                                             </button>
                                         </div>
                                     </td>
@@ -197,7 +202,7 @@ export default function AdminFacilitiesPage({
                             ))}
                             {filteredFacilities.length === 0 && (
                                 <tr>
-                                    <td colSpan={6} className="px-6 py-12 text-center text-slate-400">
+                                    <td colSpan={6} className="px-8 py-12 text-center text-slate-400 font-bold">
                                         {locale === 'ar' ? 'لا توجد منشآت مطابقة' : 'Aucun établissement correspondant'}
                                     </td>
                                 </tr>

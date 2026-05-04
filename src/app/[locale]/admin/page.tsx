@@ -1,11 +1,11 @@
 'use client';
 export const dynamic = 'force-dynamic';
-// Deployment trigger: Final Ultra-Premium Admin Build v2
 
 import { use, useEffect, useState } from 'react';
 import { useNewsStore } from '@/store/useNewsStore';
 import { useFacilityStore } from '@/store/useFacilityStore';
 import { useContentStore } from '@/store/useContentStore';
+import { useLegislationStore } from '@/store/useLegislationStore';
 import Link from 'next/link';
 import { Cloud, CheckCircle2, Loader2, Zap, Newspaper, MapPin, Settings, ArrowRight, LayoutDashboard, Globe } from 'lucide-react';
 
@@ -18,6 +18,7 @@ export default function AdminDashboardPage({
     const { articles, syncAllToCloud: syncNews, fetchArticles } = useNewsStore();
     const { facilities, fetchFacilities } = useFacilityStore();
     const { syncAllToCloud: syncContent, fetchContent } = useContentStore();
+    const { legislations } = useLegislationStore();
     
     const [isClient, setIsClient] = useState(false);
     const [isPublishing, setIsPublishing] = useState(false);
@@ -134,34 +135,35 @@ export default function AdminDashboardPage({
             </div>
 
             {/* Stats Cards - Redesigned */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {[
-                    { icon: <Newspaper />, color: 'brand-green', label: t.newsCount, val: articles.length },
-                    { icon: <MapPin />, color: 'brand-yellow', label: t.facilitiesCount, val: facilities.length },
-                    { icon: <Zap />, color: 'brand-green', label: 'الحالة التقنية', val: '100%' }
+                    { icon: <Newspaper />, label: t.newsCount, val: articles.length },
+                    { icon: <MapPin />, label: t.facilitiesCount, val: facilities.length },
+                    { icon: <CheckCircle2 />, label: isAr ? 'التشريعات' : 'Législations', val: legislations.length },
+                    { icon: <Cloud />, label: isAr ? 'الملفات' : 'Fichiers', val: '5' }
                 ].map((stat, i) => (
-                    <div key={i} className="bg-white p-10 rounded-[2rem] border border-slate-100 shadow-xl shadow-slate-200/40 group hover:shadow-2xl transition-all duration-500">
-                        <div className="flex items-center gap-8">
-                            <div className={`w-20 h-20 bg-slate-50 text-slate-900 rounded-3xl flex items-center justify-center group-hover:bg-slate-950 group-hover:text-white transition-all duration-500`}>
+                    <div key={i} className="bg-white p-8 rounded-[2rem] border border-slate-100 shadow-xl shadow-slate-200/40 group hover:shadow-2xl transition-all duration-500">
+                        <div className="flex items-center gap-6">
+                            <div className="w-16 h-16 bg-slate-50 text-slate-900 rounded-2xl flex items-center justify-center group-hover:bg-slate-950 group-hover:text-white transition-all duration-500 shrink-0">
                                 {stat.icon}
                             </div>
-                            <div>
-                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] mb-2">{stat.label}</p>
-                                <p className="text-5xl font-black text-slate-900 tracking-tighter">{stat.val}</p>
+                            <div className="min-w-0">
+                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1 truncate">{stat.label}</p>
+                                <p className="text-4xl font-black text-slate-900 tracking-tighter">{stat.val}</p>
                             </div>
                         </div>
                     </div>
                 ))}
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
                 {/* Quick Actions */}
-                <div className="space-y-8">
+                <div className="lg:col-span-2 space-y-8">
                     <div className="flex items-center gap-4">
                         <div className="w-3 h-8 bg-brand-green rounded-full shadow-lg shadow-brand-green/30"></div>
                         <h3 className="text-2xl font-black text-slate-900">{t.quickActions}</h3>
                     </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                         <Link href={`/${locale}/admin/news/new`} className="p-8 bg-white border border-slate-100 rounded-[2rem] shadow-lg hover:shadow-2xl hover:border-brand-green transition-all flex flex-col gap-6 group">
                             <div className="w-14 h-14 rounded-2xl bg-brand-green/10 flex items-center justify-center text-brand-green group-hover:bg-brand-green group-hover:text-white transition-all"><Newspaper className="w-7 h-7" /></div>
                             <span className="font-black text-slate-900 text-lg">{t.addNews}</span>
@@ -170,9 +172,17 @@ export default function AdminDashboardPage({
                             <div className="w-14 h-14 rounded-2xl bg-brand-yellow/10 flex items-center justify-center text-brand-yellow group-hover:bg-brand-yellow group-hover:text-white transition-all"><MapPin className="w-7 h-7" /></div>
                             <span className="font-black text-slate-900 text-lg">{t.addFacility}</span>
                         </Link>
-                        <Link href={`/${locale}/admin/pages/about`} className="p-8 bg-white border border-slate-100 rounded-[2rem] shadow-lg hover:shadow-2xl hover:border-slate-800 transition-all flex flex-col gap-6 group sm:col-span-2">
-                            <div className="w-14 h-14 rounded-2xl bg-slate-100 flex items-center justify-center text-slate-500 group-hover:bg-slate-950 group-hover:text-white transition-all"><Settings className="w-7 h-7" /></div>
+                        <Link href={`/${locale}/admin/legal`} className="p-8 bg-white border border-slate-100 rounded-[2rem] shadow-lg hover:shadow-2xl hover:border-brand-green transition-all flex flex-col gap-6 group">
+                            <div className="w-14 h-14 rounded-2xl bg-brand-green/10 flex items-center justify-center text-brand-green group-hover:bg-brand-green group-hover:text-white transition-all"><CheckCircle2 className="w-7 h-7" /></div>
+                            <span className="font-black text-slate-900 text-lg">{isAr ? 'إدارة التشريعات' : 'Gérer Législations'}</span>
+                        </Link>
+                        <Link href={`/${locale}/admin/pages/about`} className="p-8 bg-white border border-slate-100 rounded-[2rem] shadow-lg hover:shadow-2xl hover:border-slate-800 transition-all flex items-center gap-6 group sm:col-span-2">
+                            <div className="w-14 h-14 rounded-2xl bg-slate-100 flex items-center justify-center text-slate-500 group-hover:bg-slate-950 group-hover:text-white transition-all shrink-0"><Settings className="w-7 h-7" /></div>
                             <span className="font-black text-slate-900 text-lg">{t.editAbout}</span>
+                        </Link>
+                        <Link href={`/${locale}/admin/settings`} className="p-8 bg-white border border-slate-100 rounded-[2rem] shadow-lg hover:shadow-2xl hover:border-brand-red transition-all flex items-center gap-6 group sm:col-span-1">
+                            <div className="w-14 h-14 rounded-2xl bg-brand-red/10 flex items-center justify-center text-brand-red group-hover:bg-brand-red group-hover:text-white transition-all shrink-0"><Cloud className="w-7 h-7" /></div>
+                            <span className="font-black text-slate-900 text-lg">{isAr ? 'الملفات' : 'Fichiers'}</span>
                         </Link>
                     </div>
                 </div>
@@ -186,7 +196,7 @@ export default function AdminDashboardPage({
                         </div>
                     </div>
                     <div className="bg-white rounded-[2.5rem] border border-slate-100 shadow-2xl divide-y divide-slate-50 overflow-hidden">
-                        {articles.slice(0, 4).map((article) => (
+                        {articles.slice(0, 5).map((article) => (
                             <div key={article.id} className="p-6 flex items-center gap-6 hover:bg-slate-50 transition-colors group">
                                 <Link 
                                     href={`/${locale}/admin/news/${article.id}/edit`}
