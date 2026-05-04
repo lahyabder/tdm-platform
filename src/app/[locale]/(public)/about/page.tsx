@@ -67,14 +67,14 @@ export default function AboutPage({
                         </span>
                     </motion.div>
                     
-                    <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-white tracking-tight leading-tight mb-8">
+                    <h1 className="text-4xl md:text-5xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight mb-6">
                         {isAr ? 'ريادة' : 'Leadership'}{" "}
                         <span className="glow-text-gold">{isAr ? 'المشهد' : 'Digital'}</span>
                         <br />
                         {isAr ? 'الرقمي' : 'Excellence'}
                     </h1>
                     
-                    <p className="max-w-2xl mx-auto text-lg text-slate-400 font-medium leading-relaxed mb-12">
+                    <p className="max-w-2xl mx-auto text-base text-slate-400 font-normal leading-relaxed mb-10">
                          {isAr ? 'نحن المحرك التقني للسيادة الإعلامية الموريتانية، نربط الوطن بالعالم عبر أحدث تكنولوجيات البث.' : 'Le moteur technologique de la souveraineté médiatique mauritanienne.'}
                     </p>
 
@@ -82,8 +82,8 @@ export default function AboutPage({
                         {stats.map((s, i) => (
                             <div key={i} className="flex flex-col items-center">
                                 <div className="text-brand-green mb-2">{s.icon}</div>
-                                <span className="text-3xl font-black text-white">{s.value}</span>
-                                <span className="text-[10px] text-slate-500 font-black uppercase tracking-widest">{s.label[locale as 'ar' | 'fr']}</span>
+                                <span className="text-2xl font-bold text-white mb-1">{s.value}</span>
+                                <span className="text-xs text-slate-500 font-semibold uppercase tracking-wider">{s.label[locale as 'ar' | 'fr']}</span>
                             </div>
                         ))}
                     </div>
@@ -112,8 +112,8 @@ export default function AboutPage({
                                                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent"></div>
                                                 <div className="absolute bottom-6 left-6 right-6">
                                                     <div className="w-8 h-1 bg-brand-green mb-3"></div>
-                                                    <h3 className="text-white font-bold text-xl">{content.sections.director_word?.name?.[locale]}</h3>
-                                                    <p className="text-brand-yellow font-medium text-sm">{content.sections.director_word?.role?.[locale]}</p>
+                                                    <h3 className="text-white font-bold text-lg">{content.sections.director_word?.name?.[locale]}</h3>
+                                                    <p className="text-brand-yellow font-normal text-xs">{content.sections.director_word?.role?.[locale]}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -121,13 +121,13 @@ export default function AboutPage({
                                 </div>
 
                                 <div className="flex-1">
-                                    <div className="flex items-center gap-4 mb-10">
-                                        <div className="w-12 h-1 bg-brand-green"></div>
-                                        <h2 className="text-2xl font-black text-white tracking-wide">{content.sections.director_word?.title?.[locale]}</h2>
+                                    <div className="flex items-center gap-4 mb-8">
+                                        <div className="w-10 h-1 bg-brand-green"></div>
+                                        <h2 className="text-xl font-bold text-white tracking-wide">{content.sections.director_word?.title?.[locale]}</h2>
                                     </div>
                                     
                                     <div className="relative">
-                                        <p className="text-slate-300 text-lg md:text-xl leading-[1.6] font-medium italic whitespace-pre-line">
+                                        <p className="text-slate-300 text-base md:text-lg leading-relaxed font-normal italic whitespace-pre-line">
                                             {content.sections.director_word?.content?.[locale]}
                                         </p>
                                     </div>
@@ -152,8 +152,8 @@ export default function AboutPage({
                             <div className={`w-16 h-16 bg-${item.color}/10 text-${item.color} rounded-2xl flex items-center justify-center mb-8 border border-${item.color}/20 group-hover:scale-110 transition-transform`}>
                                 {item.icon}
                             </div>
-                            <h3 className="text-2xl font-black text-white mb-4">{item.title[locale as 'ar' | 'fr']}</h3>
-                            <p className="text-slate-400 font-medium leading-relaxed">
+                            <h3 className="text-xl font-bold text-white mb-3">{item.title[locale as 'ar' | 'fr']}</h3>
+                            <p className="text-sm text-slate-400 font-normal leading-relaxed">
                                 {item.text[locale as 'ar' | 'fr']}
                             </p>
                         </div>
