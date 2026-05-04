@@ -137,13 +137,6 @@ export default function NewsPage({
                     })}
                 </div>
 
-                {/* Source Link */}
-                <div className="mt-20 text-center">
-                    <a href="https://siteweb.tdm.mr" target="_blank" rel="noopener noreferrer" className="glass-button inline-flex items-center gap-3 text-xs">
-                        <ExternalLink className="w-4 h-4" />
-                        {t.source}
-                    </a>
-                </div>
             </div>
 
             {/* Premium Modal View */}

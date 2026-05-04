@@ -140,7 +140,34 @@ export default function AboutPage({
                     </div>
                 </header>
 
-                {/* 3. Strategic Grid */}
+                {/* 3. Dynamic Sections from Admin (Intro, etc) */}
+                <section className="space-y-16 mb-24">
+                    {Object.entries(content.sections).map(([key, section]: [string, any]) => {
+                        if (key === 'director_word') return null;
+                        // Skip hero/stats if they are hardcoded but maybe they should also be dynamic
+                        return (
+                            <motion.div 
+                                key={key}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                className="premium-card p-12"
+                            >
+                                <div className="flex items-center gap-4 mb-8">
+                                    <div className="w-1.5 h-8 bg-brand-green rounded-full"></div>
+                                    <h2 className="text-2xl font-bold text-white tracking-tight">
+                                        {section.title?.[locale]}
+                                    </h2>
+                                </div>
+                                <p className="text-slate-200 text-base md:text-lg leading-relaxed font-bold whitespace-pre-line">
+                                    {section.content?.[locale]}
+                                </p>
+                            </motion.div>
+                        );
+                    })}
+                </section>
+
+                {/* 4. Strategic Grid (Hardcoded for now, but maybe should be moved to admin later) */}
                 <section className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {[
                          { icon: <Target className="w-8 h-8" />, color: 'brand-green', title: { ar: "رؤيتنا", fr: "Notre Vision" }, text: { ar: "أن نكون القوة الدافعة للتحول الرقمي الشامل في الفضاء السمعي البصري الوطني.", fr: "Être le moteur de la transformation numérique nationale." } },
