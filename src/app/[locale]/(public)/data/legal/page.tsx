@@ -92,9 +92,14 @@ export default async function LegalLibraryPage({
                                         </div>
                                     </div>
                                 </div>
-                                <button className="shrink-0 px-4 py-2 rounded-lg text-brand-green font-medium hover:bg-brand-green hover:text-white border border-brand-green/20 transition-all self-start md:self-auto">
+                                <a 
+                                    href={item.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="shrink-0 px-4 py-2 rounded-lg text-brand-green font-medium hover:bg-brand-green hover:text-white border border-brand-green/20 transition-all self-start md:self-auto text-center"
+                                >
                                     {locale === 'ar' ? 'عرض الوثيقة' : 'Voir le document'}
-                                </button>
+                                </a>
                             </div>
                         ))}
                     </div>
