@@ -106,7 +106,7 @@ export default function ProjectsPage({
                                                 : 'bg-brand-green/10 text-brand-green border border-brand-green/20'
                                             }`}>
                                                 {project.status === 'ongoing' ? <Clock className="w-3 h-3" /> : <CheckCircle2 className="w-3 h-3" />}
-                                                {t.status[project.status]}
+                                                {t.status[project.status as keyof typeof t.status]}
                                             </div>
                                             <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center border border-white/10 group-hover:bg-brand-green group-hover:text-white transition-all duration-500">
                                                 <Target className="w-6 h-6" />
