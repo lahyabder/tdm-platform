@@ -2,32 +2,32 @@
     "title": "Nos Services Techniques",
     "items": [
         {
-            "id": "tv_broadcasting",
+            "id": "tv",
             "title": "Télédiffusion",
             "description": "La Télédiffusion de Mauritanie (TDM) assure la diffusion des chaînes de télévision nationales et privées via un large réseau de stations terrestres et par satellite."
         },
         {
-            "id": "radio_broadcasting",
+            "id": "radio",
             "title": "Radiodiffusion",
             "description": "La société assure une couverture complète du territoire national grâce à un vaste réseau de stations FM et ondes moyennes (OM), incluant les stations régionales."
         },
         {
-            "id": "data_transmission",
+            "id": "data",
             "title": "Transmission de données",
             "description": "Services de transmission de données et de contribution par satellite, permettant l'échange de contenus entre les médias nationaux et les réseaux régionaux."
         },
         {
-            "id": "internet_broadcasting",
+            "id": "internet",
             "title": "Diffusion sur Internet",
             "description": "Diffusion en direct de contenus audiovisuels sur Internet (OTT), ainsi que des services de vidéo et audio à la demande (VOD/AOD) pour les audiences numériques."
         },
         {
-            "id": "multimedia_services",
+            "id": "multimedia",
             "title": "Services d'Infrastructure",
             "description": "Location d'espaces et d'installations sur les sites techniques (pylônes) et offre de soutien logistique pour renforcer l'infrastructure numérique en Mauritanie."
         },
         {
-            "id": "commercial_service",
+            "id": "commercial",
             "title": "Service commercial",
             "description": "La TDM propose des opportunités de colocalisation et de location d'infrastructures de diffusion avec des tarifs compétitifs, garantissant la qualité et la sécurité de vos équipements."
         }
