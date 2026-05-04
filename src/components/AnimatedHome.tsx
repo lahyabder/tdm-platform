@@ -3,6 +3,7 @@
 import { motion, useScroll, useTransform, Variants } from 'framer-motion';
 import Link from 'next/link';
 import { useContentStore } from '@/store/useContentStore';
+import { useNewsStore } from '@/store/useNewsStore';
 import { MauritaniaMap } from '@/components/ui/MauritaniaMap';
 import { ArrowUpRight, Radio, Zap, Tv, Share2, ArrowRight } from 'lucide-react';
 import { useRef, useState, useEffect } from 'react';
@@ -10,13 +11,18 @@ import { useRef, useState, useEffect } from 'react';
 export function AnimatedHome({ locale, content: initialContent }: { locale: string; content: any }) {
     const containerRef = useRef(null);
     const { pages, fetchContent } = useContentStore();
+    const { articles, fetchArticles } = useNewsStore();
     const [hasFetched, setHasFetched] = useState(false);
     
     useEffect(() => {
-        fetchContent().then(() => setHasFetched(true));
+        Promise.all([
+            fetchContent(),
+            fetchArticles()
+        ]).then(() => setHasFetched(true));
     }, []);
 
     const content = hasFetched ? pages.home : initialContent;
+    const publishedNews = articles.slice(0, 3);
 
     const { scrollYProgress } = useScroll({
         target: containerRef,
@@ -162,7 +168,7 @@ export function AnimatedHome({ locale, content: initialContent }: { locale: stri
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {news.slice(0, 3).map((newsItem: any, i: number) => (
+                        {publishedNews.map((newsItem: any, i: number) => (
                             <motion.div
                                 key={newsItem.id}
                                 initial={{ opacity: 0, y: 20 }}
@@ -172,11 +178,17 @@ export function AnimatedHome({ locale, content: initialContent }: { locale: stri
                                 <Link href={`/${locale}/news/${newsItem.id}`} className="group block h-full">
                                     <div className="premium-card p-8 h-full flex flex-col group-hover:border-brand-green/30 transition-all">
                                         <div className="mb-6 flex items-center justify-between">
-                                            <span className="text-[10px] font-black text-brand-green uppercase tracking-[0.2em] px-3 py-1 bg-brand-green/10 rounded-full">{newsItem.date}</span>
+                                            <span className="text-[10px] font-black text-brand-green uppercase tracking-[0.2em] px-3 py-1 bg-brand-green/10 rounded-full">
+                                                {newsItem.date[locale as 'ar' | 'fr']}
+                                            </span>
                                             <ArrowUpRight className="w-5 h-5 text-slate-600 group-hover:text-brand-green group-hover:rotate-45 transition-all" />
                                         </div>
-                                        <h3 className="text-xl font-bold text-white mb-4 group-hover:text-brand-green transition-colors leading-tight">{newsItem.title?.[locale]}</h3>
-                                        <p className="text-slate-300 text-sm font-bold leading-relaxed line-clamp-3 mb-6 flex-1">{newsItem.summary?.[locale]}</p>
+                                        <h3 className="text-xl font-bold text-white mb-4 group-hover:text-brand-green transition-colors leading-tight line-clamp-2">
+                                            {newsItem.title[locale as 'ar' | 'fr']}
+                                        </h3>
+                                        <p className="text-slate-300 text-sm font-bold leading-relaxed line-clamp-3 mb-6 flex-1">
+                                            {newsItem.description[locale as 'ar' | 'fr']}
+                                        </p>
                                     </div>
                                 </Link>
                             </motion.div>
