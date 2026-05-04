@@ -215,6 +215,17 @@ export default function AdminUsersPage({
                                 </div>
                             </div>
 
+                            <div className="space-y-2">
+                                <label className="admin-label text-brand-yellow">{isAr ? 'كلمة المرور' : 'Mot de passe'}</label>
+                                <input 
+                                    type="password"
+                                    placeholder={editingUser?.id ? (isAr ? 'اتركه فارغاً للحفاظ على القديمة' : 'Laisser vide pour ne pas changer') : (isAr ? 'أدخل كلمة المرور' : 'Entrez le mot de passe')}
+                                    className="admin-input bg-slate-50 border-brand-yellow/20 focus:border-brand-yellow" 
+                                    value={editingUser.password || ''} 
+                                    onChange={e => setEditingUser({...editingUser, password: e.target.value})}
+                                />
+                            </div>
+
                             <div className="space-y-4 pt-4 border-t border-slate-100">
                                 <label className="admin-label text-brand-green">{isAr ? 'صلاحيات الوصول' : 'Access Permissions'}</label>
                                 <div className="grid grid-cols-2 gap-4">
