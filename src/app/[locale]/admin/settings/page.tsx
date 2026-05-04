@@ -1,6 +1,6 @@
 'use client';
 
-import { use } from 'react';
+import { use, useState, useEffect } from 'react';
 
 export default function AdminSettingsPage({
     params,
@@ -9,24 +9,45 @@ export default function AdminSettingsPage({
 }) {
     const { locale } = use(params);
 
+    const [settings, setSettings] = useState({
+        siteName: "Télédiffusion de Mauritanie",
+        phone: "+222 45 25 22 23",
+        address: "BP 4200, Nouakchott, Mauritanie",
+        contactEmail: "contact@tdm.mr",
+        facebook: "https://facebook.com/tdm",
+        twitter: "https://twitter.com/tdm",
+        linkedin: "https://linkedin.com/company/tdm",
+        metaTitle: "TDM - Télédiffusion de Mauritanie",
+        metaDesc: "المؤسسة الوطنية للبث الإذاعي والتلفزي الموريتاني - الوطنية للبث الإذاعي والتلفزي",
+        emailAlerts: true,
+        expiryNotice: 60
+    });
+
+    const isAr = locale === 'ar';
+
     const t = {
         ar: {
             title: "إعدادات النظام",
             subtitle: "تخصيص تجربة لوحة التحكم وإعدادات العرض.",
             save: "حفظ التغييرات",
             sections: {
-                branding: "الهوية الوطنية",
+                branding: "الهوية والاتصال",
+                social: "شبكات التواصل الاجتماعي",
                 notifications: "التنبيهات",
-                interface: "واجهة الاستخدام",
-                security: "الأمان"
+                seo: "تحسين محركات البحث (SEO)"
             },
             fields: {
                 siteName: "اسم الموقع الرسمي",
-                primaryColor: "اللون الأساسي للعلامة",
+                phone: "رقم الهاتف",
+                address: "العنوان الرسمي",
+                contactEmail: "بريد التواصل",
+                facebook: "فيسبوك",
+                twitter: "تويتر",
+                linkedin: "لينكد إن",
+                metaTitle: "عنوان الموقع (Title Tag)",
+                metaDesc: "وصف الموقع (Meta Description)",
                 emailAlerts: "تنبيهات البريد الإلكتروني",
-                expiryNotice: "فترة الإشعار بانتهاء الترخيص (أيام)",
-                demoMode: "وضع العرض التجريبي (Demo Mode)",
-                language: "لغة العرض الأساسية"
+                expiryNotice: "فترة الإشعار بانتهاء الترخيص (أيام)"
             }
         },
         fr: {
@@ -34,74 +55,189 @@ export default function AdminSettingsPage({
             subtitle: "Personnalisation de l'expérience et réglages d'affichage.",
             save: "Enregistrer les modifications",
             sections: {
-                branding: "Identité Visuelle",
+                branding: "Identité & Contact",
+                social: "Réseaux Sociaux",
                 notifications: "Notifications",
-                interface: "Interface utilisateur",
-                security: "Sécurité"
+                seo: "Référencement (SEO)"
             },
             fields: {
                 siteName: "Nom officiel du site",
-                primaryColor: "Couleur primaire",
+                phone: "Téléphone",
+                address: "Adresse officielle",
+                contactEmail: "Email de contact",
+                facebook: "Facebook",
+                twitter: "Twitter",
+                linkedin: "LinkedIn",
+                metaTitle: "Titre du site (Meta Title)",
+                metaDesc: "Description (Meta Description)",
                 emailAlerts: "Alertes par e-mail",
-                expiryNotice: "Délai de notification d'expiration (jours)",
-                demoMode: "Mode Démo",
-                language: "Langue principale"
+                expiryNotice: "Délai de notification d'expiration (jours)"
             }
         }
     }[locale as 'ar' | 'fr'];
 
+    const handleSave = () => {
+        alert(isAr ? '✅ تم حفظ الإعدادات بنجاح' : '✅ Paramètres enregistrés');
+    };
+
     return (
-        <div className="space-y-8 max-w-4xl">
-            <div className="flex justify-between items-end border-b border-slate-200 pb-6">
+        <div className="space-y-12 pb-20 max-w-5xl mx-auto">
+            <div className="flex justify-between items-center bg-white p-8 rounded-sm border border-slate-200 sticky top-0 z-10 shadow-sm">
                 <div>
-                    <h1 className="text-2xl font-black text-slate-900 mb-2">{t.title}</h1>
-                    <p className="text-slate-500 font-medium">{t.subtitle}</p>
+                    <h1 className="text-3xl font-black text-slate-900 uppercase tracking-tight">{t.title}</h1>
+                    <p className="text-slate-500 font-bold mt-1 uppercase text-xs tracking-widest">{t.subtitle}</p>
                 </div>
-                <button className="px-6 py-2 bg-brand-green text-white font-bold rounded-sm hover:bg-brand-green/90 transition-colors shadow-sm">
+                <button 
+                    onClick={handleSave}
+                    className="px-10 py-4 bg-brand-green text-white font-black rounded-sm hover:bg-brand-green/90 transition-all shadow-lg shadow-brand-green/20 uppercase text-xs tracking-widest"
+                >
                     {t.save}
                 </button>
             </div>
 
-            <div className="grid grid-cols-1 gap-10 py-6">
-                {/* Branding */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div>
-                        <h3 className="text-sm font-black text-slate-900 uppercase tracking-wider mb-1">{t.sections.branding}</h3>
-                        <p className="text-xs text-slate-500 font-medium leading-relaxed">تخصيص الشعار والألوان الرسمية للمنصة.</p>
+            <div className="space-y-10">
+                {/* Branding & Contact */}
+                <section className="bg-white rounded-sm border border-slate-200 overflow-hidden">
+                    <div className="px-8 py-4 bg-slate-50 border-b border-slate-200 flex items-center gap-3">
+                        <div className="w-2 h-2 bg-brand-green rounded-full"></div>
+                        <h3 className="text-xs font-black text-slate-800 uppercase tracking-widest">{t.sections.branding}</h3>
                     </div>
-                    <div className="md:col-span-2 space-y-4">
-                        <div>
-                            <label className="block text-xs font-bold text-slate-700 mb-2 uppercase">{t.fields.siteName}</label>
-                            <input type="text" defaultValue="Télédiffusion de Mauritanie" className="admin-input" />
+                    <div className="p-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div className="space-y-2">
+                            <label className="admin-label">{t.fields.siteName}</label>
+                            <input 
+                                type="text" 
+                                className="admin-input" 
+                                value={settings.siteName} 
+                                onChange={e => setSettings({...settings, siteName: e.target.value})}
+                            />
                         </div>
-                        <div className="flex items-center gap-4">
-                            <div className="w-12 h-12 bg-brand-green rounded-sm border border-slate-200"></div>
-                            <span className="text-xs font-bold text-slate-600 font-mono">#00A95C (TDM Green)</span>
+                        <div className="space-y-2">
+                            <label className="admin-label">{t.fields.contactEmail}</label>
+                            <input 
+                                type="email" 
+                                className="admin-input" 
+                                value={settings.contactEmail} 
+                                onChange={e => setSettings({...settings, contactEmail: e.target.value})}
+                            />
+                        </div>
+                        <div className="space-y-2">
+                            <label className="admin-label">{t.fields.phone}</label>
+                            <input 
+                                type="text" 
+                                className="admin-input" 
+                                value={settings.phone} 
+                                onChange={e => setSettings({...settings, phone: e.target.value})}
+                            />
+                        </div>
+                        <div className="space-y-2">
+                            <label className="admin-label">{t.fields.address}</label>
+                            <input 
+                                type="text" 
+                                className="admin-input" 
+                                value={settings.address} 
+                                onChange={e => setSettings({...settings, address: e.target.value})}
+                            />
                         </div>
                     </div>
-                </div>
+                </section>
 
-                <div className="h-px bg-slate-200 w-full"></div>
+                {/* Social Media */}
+                <section className="bg-white rounded-sm border border-slate-200 overflow-hidden">
+                    <div className="px-8 py-4 bg-slate-50 border-b border-slate-200 flex items-center gap-3">
+                        <div className="w-2 h-2 bg-brand-yellow rounded-full"></div>
+                        <h3 className="text-xs font-black text-slate-800 uppercase tracking-widest">{t.sections.social}</h3>
+                    </div>
+                    <div className="p-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div className="space-y-2">
+                            <label className="admin-label">{t.fields.facebook}</label>
+                            <input 
+                                type="text" 
+                                className="admin-input bg-slate-50 border-slate-100" 
+                                value={settings.facebook} 
+                                onChange={e => setSettings({...settings, facebook: e.target.value})}
+                            />
+                        </div>
+                        <div className="space-y-2">
+                            <label className="admin-label">{t.fields.twitter}</label>
+                            <input 
+                                type="text" 
+                                className="admin-input bg-slate-50 border-slate-100" 
+                                value={settings.twitter} 
+                                onChange={e => setSettings({...settings, twitter: e.target.value})}
+                            />
+                        </div>
+                        <div className="space-y-2">
+                            <label className="admin-label">{t.fields.linkedin}</label>
+                            <input 
+                                type="text" 
+                                className="admin-input bg-slate-50 border-slate-100" 
+                                value={settings.linkedin} 
+                                onChange={e => setSettings({...settings, linkedin: e.target.value})}
+                            />
+                        </div>
+                    </div>
+                </section>
+
+                {/* SEO Settings */}
+                <section className="bg-white rounded-sm border border-slate-200 overflow-hidden">
+                    <div className="px-8 py-4 bg-slate-50 border-b border-slate-200 flex items-center gap-3">
+                        <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                        <h3 className="text-xs font-black text-slate-800 uppercase tracking-widest">{t.sections.seo}</h3>
+                    </div>
+                    <div className="p-8 space-y-8">
+                        <div className="space-y-2">
+                            <label className="admin-label">{t.fields.metaTitle}</label>
+                            <input 
+                                type="text" 
+                                className="admin-input" 
+                                value={settings.metaTitle} 
+                                onChange={e => setSettings({...settings, metaTitle: e.target.value})}
+                            />
+                        </div>
+                        <div className="space-y-2">
+                            <label className="admin-label">{t.fields.metaDesc}</label>
+                            <textarea 
+                                className="admin-textarea" 
+                                rows={3}
+                                value={settings.metaDesc} 
+                                onChange={e => setSettings({...settings, metaDesc: e.target.value})}
+                            />
+                        </div>
+                    </div>
+                </section>
 
                 {/* Notifications */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div>
-                        <h3 className="text-sm font-black text-slate-900 uppercase tracking-wider mb-1">{t.sections.notifications}</h3>
-                        <p className="text-xs text-slate-500 font-medium leading-relaxed">التحكم في مواعيد الإشعارات الخاصة بالتراخيص.</p>
+                <section className="bg-white rounded-sm border border-slate-200 overflow-hidden">
+                    <div className="px-8 py-4 bg-slate-50 border-b border-slate-200 flex items-center gap-3">
+                        <div className="w-2 h-2 bg-brand-red rounded-full"></div>
+                        <h3 className="text-xs font-black text-slate-800 uppercase tracking-widest">{t.sections.notifications}</h3>
                     </div>
-                    <div className="md:col-span-2 space-y-6">
-                        <div className="flex items-center justify-between p-4 bg-slate-50 border border-slate-200 rounded-sm">
-                            <span className="text-sm font-bold text-slate-700">{t.fields.emailAlerts}</span>
-                            <div className="w-10 h-5 bg-brand-green rounded-full relative cursor-pointer shadow-inner">
-                                <div className="absolute right-0.5 top-0.5 w-4 h-4 bg-white rounded-full shadow-sm"></div>
+                    <div className="p-8 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+                        <div className="flex items-center justify-between p-6 bg-slate-50 border border-slate-200 rounded-sm group cursor-pointer" 
+                             onClick={() => setSettings({...settings, emailAlerts: !settings.emailAlerts})}>
+                            <div className="space-y-1">
+                                <span className="text-sm font-black text-slate-800 uppercase tracking-tight">{t.fields.emailAlerts}</span>
+                                <p className="text-[10px] text-slate-500 font-bold uppercase">{settings.emailAlerts ? 'Active' : 'Disabled'}</p>
+                            </div>
+                            <div className={`w-12 h-6 rounded-full relative transition-all duration-300 ${settings.emailAlerts ? 'bg-brand-green shadow-lg shadow-brand-green/20' : 'bg-slate-300'}`}>
+                                <div className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all duration-300 ${settings.emailAlerts ? 'right-1' : 'right-7'}`}></div>
                             </div>
                         </div>
-                        <div>
-                            <label className="block text-xs font-bold text-slate-700 mb-2 uppercase">{t.fields.expiryNotice}</label>
-                            <input type="number" defaultValue="60" className="admin-input w-32" />
+                        <div className="space-y-2">
+                            <label className="admin-label">{t.fields.expiryNotice}</label>
+                            <div className="flex items-center gap-4">
+                                <input 
+                                    type="number" 
+                                    className="admin-input w-24 text-center font-black" 
+                                    value={settings.expiryNotice} 
+                                    onChange={e => setSettings({...settings, expiryNotice: parseInt(e.target.value)})}
+                                />
+                                <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">{isAr ? 'يوم قبل الانتهاء' : 'Days before expiry'}</span>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </section>
             </div>
         </div>
     );
