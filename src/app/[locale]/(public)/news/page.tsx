@@ -205,10 +205,6 @@ export default function NewsPage({
                                     </div>
 
                                     <div className="mt-20 pt-12 border-t border-white/5 flex flex-wrap gap-6">
-                                        <button className="glass-button bg-brand-green border-brand-green flex items-center gap-3">
-                                            <Share2 className="w-5 h-5" />
-                                            {t.share}
-                                        </button>
                                         <button onClick={() => setSelectedArticle(null)} className="glass-button">
                                             {t.close}
                                         </button>

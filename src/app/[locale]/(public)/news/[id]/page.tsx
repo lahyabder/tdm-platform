@@ -100,12 +100,6 @@ export default function NewsDetailPage({
                             </p>
                         </div>
 
-                        <div className="pt-12 border-t border-white/5 flex items-center justify-between">
-                            <button className="glass-button bg-brand-green border-brand-green flex items-center gap-3">
-                                <Share2 className="w-5 h-5" />
-                                {t.share}
-                            </button>
-                        </div>
                     </div>
                 </article>
             </div>
