@@ -24,7 +24,19 @@ export default function AdminAboutEditor({
         const aboutContent = pages.about;
         if (aboutContent) {
             setTitle(aboutContent.title);
-            setSections(aboutContent.sections);
+            
+            // Ensure core sections exist for editing
+            const coreSections = ['intro', 'vision', 'mission', 'values'];
+            const mergedSections = { ...aboutContent.sections };
+            coreSections.forEach(key => {
+                if (!mergedSections[key]) {
+                    mergedSections[key] = { 
+                        title: { ar: '', fr: '' }, 
+                        content: { ar: '', fr: '' } 
+                    };
+                }
+            });
+            setSections(mergedSections);
         }
     }, [pages.about]);
 

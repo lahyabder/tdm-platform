@@ -15,7 +15,12 @@ export const INITIAL_CONTENT: Record<string, PageContent> = {
         { id: '1', date: '2024-05-01', title: { ar: 'توسعة شبكة البث الرقمي في المناطق الحدودية', fr: 'Expansion du réseau numérique aux frontières' }, summary: { ar: 'أطلقت TDM مشروعاً لتوسعة التغطية الرقمية لضمان وصول البث لكافة المواطنين على الحدود.', fr: 'TDM a lancé un projet pour assurer la couverture numérique de tous les citoyens aux frontières.' } },
         { id: '2', date: '2024-04-25', title: { ar: 'توقيع اتفاقية تعاون تقني مع الشركاء الدوليين', fr: 'Signature d\'un accord de coopération technique' }, summary: { ar: 'تعزيز التعاون التكنولوجي لتطوير البنية التحتية للبث الفضائي الموريتاني.', fr: 'Renforcement de la coopération technologique pour le développement du satellite.' } }
     ] }, quickLinks: { title: { ar: "روابط سريعة", fr: "Liens Rapides" }, items: [] } } },
-    about: { id: 'about', title: { ar: "ريادة المشهد الرقمي", fr: "Excellence Digitale" }, sections: { intro: { title: { ar: "من نحن؟", fr: "Qui sommes-nous ?" }, content: { ar: "تعد شركة البث الإذاعي والتلفزي الموريتاني (TDM) هي الهيئة الوطنية المسؤولة عن تأمين وتطوير البث الإذاعي والتلفزيوني على كامل التراب الوطني. نحن نلعب دوراً محورياً في السيادة الرقمية الوطنية.", fr: "La Télédiffusion de Mauritanie (TDM) est l'entité nationale responsable de la sécurisation et du développement de la radiodiffusion et de la télévision." } } } },
+    about: { id: 'about', title: { ar: "ريادة المشهد الرقمي", fr: "Excellence Digitale" }, sections: { 
+        intro: { title: { ar: "من نحن؟", fr: "Qui sommes-nous ?" }, content: { ar: "تعد شركة البث الإذاعي والتلفزي الموريتاني (TDM) هي الهيئة الوطنية المسؤولة عن تأمين وتطوير البث الإذاعي والتلفزيوني على كامل التراب الوطني. نحن نلعب دوراً محورياً في السيادة الرقمية الوطنية.", fr: "La Télédiffusion de Mauritanie (TDM) est l'entité nationale responsable de la sécurisation et du développement de la radiodiffusion et de la télévision." } },
+        vision: { title: { ar: "رؤيتنا", fr: "Notre Vision" }, content: { ar: "أن نكون القوة الدافعة للتحول الرقمي الشامل في الفضاء السمعي البصري الوطني.", fr: "Être le moteur de la transformation numérique nationale." } },
+        mission: { title: { ar: "رسالتنا", fr: "Notre Mission" }, content: { ar: "توفير بنية تحتية تقنية عالمية المستوى تضمن السيادة الإعلامية والانتشار الواسع.", fr: "Fournir une infrastructure de classe mondiale assurant la souveraineté." } },
+        values: { title: { ar: "قيمنا", fr: "Nos Valeurs" }, content: { ar: "الالتزام بالتميز التقني، والشفافية المؤسسية، والمسؤولية تجاه المجتمع.", fr: "Engagement envers l'excellence technique et la transparence." } }
+    } },
     services: { 
         id: 'services', 
         title: { ar: "حلول تقنية متكاملة", fr: "Solutions Technologiques" }, 

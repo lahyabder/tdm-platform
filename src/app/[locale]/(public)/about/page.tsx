@@ -140,11 +140,11 @@ export default function AboutPage({
                     </div>
                 </header>
 
-                {/* 3. Dynamic Sections from Admin (Intro, etc) */}
+                {/* 3. Dynamic Sections (Intro, etc) */}
                 <section className="space-y-16 mb-24">
                     {Object.entries(content.sections).map(([key, section]: [string, any]) => {
-                        if (key === 'director_word') return null;
-                        // Skip hero/stats if they are hardcoded but maybe they should also be dynamic
+                        // Skip core grid sections and director word
+                        if (['director_word', 'vision', 'mission', 'values'].includes(key)) return null;
                         return (
                             <motion.div 
                                 key={key}
@@ -167,23 +167,33 @@ export default function AboutPage({
                     })}
                 </section>
 
-                {/* 4. Strategic Grid (Hardcoded for now, but maybe should be moved to admin later) */}
+                {/* 4. Strategic Grid (Now Dynamic) */}
                 <section className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {[
-                         { icon: <Target className="w-8 h-8" />, color: 'brand-green', title: { ar: "رؤيتنا", fr: "Notre Vision" }, text: { ar: "أن نكون القوة الدافعة للتحول الرقمي الشامل في الفضاء السمعي البصري الوطني.", fr: "Être le moteur de la transformation numérique nationale." } },
-                         { icon: <Eye className="w-8 h-8" />, color: 'brand-yellow', title: { ar: "رسالتنا", fr: "Notre Mission" }, text: { ar: "توفير بنية تحتية تقنية عالمية المستوى تضمن السيادة الإعلامية والانتشار الواسع.", fr: "Fournir une infrastructure de classe mondiale assurant la souveraineté." } },
-                         { icon: <Shield className="w-8 h-8" />, color: 'brand-green', title: { ar: "قيمنا", fr: "Nos Valeurs" }, text: { ar: "الالتزام بالتميز التقني، والشفافية المؤسسية، والمسؤولية تجاه المجتمع.", fr: "Engagement envers l'excellence technique et la transparence." } }
-                    ].map((item, i) => (
-                        <div key={i} className="premium-card p-12 group hover:bg-white/[0.04]">
-                            <div className={`w-16 h-16 bg-${item.color}/10 text-${item.color} rounded-2xl flex items-center justify-center mb-8 border border-${item.color}/20 group-hover:scale-110 transition-transform`}>
-                                {item.icon}
-                            </div>
-                            <h3 className="text-lg font-bold text-white mb-3">{item.title[locale as 'ar' | 'fr']}</h3>
-                             <p className="text-sm text-slate-200 font-bold leading-relaxed">
-                                 {item.text[locale as 'ar' | 'fr']}
-                             </p>
-                        </div>
-                    ))}
+                         { key: 'vision', icon: <Target className="w-8 h-8" />, color: 'brand-green' },
+                         { key: 'mission', icon: <Eye className="w-8 h-8" />, color: 'brand-yellow' },
+                         { key: 'values', icon: <Shield className="w-8 h-8" />, color: 'brand-green' }
+                    ].map((item, i) => {
+                        const section = content.sections[item.key];
+                        if (!section) return null;
+                        return (
+                            <motion.div 
+                                key={i} 
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ delay: i * 0.1 }}
+                                className="premium-card p-12 group hover:bg-white/[0.04]"
+                            >
+                                <div className={`w-16 h-16 bg-${item.color}/10 text-${item.color} rounded-2xl flex items-center justify-center mb-8 border border-${item.color}/20 group-hover:scale-110 transition-transform`}>
+                                    {item.icon}
+                                </div>
+                                <h3 className="text-lg font-bold text-white mb-3">{section.title?.[locale]}</h3>
+                                 <p className="text-sm text-slate-200 font-bold leading-relaxed">
+                                     {section.content?.[locale]}
+                                 </p>
+                            </motion.div>
+                        );
+                    })}
                 </section>
             </div>
         </main>
