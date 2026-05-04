@@ -41,12 +41,26 @@ export default function AdminServicesEditor({
     };
 
     const addItem = () => {
-        setItems([...items, { 
+        setItems(prev => [...prev, { 
             id: Date.now().toString(), 
             title: { ar: 'خدمة جديدة', fr: 'Nouveau Service' }, 
             description: { ar: '', fr: '' },
             features: { ar: [], fr: [] }
         }]);
+    };
+
+    const updateItemField = (idx: number, field: string, subField: string, value: string) => {
+        setItems(prev => {
+            const newItems = [...prev];
+            newItems[idx] = {
+                ...newItems[idx],
+                [field]: {
+                    ...newItems[idx][field],
+                    [subField]: value
+                }
+            };
+            return newItems;
+        });
     };
 
     const removeItem = (id: string) => {
@@ -103,11 +117,7 @@ export default function AdminServicesEditor({
                                     <input 
                                         className="admin-field"
                                         value={item.title.ar}
-                                        onChange={(e) => {
-                                            const newItems = [...items];
-                                            newItems[idx].title.ar = e.target.value;
-                                            setItems(newItems);
-                                        }}
+                                        onChange={(e) => updateItemField(idx, 'title', 'ar', e.target.value)}
                                     />
                                 </div>
                                 <div className="space-y-3">
@@ -115,11 +125,7 @@ export default function AdminServicesEditor({
                                     <input 
                                         className="admin-field"
                                         value={item.title.fr}
-                                        onChange={(e) => {
-                                            const newItems = [...items];
-                                            newItems[idx].title.fr = e.target.value;
-                                            setItems(newItems);
-                                        }}
+                                        onChange={(e) => updateItemField(idx, 'title', 'fr', e.target.value)}
                                     />
                                 </div>
                             </div>
@@ -130,11 +136,7 @@ export default function AdminServicesEditor({
                                         className="admin-textarea"
                                         rows={3}
                                         value={item.description.ar}
-                                        onChange={(e) => {
-                                            const newItems = [...items];
-                                            newItems[idx].description.ar = e.target.value;
-                                            setItems(newItems);
-                                        }}
+                                        onChange={(e) => updateItemField(idx, 'description', 'ar', e.target.value)}
                                     />
                                 </div>
                                 <div className="space-y-3">
@@ -143,11 +145,7 @@ export default function AdminServicesEditor({
                                         className="admin-textarea"
                                         rows={3}
                                         value={item.description.fr}
-                                        onChange={(e) => {
-                                            const newItems = [...items];
-                                            newItems[idx].description.fr = e.target.value;
-                                            setItems(newItems);
-                                        }}
+                                        onChange={(e) => updateItemField(idx, 'description', 'fr', e.target.value)}
                                     />
                                 </div>
                             </div>
