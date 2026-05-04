@@ -55,25 +55,21 @@ function LineChart({ data }: { data: typeof COVERAGE_MONTHLY }) {
           <stop offset="100%" stopColor="#3b82f6" stopOpacity="0" />
         </linearGradient>
       </defs>
-      {/* Grid */}
       {[25, 50, 75, 100].map(v => (
         <g key={v}>
-          <line x1={PAD} y1={y(v)} x2={W - PAD} y2={y(v)} stroke="#e2e8f0" strokeWidth="1" />
-          <text x={PAD - 8} y={y(v) + 4} textAnchor="end" fontSize="10" fill="#94a3b8">{v}%</text>
+          <line x1={PAD} y1={y(v)} x2={W - PAD} y2={y(v)} stroke="rgba(255,255,255,0.05)" strokeWidth="1" />
+          <text x={PAD - 8} y={y(v) + 4} textAnchor="end" fontSize="10" fill="#64748b" fontWeight="bold">{v}%</text>
         </g>
       ))}
-      {/* Areas */}
       <path d={area('radio')} fill="url(#gR)" />
       <path d={area('tv')} fill="url(#gT)" />
-      {/* Lines */}
-      <path d={path('radio')} fill="none" stroke="#10b981" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-      <path d={path('tv')} fill="none" stroke="#3b82f6" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-      {/* Dots */}
+      <path d={path('radio')} fill="none" stroke="#10b981" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+      <path d={path('tv')} fill="none" stroke="#3b82f6" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
       {data.map((d, i) => (
         <g key={i}>
-          <circle cx={xs[i]} cy={y(d.radio)} r="3" fill="#10b981" />
-          <circle cx={xs[i]} cy={y(d.tv)} r="3" fill="#3b82f6" />
-          <text x={xs[i]} y={H - 6} textAnchor="middle" fontSize="9" fill="#94a3b8">{d.month.slice(0, 3)}</text>
+          <circle cx={xs[i]} cy={y(d.radio)} r="4" fill="#10b981" stroke="#020617" strokeWidth="2" />
+          <circle cx={xs[i]} cy={y(d.tv)} r="4" fill="#3b82f6" stroke="#020617" strokeWidth="2" />
+          <text x={xs[i]} y={H - 6} textAnchor="middle" fontSize="10" fill="#64748b" fontWeight="bold">{d.month.slice(0, 3)}</text>
         </g>
       ))}
     </svg>
@@ -97,21 +93,21 @@ function DonutChart() {
   });
 
   return (
-    <svg viewBox="0 0 200 200" className="w-full max-w-[200px] mx-auto">
+    <svg viewBox="0 0 200 200" className="w-full max-w-[200px] mx-auto drop-shadow-2xl">
       {slices.map((s, i) => (
-        <path key={i} d={s.d} fill="none" stroke={s.color} strokeWidth={STROKE} className="transition-all hover:opacity-80 cursor-pointer" />
+        <path key={i} d={s.d} fill="none" stroke={s.color} strokeWidth={STROKE} className="transition-all hover:scale-105 cursor-pointer origin-center" />
       ))}
-      <text x={CX} y={CY - 6} textAnchor="middle" fontSize="18" fontWeight="bold" fill="#1e293b">
+      <text x={CX} y={CY - 4} textAnchor="middle" fontSize="22" fontWeight="900" fill="white" tracking-tighter>
         {TOTAL_HOURS.toLocaleString()}
       </text>
-      <text x={CX} y={CY + 12} textAnchor="middle" fontSize="9" fill="#64748b">ساعة / سنة</text>
+      <text x={CX} y={CY + 14} textAnchor="middle" fontSize="10" fontWeight="bold" fill="#64748b" className="uppercase tracking-widest">ساعة / سنة</text>
     </svg>
   );
 }
 
 // ─── Bar Chart (Wilaya) ───────────────────────────────────────────────────────
 function BarChart({ data }: { data: typeof WILAYA_DATA }) {
-  const W = 700, H = 220, PAD_L = 90, PAD_B = 30, BAR_W = 20, GAP = 12;
+  const W = 700, H = 220, PAD_L = 90, PAD_B = 30, BAR_W = 22, GAP = 8;
   const groupW = BAR_W * 2 + GAP;
   const totalW = data.length * groupW + (data.length - 1) * 20;
   const startX = PAD_L + (W - PAD_L - totalW) / 2;
@@ -120,8 +116,8 @@ function BarChart({ data }: { data: typeof WILAYA_DATA }) {
     <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ height: 220 }}>
       {[25, 50, 75, 100].map(v => (
         <g key={v}>
-          <line x1={PAD_L} y1={H - PAD_B - (v / 100) * (H - PAD_B - 20)} x2={W - 10} y2={H - PAD_B - (v / 100) * (H - PAD_B - 20)} stroke="#e2e8f0" strokeWidth="1" />
-          <text x={PAD_L - 6} y={H - PAD_B - (v / 100) * (H - PAD_B - 20) + 4} textAnchor="end" fontSize="10" fill="#94a3b8">{v}%</text>
+          <line x1={PAD_L} y1={H - PAD_B - (v / 100) * (H - PAD_B - 20)} x2={W - 10} y2={H - PAD_B - (v / 100) * (H - PAD_B - 20)} stroke="rgba(255,255,255,0.05)" strokeWidth="1" />
+          <text x={PAD_L - 8} y={H - PAD_B - (v / 100) * (H - PAD_B - 20) + 4} textAnchor="end" fontSize="10" fill="#64748b" fontWeight="bold">{v}%</text>
         </g>
       ))}
       {data.map((d, i) => {
@@ -130,9 +126,9 @@ function BarChart({ data }: { data: typeof WILAYA_DATA }) {
         const tH = (d.tv / 100) * (H - PAD_B - 20);
         return (
           <g key={i}>
-            <rect x={x} y={H - PAD_B - rH} width={BAR_W} height={rH} rx="3" fill="#10b981" className="hover:opacity-80 transition-opacity" />
-            <rect x={x + BAR_W + GAP} y={H - PAD_B - tH} width={BAR_W} height={tH} rx="3" fill="#3b82f6" className="hover:opacity-80 transition-opacity" />
-            <text x={x + BAR_W + GAP / 2} y={H - 6} textAnchor="middle" fontSize="9" fill="#64748b">{d.name.slice(0, 5)}</text>
+            <rect x={x} y={H - PAD_B - rH} width={BAR_W} height={rH} rx="4" fill="#10b981" className="hover:opacity-80 transition-all cursor-pointer" />
+            <rect x={x + BAR_W + GAP} y={H - PAD_B - tH} width={BAR_W} height={tH} rx="4" fill="#3b82f6" className="hover:opacity-80 transition-all cursor-pointer" />
+            <text x={x + BAR_W + GAP / 2} y={H - 6} textAnchor="middle" fontSize="10" fill="#64748b" fontWeight="bold">{d.name.slice(0, 5)}</text>
           </g>
         );
       })}
@@ -184,137 +180,181 @@ export default function StatsPage({ params }: { params: Promise<{ locale: string
     coverageTitle: 'Coverage', wilayaTitle: 'By Wilaya', broadcastTitle: 'Broadcast',
   };
 
-  return (
-    <main className="min-h-screen pb-24" dir={isAr ? 'rtl' : 'ltr'}>
-      {/* Header */}
-      <section className="bg-brand-dark pt-24 pb-32 text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-brand-dark to-brand-green/20" />
-        <div className="absolute bottom-0 w-full h-1 bg-gradient-to-r from-brand-green via-brand-yellow to-brand-red" />
-        <div className="max-w-6xl mx-auto px-6 relative z-10 text-center">
-          <Link href={`/${locale}/data`} className="inline-flex items-center gap-2 text-brand-yellow hover:underline mb-6 font-medium">
-            {isAr ? '→' : '←'} {T.back}
-          </Link>
-          <h1 className="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">{T.title}</h1>
-          <p className="text-lg text-slate-100 max-w-xl mx-auto">{T.subtitle}</p>
-        </div>
-      </section>
-
-      <div className="max-w-7xl mx-auto px-6 -mt-20 relative z-20 space-y-8">
-        {/* KPI Cards */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          {T.metrics.map((m, i) => (
-            <div key={i} className="bg-brand-card rounded-2xl border border-white/20/80 shadow-md p-5 hover:shadow-lg hover:-translate-y-0.5 transition-all">
-              <div className="flex justify-between items-start mb-4">
-                <div className={`px-2.5 py-1 rounded-full text-xs font-bold flex items-center gap-1 ${m.up ? 'bg-emerald-50 text-emerald-600 border border-emerald-100' : 'bg-red-50 text-red-600 border border-red-100'}`}>
-                  <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d={m.up ? "M5 10l7-7m0 0l7 7m-7-7v18" : "M19 14l-7 7m0 0l-7-7m7 7V3"} />
-                  </svg>
-                  {m.change}
+    return (
+        <main className="min-h-screen pb-32 bg-mesh" dir={isAr ? 'rtl' : 'ltr'}>
+            {/* Header / Hero Section */}
+            <section className="bg-brand-dark pt-32 pb-56 text-white relative overflow-hidden">
+                <div className="absolute inset-0">
+                    <img src="/data_bg.jpg" alt="Data background" className="w-full h-full object-cover opacity-10 mix-blend-luminosity" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-brand-dark via-brand-dark/90 to-brand-dark"></div>
                 </div>
-              </div>
-              <div className="flex items-baseline gap-1">
-                <span className="text-3xl font-black text-white font-mono">{m.value}</span>
-                {'unit' in m && m.unit && <span className="text-sm font-bold text-slate-300">{m.unit}</span>}
-              </div>
-              <p className="text-xs font-bold text-slate-300 mt-1">{m.label}</p>
-            </div>
-          ))}
-        </div>
+                
+                {/* Decorative mesh blobs */}
+                <div className="absolute -top-24 -right-24 w-96 h-96 bg-brand-green/20 blur-[120px] rounded-full"></div>
+                <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-brand-yellow/10 blur-[120px] rounded-full"></div>
 
-        {/* Chart Tabs */}
-        <div className="bg-brand-card rounded-2xl border border-white/20 shadow-md overflow-hidden">
-          <div className="flex border-b border-white/10 overflow-x-auto">
-            {(Object.keys(T.tabs) as Array<keyof typeof T.tabs>).map(tab => (
-              <button key={tab} onClick={() => setActiveTab(tab as any)}
-                className={`px-6 py-4 text-sm font-bold whitespace-nowrap border-b-2 transition-colors -mb-px ${activeTab === tab ? 'border-brand-green text-brand-green' : 'border-transparent text-slate-300 hover:text-white'}`}>
-                {T.tabs[tab]}
-              </button>
-            ))}
-          </div>
-
-          <div className="p-6">
-            {activeTab === 'coverage' && (
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className="font-bold text-white">{T.coverageTitle}</h2>
-                  <div className="flex gap-4 text-xs font-bold">
-                    <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-full bg-emerald-500 inline-block" />{T.radioLabel}</span>
-                    <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-full bg-blue-500 inline-block" />{T.tvLabel}</span>
-                  </div>
+                <div className="max-w-5xl mx-auto px-6 relative z-10 text-center">
+                    <Link href={`/${locale}/data`} className="inline-flex items-center gap-2 text-brand-yellow hover:underline mb-8 font-black uppercase tracking-widest text-xs">
+                        {isAr ? '←' : '→'} {T.back}
+                    </Link>
+                    <h1 className="text-6xl md:text-8xl font-black mb-8 tracking-tighter leading-[0.9] glow-text-gold">
+                        {T.title}
+                    </h1>
+                    <p className="text-xl md:text-2xl text-slate-400 leading-relaxed max-w-3xl mx-auto font-medium">
+                        {T.subtitle}
+                    </p>
                 </div>
-                <LineChart data={COVERAGE_MONTHLY} />
-              </div>
-            )}
+            </section>
 
-            {activeTab === 'wilaya' && (
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className="font-bold text-white">{T.wilayaTitle}</h2>
-                  <div className="flex gap-4 text-xs font-bold">
-                    <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-full bg-emerald-500 inline-block" />{T.radioLabel}</span>
-                    <span className="flex items-center gap-1.5"><span className="w-3 h-3 rounded-full bg-blue-500 inline-block" />{T.tvLabel}</span>
-                  </div>
-                </div>
-                <BarChart data={WILAYA_DATA} />
-                <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-2">
-                  {WILAYA_DATA.map(w => (
-                    <div key={w.name} className="p-3 bg-brand-card rounded-lg border border-white/10">
-                      <p className="text-xs font-bold text-slate-200 mb-1">{w.name}</p>
-                      <div className="flex gap-3 text-xs">
-                        <span className="text-emerald-600 font-bold">{w.radio}%</span>
-                        <span className="text-blue-600 font-bold">{w.tv}%</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {activeTab === 'broadcast' && (
-              <div>
-                <h2 className="font-bold text-white mb-6">{T.broadcastTitle}</h2>
-                <div className="flex flex-col md:flex-row items-center gap-8">
-                  <div className="w-full md:w-48 shrink-0">
-                    <DonutChart />
-                  </div>
-                  <div className="flex-1 grid grid-cols-2 gap-3 w-full">
-                    {BROADCAST_HOURS.map((b, i) => (
-                      <div key={i} className="flex items-center gap-3 p-3 rounded-lg border border-white/10 hover:bg-brand-card transition-colors">
-                        <div className="w-3 h-3 rounded-full shrink-0" style={{ backgroundColor: b.color }} />
-                        <div className="flex-1 min-w-0">
-                          <p className="text-xs font-bold text-slate-100 truncate">{b.label}</p>
-                          <div className="w-full bg-brand-card-hover rounded-full h-1.5 mt-1">
-                            <div className="h-1.5 rounded-full transition-all" style={{ width: `${(b.hours / TOTAL_HOURS) * 100}%`, backgroundColor: b.color }} />
-                          </div>
+            <div className="max-w-7xl mx-auto px-6 -mt-24 relative z-20 space-y-12">
+                {/* KPI Cards */}
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                    {T.metrics.map((m, i) => (
+                        <div key={i} className="premium-card p-8 group border-white/5 hover:border-brand-green/30">
+                            <div className="flex justify-between items-start mb-6">
+                                <div className={`px-3 py-1 rounded-full text-[10px] font-black flex items-center gap-1 uppercase tracking-wider ${m.up ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-red-500/10 text-red-400 border border-red-500/20'}`}>
+                                    <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d={m.up ? "M5 10l7-7m0 0l7 7m-7-7v18" : "M19 14l-7 7m0 0l-7-7m7 7V3"} />
+                                    </svg>
+                                    {m.change}
+                                </div>
+                                <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-slate-400 group-hover:text-brand-green transition-colors">
+                                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div className="flex items-baseline gap-2">
+                                <span className="text-5xl font-black text-white tracking-tighter">{m.value}</span>
+                                {'unit' in m && m.unit && <span className="text-lg font-black text-slate-500">{m.unit}</span>}
+                            </div>
+                            <p className="text-sm font-black text-slate-400 mt-2 uppercase tracking-widest opacity-70">{m.label}</p>
                         </div>
-                        <span className="text-xs font-black text-slate-300 shrink-0">{Math.round((b.hours / TOTAL_HOURS) * 100)}%</span>
-                      </div>
                     ))}
-                  </div>
                 </div>
-              </div>
-            )}
-          </div>
-        </div>
 
-        {/* Uptime Banner */}
-        <div className="bg-brand-dark rounded-2xl p-8 text-white flex flex-col md:flex-row items-center gap-6">
-          <div className="w-16 h-16 rounded-full bg-emerald-500/20 border-2 border-emerald-500 flex items-center justify-center shrink-0">
-            <svg className="w-8 h-8 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </div>
-          <div>
-            <div className="text-3xl font-black text-emerald-400 mb-1">99.9% Uptime</div>
-            <p className="text-slate-100 text-sm">{isAr ? 'معدل توافر شبكة البث عبر التراب الوطني — مراقب على مدار الساعة' : 'Disponibilité du réseau de diffusion — surveillance 24h/24'}</p>
-          </div>
-          <div className="md:ms-auto flex gap-2">
-            {Array.from({ length: 30 }).map((_, i) => (
-              <div key={i} className={`w-1.5 rounded-full ${i === 14 ? 'h-4 bg-amber-400' : 'h-6 bg-emerald-500'}`} />
-            ))}
-          </div>
-        </div>
-      </div>
-    </main>
-  );
+                {/* Main Content Area */}
+                <div className="premium-card overflow-hidden border-white/5 shadow-2xl">
+                    <div className="flex border-b border-white/10 bg-white/2 overflow-x-auto custom-scrollbar">
+                        {(Object.keys(T.tabs) as Array<keyof typeof T.tabs>).map(tab => (
+                            <button key={tab} onClick={() => setActiveTab(tab as any)}
+                                className={`px-10 py-6 text-sm font-black uppercase tracking-widest whitespace-nowrap border-b-4 transition-all -mb-px ${activeTab === tab ? 'border-brand-green text-white bg-white/5' : 'border-transparent text-slate-500 hover:text-white hover:bg-white/2'}`}>
+                                {T.tabs[tab]}
+                            </button>
+                        ))}
+                    </div>
+
+                    <div className="p-10 md:p-16">
+                        {activeTab === 'coverage' && (
+                            <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
+                                <div className="flex flex-col md:flex-row items-center justify-between mb-12 gap-6">
+                                    <h2 className="text-3xl font-black text-white">{T.coverageTitle}</h2>
+                                    <div className="flex gap-8 text-xs font-black uppercase tracking-widest">
+                                        <span className="flex items-center gap-3 text-emerald-400">
+                                            <span className="w-4 h-4 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]" />
+                                            {T.radioLabel}
+                                        </span>
+                                        <span className="flex items-center gap-3 text-blue-400">
+                                            <span className="w-4 h-4 rounded-full bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.5)]" />
+                                            {T.tvLabel}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div className="p-6 bg-brand-dark/30 rounded-3xl border border-white/5">
+                                    <LineChart data={COVERAGE_MONTHLY} />
+                                </div>
+                            </div>
+                        )}
+
+                        {activeTab === 'wilaya' && (
+                            <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
+                                <div className="flex flex-col md:flex-row items-center justify-between mb-12 gap-6">
+                                    <h2 className="text-3xl font-black text-white">{T.wilayaTitle}</h2>
+                                    <div className="flex gap-8 text-xs font-black uppercase tracking-widest">
+                                        <span className="flex items-center gap-3 text-emerald-400">
+                                            <span className="w-4 h-4 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]" />
+                                            {T.radioLabel}
+                                        </span>
+                                        <span className="flex items-center gap-3 text-blue-400">
+                                            <span className="w-4 h-4 rounded-full bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.5)]" />
+                                            {T.tvLabel}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div className="p-6 bg-brand-dark/30 rounded-3xl border border-white/5 mb-10">
+                                    <BarChart data={WILAYA_DATA} />
+                                </div>
+                                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                    {WILAYA_DATA.map(w => (
+                                        <div key={w.name} className="p-5 bg-white/2 rounded-2xl border border-white/5 hover:border-brand-green/20 transition-all group">
+                                            <p className="text-sm font-black text-white mb-3 group-hover:text-brand-green transition-colors">{w.name}</p>
+                                            <div className="flex justify-between items-center text-xs font-black">
+                                                <span className="text-emerald-500">{w.radio}%</span>
+                                                <span className="text-blue-500">{w.tv}%</span>
+                                            </div>
+                                            <div className="mt-3 h-1.5 bg-white/5 rounded-full overflow-hidden flex">
+                                                <div className="h-full bg-emerald-500" style={{ width: `${w.radio}%` }}></div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
+                        {activeTab === 'broadcast' && (
+                            <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
+                                <h2 className="text-3xl font-black text-white mb-12">{T.broadcastTitle}</h2>
+                                <div className="flex flex-col lg:flex-row items-center gap-20">
+                                    <div className="w-full lg:w-72 shrink-0">
+                                        <div className="relative">
+                                            <div className="absolute inset-0 bg-brand-green/10 blur-[60px] rounded-full"></div>
+                                            <DonutChart />
+                                        </div>
+                                    </div>
+                                    <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+                                        {BROADCAST_HOURS.map((b, i) => (
+                                            <div key={i} className="flex flex-col gap-3 p-6 rounded-2xl bg-white/2 border border-white/5 hover:border-white/10 transition-all group">
+                                                <div className="flex justify-between items-center">
+                                                    <div className="flex items-center gap-3">
+                                                        <div className="w-3 h-3 rounded-full shadow-lg" style={{ backgroundColor: b.color, boxShadow: `0 0 10px ${b.color}80` }} />
+                                                        <p className="text-sm font-black text-white group-hover:text-brand-green transition-colors">{b.label}</p>
+                                                    </div>
+                                                    <span className="text-lg font-black text-white/40">{Math.round((b.hours / TOTAL_HOURS) * 100)}%</span>
+                                                </div>
+                                                <div className="w-full bg-white/5 rounded-full h-2.5 p-0.5">
+                                                    <div className="h-full rounded-full transition-all duration-1000" style={{ width: `${(b.hours / TOTAL_HOURS) * 100}%`, backgroundColor: b.color }} />
+                                                </div>
+                                                <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">{b.hours.toLocaleString()} {isAr ? 'ساعة سنوياً' : 'heures/an'}</p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </div>
+
+                {/* Uptime Banner */}
+                <div className="premium-card p-10 flex flex-col lg:flex-row items-center gap-10 border-emerald-500/10 bg-emerald-500/[0.02]">
+                    <div className="w-24 h-24 rounded-3xl bg-emerald-500/10 border-2 border-emerald-500/20 flex items-center justify-center shrink-0 relative">
+                        <div className="absolute inset-0 bg-emerald-500/20 blur-2xl rounded-full animate-pulse"></div>
+                        <svg className="w-12 h-12 text-emerald-400 relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                    </div>
+                    <div className="text-center lg:text-right">
+                        <div className="text-5xl font-black text-emerald-400 mb-3 tracking-tighter leading-none">99.9% UPTIME</div>
+                        <p className="text-lg text-slate-400 font-bold max-w-2xl">
+                            {isAr ? 'نظام البث الموريتاني يعمل بكفاءة قصوى مع مراقبة حية واستجابة فورية للأعطال على مدار الساعة.' : 'Le réseau de diffusion mauritanien fonctionne à pleine capacité avec une surveillance en temps réel et une réponse immédiate.'}
+                        </p>
+                    </div>
+                    <div className="lg:ms-auto flex items-end gap-1.5 h-12">
+                        {Array.from({ length: 32 }).map((_, i) => (
+                            <div key={i} className={`w-2 rounded-full transition-all duration-500 ${i === 18 ? 'h-5 bg-amber-400 animate-bounce' : 'h-10 bg-emerald-500 opacity-30 hover:opacity-100 hover:h-12'}`} />
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </main>
+    );
 }
