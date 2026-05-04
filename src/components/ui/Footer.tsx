@@ -18,7 +18,10 @@ export function Footer({ locale, dict }: { locale: string; dict: any }) {
                         <h3 className="font-bold text-white mb-4">{locale === 'ar' ? 'روابط سريعة' : 'Liens rapides'}</h3>
                         <ul className="space-y-3 text-sm text-slate-300">
                             <li><a href={`/${locale}`} className="hover:text-brand-green transition-colors">{dict.home}</a></li>
-                            <li><a href={`/${locale}/admin`} className="hover:text-brand-green transition-colors">{dict.dashboard}</a></li>
+                            <li><a href={`/${locale}/services`} className="hover:text-brand-green transition-colors">{locale === 'ar' ? 'خدماتنا' : 'Nos services'}</a></li>
+                            <li><a href={`/${locale}/news`} className="hover:text-brand-green transition-colors">{locale === 'ar' ? 'آخر الأخبار' : 'Actualités'}</a></li>
+                            <li><a href={`/${locale}/about`} className="hover:text-brand-green transition-colors">{locale === 'ar' ? 'عن المؤسسة' : 'À propos'}</a></li>
+                            <li><a href={`/${locale}/projects`} className="hover:text-brand-green transition-colors">{locale === 'ar' ? 'المشاريع' : 'Projets'}</a></li>
                         </ul>
                     </div>
 
