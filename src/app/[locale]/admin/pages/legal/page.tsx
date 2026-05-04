@@ -42,11 +42,15 @@ export default function AdminLegalEditor({
     };
 
     const updateNestedField = (sectionKey: string, field: string, subField: string, value: string) => {
-        const newSections = { ...sections };
-        if (!newSections[sectionKey]) newSections[sectionKey] = {};
-        if (!newSections[sectionKey][field]) newSections[sectionKey][field] = {};
-        newSections[sectionKey][field][subField] = value;
-        setSections(newSections);
+        setSections((prev: any) => {
+            const newSections = { ...prev };
+            if (!newSections[sectionKey]) newSections[sectionKey] = {};
+            newSections[sectionKey][field] = {
+                ...(newSections[sectionKey][field] || {}),
+                [subField]: value
+            };
+            return newSections;
+        });
     };
 
     if (!isClient || isLoading) {

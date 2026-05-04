@@ -37,9 +37,16 @@ export default function AdminContactEditor({
     };
 
     const updateInfoField = (field: string, subField: string, value: string) => {
-        const newSections = { ...sections };
-        newSections.info[field][subField] = value;
-        setSections(newSections);
+        setSections((prev: any) => ({
+            ...prev,
+            info: {
+                ...prev.info,
+                [field]: {
+                    ...prev.info[field],
+                    [subField]: value
+                }
+            }
+        }));
     };
 
     if (!isClient || !sections.info) return null;

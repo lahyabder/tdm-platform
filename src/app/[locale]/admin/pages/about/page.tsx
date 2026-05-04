@@ -41,13 +41,20 @@ export default function AdminAboutEditor({
     };
 
     const updateNestedField = (sectionKey: string, field: string, subField: string | null, value: any) => {
-        const newSections = { ...sections };
-        if (subField) {
-            newSections[sectionKey][field][subField] = value;
-        } else {
-            newSections[sectionKey][field] = value;
-        }
-        setSections(newSections);
+        setSections((prev: any) => {
+            const newSections = { ...prev };
+            if (!newSections[sectionKey]) newSections[sectionKey] = {};
+            
+            if (subField) {
+                newSections[sectionKey][field] = {
+                    ...(newSections[sectionKey][field] || {}),
+                    [subField]: value
+                };
+            } else {
+                newSections[sectionKey][field] = value;
+            }
+            return newSections;
+        });
     };
 
     if (!isClient || !sections) return null;
@@ -135,20 +142,20 @@ export default function AdminAboutEditor({
                         <div key={key} className="bg-white p-8 rounded-sm border border-slate-200 shadow-sm space-y-8">
                             <h2 className="text-xl font-black text-slate-800 border-b pb-4 flex items-center gap-3">
                                 <span className="w-2 h-8 bg-brand-green rounded-full"></span>
-                                {isAr ? section.title.ar : section.title.fr}
+                                {isAr ? section.title?.ar : section.title?.fr}
                             </h2>
                             <div className="grid grid-cols-2 gap-8">
                                 <div className="space-y-4">
                                     <label className="admin-label">{isAr ? 'العنوان (عربي)' : 'Titre (AR)'}</label>
-                                    <input className="admin-input" value={section.title.ar} onChange={e => updateNestedField(key, 'title', 'ar', e.target.value)} />
+                                    <input className="admin-input" value={section.title?.ar || ''} onChange={e => updateNestedField(key, 'title', 'ar', e.target.value)} />
                                     <label className="admin-label">{isAr ? 'المحتوى (عربي)' : 'Contenu (AR)'}</label>
-                                    <textarea rows={4} className="admin-textarea" value={section.content.ar} onChange={e => updateNestedField(key, 'content', 'ar', e.target.value)} />
+                                    <textarea rows={4} className="admin-textarea" value={section.content?.ar || ''} onChange={e => updateNestedField(key, 'content', 'ar', e.target.value)} />
                                 </div>
                                 <div className="space-y-4">
                                     <label className="admin-label">{isAr ? 'العنوان (فرنسي)' : 'Titre (FR)'}</label>
-                                    <input className="admin-input" value={section.title.fr} onChange={e => updateNestedField(key, 'title', 'fr', e.target.value)} />
+                                    <input className="admin-input" value={section.title?.fr || ''} onChange={e => updateNestedField(key, 'title', 'fr', e.target.value)} />
                                     <label className="admin-label">{isAr ? 'المحتوى (فرنسي)' : 'Contenu (FR)'}</label>
-                                    <textarea rows={4} className="admin-textarea" value={section.content.fr} onChange={e => updateNestedField(key, 'content', 'fr', e.target.value)} />
+                                    <textarea rows={4} className="admin-textarea" value={section.content?.fr || ''} onChange={e => updateNestedField(key, 'content', 'fr', e.target.value)} />
                                 </div>
                             </div>
                         </div>

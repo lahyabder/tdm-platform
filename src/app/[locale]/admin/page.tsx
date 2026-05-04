@@ -202,7 +202,7 @@ export default function AdminDashboardPage({
                                     href={`/${locale}/admin/news/${article.id}/edit`}
                                     className="flex items-center gap-6 flex-1 min-w-0"
                                 >
-                                    <img src={article.imageUrl} className="w-16 h-16 rounded-2xl object-cover border border-slate-100 shadow-md transition-transform group-hover:scale-110" alt="" />
+                                    <img src={article.imageUrl} className="w-16 h-16 rounded-2xl object-contain bg-slate-50 border border-slate-100 shadow-md transition-transform group-hover:scale-110" alt="" />
                                     <div className="flex-1 min-w-0">
                                         <p className="font-bold text-slate-900 truncate text-lg group-hover:text-brand-green transition-colors">
                                             {isAr ? article.title.ar : article.title.fr}
