@@ -28,13 +28,14 @@ export default function NewsPage({
     params: Promise<{ locale: string }>;
 }) {
     const { locale } = use(params) as any;
-    const { articles } = useNewsStore();
+    const { articles, fetchArticles } = useNewsStore();
     const [selectedArticle, setSelectedArticle] = useState<any>(null);
     const [isClient, setIsClient] = useState(false);
 
     useEffect(() => {
         setIsClient(true);
-    }, []);
+        fetchArticles();
+    }, [fetchArticles]);
 
     const isAr = locale === 'ar';
 
