@@ -32,7 +32,7 @@ export default async function RootLayout({
     return (
         <html lang={locale} dir={isRtl ? 'rtl' : 'ltr'}>
             <body
-                className={`${tajawal.variable} ${inter.variable} ${notoKufi.variable} font-sans antialiased text-slate-900 bg-slate-50 min-h-screen flex flex-col`}
+                className={`${tajawal.variable} ${inter.variable} ${notoKufi.variable} font-sans antialiased text-white bg-brand-dark min-h-screen flex flex-col`}
             >
                 {children}
             </body>

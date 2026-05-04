@@ -19,7 +19,7 @@ export default async function PublicLayout({
             <ScrollToTop />
             <Navbar locale={locale} dict={dict.common} />
             <div className="h-24" aria-hidden="true" />
-            <div className="flex-1 w-full bg-brand-dark/50">
+            <div className="flex-1 w-full">
                 {children}
             </div>
             <Footer locale={locale} dict={dict.common} />
