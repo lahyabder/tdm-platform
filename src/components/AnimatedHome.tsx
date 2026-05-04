@@ -74,8 +74,8 @@ export function AnimatedHome({ locale, content: initialContent }: { locale: stri
                             </span>
                         </motion.div>
 
-                        <motion.h1 variants={itemFadeUp} className="text-5xl sm:text-7xl lg:text-9xl font-black leading-none tracking-tighter">
-                            <span className="text-white block mb-4">
+                        <motion.h1 variants={itemFadeUp} className="text-4xl sm:text-5xl lg:text-7xl font-black leading-tight tracking-tight">
+                            <span className="text-white block mb-2">
                                 {hero.title?.[locale] || (isAr ? 'نحن نصل' : 'Connecting')}
                             </span>
                             <span className="glow-text-gold block">

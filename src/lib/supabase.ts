@@ -4,7 +4,13 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder';
 
 // Create a safe client that won't crash if keys are missing
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+  global: {
+    fetch: (url, options) => {
+      return fetch(url, { ...options, cache: 'no-store' });
+    }
+  }
+});
 
 if (!process.env.NEXT_PUBLIC_SUPABASE_URL) {
   console.warn('Supabase URL is missing. Database features will not work.');

@@ -67,7 +67,7 @@ export default function AboutPage({
                         </span>
                     </motion.div>
                     
-                    <h1 className="text-6xl md:text-8xl font-black text-white tracking-tighter leading-none mb-8">
+                    <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-white tracking-tight leading-tight mb-8">
                         {isAr ? 'ريادة' : 'Leadership'}{" "}
                         <span className="glow-text-gold">{isAr ? 'المشهد' : 'Digital'}</span>
                         <br />
@@ -89,6 +89,57 @@ export default function AboutPage({
                     </div>
                 </header>
 
+                {/* 2. Director's Word - The Golden Card */}
+                <section className="mb-20">
+                    <div className="premium-card p-1 md:p-2 group">
+                        <div className="bg-slate-950/40 rounded-[2.4rem] p-6 md:p-10 relative overflow-hidden">
+                            {/* Abstract signal pattern background */}
+                            <div className="absolute inset-0 opacity-10 pointer-events-none">
+                                <div className="absolute top-0 right-0 w-full h-full border-[1px] border-white/10 rounded-full scale-150 -translate-y-1/2 translate-x-1/2"></div>
+                            </div>
+
+                            <div className="flex flex-col lg:flex-row gap-12 items-center lg:items-start relative z-10">
+                                <div className="w-full lg:w-[320px] shrink-0">
+                                    <div className="relative">
+                                        <div className="absolute -inset-4 bg-brand-green/20 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000"></div>
+                                        <div className="relative rounded-[3.5rem] overflow-hidden border-2 border-white/10 shadow-2xl bg-slate-900">
+                                            <div className="aspect-[4/5] relative">
+                                                <img 
+                                                    src={content.sections.director_word?.image || "/director-placeholder.jpg"} 
+                                                    alt="General Director" 
+                                                    className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                                                />
+                                                <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent"></div>
+                                                <div className="absolute bottom-6 left-6 right-6">
+                                                    <div className="w-8 h-1 bg-brand-green mb-3"></div>
+                                                    <h3 className="text-white font-bold text-xl">{content.sections.director_word?.name?.[locale]}</h3>
+                                                    <p className="text-brand-yellow font-medium text-sm">{content.sections.director_word?.role?.[locale]}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="flex-1">
+                                    <div className="flex items-center gap-4 mb-10">
+                                        <div className="w-12 h-1 bg-brand-green"></div>
+                                        <h2 className="text-2xl font-black text-white tracking-wide">{content.sections.director_word?.title?.[locale]}</h2>
+                                    </div>
+                                    
+                                    <div className="relative">
+                                        <p className="text-slate-300 text-lg md:text-xl leading-[1.6] font-medium italic whitespace-pre-line">
+                                            {content.sections.director_word?.content?.[locale]}
+                                        </p>
+                                    </div>
+                                    
+                                    <div className="mt-12 pt-12 border-t border-white/10">
+                                        <img src="/logo.png" className="h-12 w-auto opacity-30 grayscale brightness-200" alt="TDM Logo" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
 
                 {/* 3. Strategic Grid */}
                 <section className="grid grid-cols-1 md:grid-cols-3 gap-8">
