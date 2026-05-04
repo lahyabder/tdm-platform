@@ -159,8 +159,9 @@ export default function AdminUsersPage({
             {/* Modal */}
             {isModalOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4">
-                    <div className="bg-white rounded-sm w-full max-w-2xl shadow-2xl overflow-hidden animate-in zoom-in duration-200">
-                        <div className="p-8 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+                    <div className="bg-white rounded-sm w-full max-w-2xl max-h-[90vh] shadow-2xl overflow-hidden flex flex-col animate-in zoom-in duration-200">
+                        {/* Header - Fixed */}
+                        <div className="p-8 border-b border-slate-100 flex justify-between items-center bg-slate-50 shrink-0">
                             <h2 className="text-xl font-black text-slate-900 uppercase tracking-tight">
                                 {editingUser?.id ? (isAr ? 'تعديل مستخدم' : 'Edit User') : (isAr ? 'إضافة مستخدم جديد' : 'New User')}
                             </h2>
@@ -169,7 +170,8 @@ export default function AdminUsersPage({
                             </button>
                         </div>
                         
-                        <div className="p-8 space-y-6">
+                        {/* Content - Scrollable */}
+                        <div className="p-8 space-y-6 overflow-y-auto flex-1">
                             <div className="grid grid-cols-2 gap-6">
                                 <div className="space-y-2">
                                     <label className="admin-label">{t.table.name}</label>
@@ -253,7 +255,8 @@ export default function AdminUsersPage({
                             </div>
                         </div>
 
-                        <div className="p-8 bg-slate-50 border-t border-slate-100 flex justify-end gap-4">
+                        {/* Footer - Fixed */}
+                        <div className="p-8 bg-slate-50 border-t border-slate-100 flex justify-end gap-4 shrink-0">
                             <button 
                                 onClick={() => setIsModalOpen(false)}
                                 className="px-6 py-3 font-bold text-slate-500 hover:text-slate-900 transition-colors uppercase text-xs tracking-widest"
