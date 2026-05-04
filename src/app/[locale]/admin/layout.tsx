@@ -125,7 +125,7 @@ export default function AdminLayout({
                         </div>
                         <div className="flex items-center gap-8">
                             <Link href={`/${locale === 'ar' ? 'fr' : 'ar'}/admin`} className="text-xs font-black text-slate-400 hover:text-brand-green transition-colors uppercase tracking-widest">
-                                {isAr ? 'English / Français' : 'العربية'}
+                                {isAr ? 'Français' : 'العربية'}
                             </Link>
                             <Link href={`/${locale}`} target="_blank" className="glass-button py-2 px-4 text-[10px] flex items-center gap-2">
                                 {isAr ? 'عرض الموقع' : 'Live Site'}
