@@ -56,11 +56,12 @@ export default function AdminLayout({
         }
     ];
 
-    const handleLogout = () => {
+    const handleLogout = async () => {
         const confirmMsg = isAr ? 'هل أنت متأكد من تسجيل الخروج؟' : 'Êtes-vous sûr de vouloir vous déconnecter ?';
         if (window.confirm(confirmMsg)) {
-            localStorage.removeItem('tdm_admin_auth');
+            await fetch('/api/auth/logout', { method: 'POST' });
             router.push(`/${locale}/admin/login`);
+            router.refresh();
         }
     };
 

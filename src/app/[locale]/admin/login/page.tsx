@@ -33,16 +33,23 @@ export default function AdminLogin({
         }
     }[locale as 'ar' | 'fr'];
 
-    const handleLogin = (e: React.FormEvent) => {
+    const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        const validUser = process.env.NEXT_PUBLIC_DEMO_ADMIN_USER || 'admin';
-        const validPass = process.env.NEXT_PUBLIC_DEMO_ADMIN_PASS || 'tdm2026demo';
+        try {
+            const res = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            });
 
-        if (username === validUser && password === validPass) {
-            localStorage.setItem('tdm_admin_auth', 'true');
-            router.push(`/${locale}/admin`);
-        } else {
+            if (res.ok) {
+                router.push(`/${locale}/admin/pages/home`);
+                router.refresh();
+            } else {
+                setError(t.error);
+            }
+        } catch (err) {
             setError(t.error);
         }
     };
