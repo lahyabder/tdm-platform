@@ -117,7 +117,7 @@ export default function MediaFacilitiesDirectory({
                 {/* Table */}
                 <div className="bg-brand-card rounded-sm border border-white/20 overflow-hidden">
                     <div className="overflow-x-auto">
-                        <table className="w-full text-sm text-left rtl:text-right text-slate-200">
+                        <table className="w-full text-sm text-start rtl:text-end text-slate-200">
                             <thead className="text-xs text-slate-100 uppercase bg-brand-card-hover border-b border-white/20">
                                 <tr>
                                     <th className="px-6 py-4">{t.table.ref}</th>

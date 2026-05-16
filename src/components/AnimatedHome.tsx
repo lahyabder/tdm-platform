@@ -64,8 +64,8 @@ export function AnimatedHome({ locale, content: initialContent }: { locale: stri
                 className="relative min-h-screen flex flex-col items-center justify-center pt-20 pb-10 overflow-hidden"
             >
                 <motion.div style={{ y: yBackground }} className="absolute inset-0 pointer-events-none">
-                    <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-brand-green/10 rounded-full blur-[120px] opacity-40"></div>
-                    <div className="absolute bottom-[-10%] right-[-10%] w-[40vw] h-[40vw] bg-brand-yellow/5 rounded-full blur-[120px] opacity-40"></div>
+                    <div className="absolute top-[-10%] start-[-10%] w-[50vw] h-[50vw] bg-brand-green/10 rounded-full blur-[120px] opacity-40"></div>
+                    <div className="absolute bottom-[-10%] end-[-10%] w-[40vw] h-[40vw] bg-brand-yellow/5 rounded-full blur-[120px] opacity-40"></div>
                 </motion.div>
 
                 <div className="relative z-10 w-full mx-auto flex flex-col items-center gap-12 pt-8 lg:pt-16">

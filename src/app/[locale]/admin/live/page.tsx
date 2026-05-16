@@ -89,7 +89,7 @@ export default function AdminLivePage({
 
             <div className="bg-white rounded-sm border border-slate-200 shadow-sm overflow-hidden">
                 <div className="overflow-x-auto">
-                    <table className="w-full text-sm text-left rtl:text-right text-slate-600">
+                    <table className="w-full text-sm text-start rtl:text-end text-slate-600">
                         <thead className="text-xs text-slate-700 uppercase bg-slate-50 border-b border-slate-200">
                             <tr>
                                 <th className="px-6 py-4 font-black">{t.table.name}</th>
@@ -104,7 +104,7 @@ export default function AdminLivePage({
                                     <td className="px-6 py-4">
                                         <div className="flex items-center gap-3">
                                             <div className="w-10 h-10 rounded bg-slate-100 border p-1 flex items-center justify-center">
-                                                {channel.logo ? <img src={channel.logo} className="w-full h-full object-contain" /> : <span className="text-[10px] font-black">TDM</span>}
+                                                {channel.logo ? <img src={channel.logo} alt={channel.name[locale as 'ar' | 'fr']} className="w-full h-full object-contain" /> : <span className="text-[10px] font-black">TDM</span>}
                                             </div>
                                             <div>
                                                 <div className="font-bold text-slate-900">{channel.name[locale as 'ar' | 'fr']}</div>
@@ -124,7 +124,7 @@ export default function AdminLivePage({
                                             onClick={() => toggleChannelStatus(channel.id)}
                                             className={`w-10 h-5 rounded-full relative transition-colors duration-300 ${channel.isActive ? 'bg-brand-green' : 'bg-slate-300'}`}
                                         >
-                                            <div className={`absolute top-1 w-3 h-3 bg-white rounded-full transition-all duration-300 ${isAr ? (channel.isActive ? 'right-6' : 'right-1') : (channel.isActive ? 'left-6' : 'left-1')}`}></div>
+                                            <div className={`absolute top-1 w-3 h-3 bg-white rounded-full transition-all duration-300 ${isAr ? (channel.isActive ? 'end-6' : 'end-1') : (channel.isActive ? 'start-6' : 'start-1')}`}></div>
                                         </button>
                                     </td>
                                     <td className="px-6 py-4 text-center">

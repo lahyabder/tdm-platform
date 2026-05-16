@@ -16,12 +16,15 @@ export default async function PublicLayout({
 
     return (
         <>
+            <a href="#main-content" className="skip-link">
+                {locale === 'ar' ? 'تخطي إلى المحتوى' : 'Passer au contenu'}
+            </a>
             <ScrollToTop />
             <Navbar locale={locale} dict={dict.common} />
             <div className="h-24" aria-hidden="true" />
-            <div className="flex-1 w-full">
+            <main id="main-content" className="flex-1 w-full outline-none" tabIndex={-1}>
                 {children}
-            </div>
+            </main>
             <Footer locale={locale} dict={dict.common} />
         </>
     );

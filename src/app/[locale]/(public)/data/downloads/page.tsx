@@ -84,7 +84,7 @@ export default function DownloadsPage({
                                             {file.title[locale]}
                                         </h3>
                                         <div className="flex flex-wrap items-center gap-4 text-sm text-slate-400 font-bold uppercase tracking-widest text-[10px]">
-                                            <span className="inline-block px-3 py-1 rounded-lg bg-white/5 text-brand-yellow border border-white/5">
+                                            <span className="inline-block px-3 py-1 rounded-sg bg-white/5 text-brand-yellow border border-white/5">
                                                 {content.categories[file.category as keyof typeof content.categories]}
                                             </span>
                                             <span className="text-slate-300">{file.type}</span>

@@ -7,7 +7,7 @@
     },
     "home": {
         "title": "Bienvenue sur la plateforme TDM",
-        "subtitle": "Cette plateforme est une démo construite avec Next.js et Tailwind CSS."
+        "subtitle": "La plateforme numérique officielle pour la diffusion des services audiovisuels en Mauritanie."
     },
     "admin": {
         "title": "Tableau de bord administrateur",
@@ -23,5 +23,60 @@
         "email": "E-mail",
         "role": "Rôle",
         "status": "Statut"
+    },
+    "metadata": {
+        "siteName": "Télédiffusion de Mauritanie",
+        "defaultTitle": "TDM | Télédiffusion de Mauritanie",
+        "defaultDescription": "Site officiel de la Télédiffusion de Mauritanie (TDM). Nous assurons la diffusion des services de communication partout.",
+        "pages": {
+            "home": {
+                "title": "Accueil | Télédiffusion de Mauritanie",
+                "description": "Bienvenue sur la plateforme officielle de la Télédiffusion de Mauritanie. Découvrez nos services et projets."
+            },
+            "live": {
+                "title": "Direct & Streaming | Télédiffusion de Mauritanie",
+                "description": "Suivez le direct des chaînes Mauritanie 1 et Mauritanie 2 en ligne."
+            },
+            "projects": {
+                "title": "Projets | Télédiffusion de Mauritanie",
+                "description": "Découvrez les principaux projets techniques et structurels de la TDM."
+            },
+            "data": {
+                "title": "Open Data | Télédiffusion de Mauritanie",
+                "description": "Accédez aux données et statistiques relatives à la diffusion et à la couverture en Mauritanie."
+            },
+            "news": {
+                "title": "Actualités | Télédiffusion de Mauritanie",
+                "description": "Les dernières nouvelles et mises à jour de la Télédiffusion de Mauritanie."
+            },
+            "about": {
+                "title": "À Propos | Télédiffusion de Mauritanie",
+                "description": "Découvrez la vision, la mission et les objectifs de la Télédiffusion de Mauritanie."
+            },
+            "services": {
+                "title": "Services | Télédiffusion de Mauritanie",
+                "description": "Découvrez les divers services offerts par la TDM aux institutions et aux particuliers."
+            },
+            "contact": {
+                "title": "Contact | Télédiffusion de Mauritanie",
+                "description": "Contactez l'équipe de la TDM pour toute demande d'information ou de service."
+            },
+            "gallery": {
+                "title": "Galerie | Télédiffusion de Mauritanie",
+                "description": "Galerie photos documentant les activités et projets de la Télédiffusion de Mauritanie."
+            },
+            "faq": {
+                "title": "FAQ | Télédiffusion de Mauritanie",
+                "description": "Réponses aux questions les plus fréquemment posées sur les services de diffusion."
+            },
+            "tenders": {
+                "title": "Appels d'Offres | Télédiffusion de Mauritanie",
+                "description": "Opportunités de travail et contrats avec la Télédiffusion de Mauritanie."
+            },
+            "legal": {
+                "title": "Affaires Juridiques | Télédiffusion de Mauritanie",
+                "description": "Textes légaux et législations régissant le secteur de la diffusion en Mauritanie."
+            }
+        }
     }
 }

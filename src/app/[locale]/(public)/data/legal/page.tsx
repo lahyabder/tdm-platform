@@ -61,7 +61,7 @@ export default function LegalLibraryPage({
                     <div className="absolute inset-0 bg-gradient-to-b from-brand-dark via-brand-dark/90 to-brand-dark"></div>
                 </div>
                 
-                <div className="absolute -top-24 -right-24 w-96 h-96 bg-brand-green/20 blur-[120px] rounded-full"></div>
+                <div className="absolute -top-24 -end-24 w-96 h-96 bg-brand-green/20 blur-[120px] rounded-full"></div>
 
                 <div className="max-w-5xl mx-auto px-6 relative z-10 text-center">
                     <Link href={`/${locale}/data`} className="inline-flex items-center gap-2 text-brand-yellow hover:underline mb-8 font-black uppercase tracking-widest text-xs">
@@ -101,7 +101,7 @@ export default function LegalLibraryPage({
                                             {item.title[locale]}
                                         </h3>
                                         <div className="flex flex-wrap items-center gap-4 text-xs font-black uppercase tracking-widest text-slate-500">
-                                            <span className="px-3 py-1 rounded-lg bg-brand-green/10 text-brand-green border border-brand-green/20">
+                                            <span className="px-3 py-1 rounded-sg bg-brand-green/10 text-brand-green border border-brand-green/20">
                                                 {content.types[item.type]}
                                             </span>
                                             <span className="opacity-20">•</span>

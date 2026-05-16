@@ -1,4 +1,21 @@
+import { constructMetadata } from '@/lib/metadata';
+import { getDictionary } from '@/dictionaries';
 import Link from 'next/link';
+
+export async function generateMetadata({
+    params,
+}: {
+    params: Promise<{ locale: string }>;
+}) {
+    const { locale } = await params;
+    const dict = await getDictionary(locale as 'ar' | 'fr');
+    return constructMetadata({
+        title: dict.metadata.pages.data.title,
+        description: dict.metadata.pages.data.description,
+        locale,
+        path: '/data',
+    });
+}
 
 export default async function DataHubPage({
     params,
@@ -99,8 +116,8 @@ export default async function DataHubPage({
                 </div>
                 
                 {/* Decorative mesh blobs */}
-                <div className="absolute -top-24 -right-24 w-96 h-96 bg-brand-green/20 blur-[120px] rounded-full"></div>
-                <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-brand-yellow/10 blur-[120px] rounded-full"></div>
+                <div className="absolute -top-24 -end-24 w-96 h-96 bg-brand-green/20 blur-[120px] rounded-full"></div>
+                <div className="absolute -bottom-24 -start-24 w-96 h-96 bg-brand-yellow/10 blur-[120px] rounded-full"></div>
 
                 <div className="max-w-5xl mx-auto px-6 relative z-10 text-center">
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-8 backdrop-blur-md">

@@ -102,7 +102,7 @@ export default function FacilityForm({ initialData, locale, isEdit }: FacilityFo
     return (
         <form onSubmit={handleSubmit} className="bg-white p-8 rounded-sm border border-slate-200 shadow-sm space-y-8">
             {error && (
-                <div className="p-4 bg-brand-red/10 border-l-4 border-brand-red text-brand-red text-sm font-bold flex items-center gap-2">
+                <div className="p-4 bg-brand-red/10 border-s-4 border-brand-red text-brand-red text-sm font-bold flex items-center gap-2">
                     <svg className="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                     {error}
                 </div>

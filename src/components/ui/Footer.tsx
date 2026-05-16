@@ -1,43 +1,46 @@
+import { toArabicNumerals } from '@/lib/utils';
+
 export function Footer({ locale, dict }: { locale: string; dict: any }) {
-    const currentYear = new Date().getFullYear();
+    const isAr = locale === 'ar';
+    const currentYear = isAr ? toArabicNumerals(new Date().getFullYear()) : new Date().getFullYear();
 
     return (
         <footer className="w-full bg-brand-dark border-t border-white/20">
             <div className="max-w-[1600px] mx-auto px-6 py-12">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-                    <div className="md:col-span-1">
-                        <div className="flex items-center gap-3 mb-4">
+                    <div className="md:col-span-1 text-start">
+                        <div className="flex items-center justify-start gap-3 mb-4">
                             <img src="/logo.png" alt="TDM Logo" className="h-16 w-auto object-contain drop-shadow-sm" />
                         </div>
                         <p className="text-sm text-slate-300 leading-relaxed">
-                            {locale === 'ar' ? 'منصة الخدمات المؤسسية الرسمية المعتمدة لتقديم الخدمات الرقمية.' : 'Plateforme officielle de services institutionnels.'}
+                            {isAr ? 'منصة الخدمات المؤسسية الرسمية المعتمدة لتقديم الخدمات الرقمية.' : 'Plateforme officielle de services institutionnels.'}
                         </p>
                     </div>
 
-                    <div className="md:col-span-1">
-                        <h3 className="font-bold text-white mb-4">{locale === 'ar' ? 'روابط سريعة' : 'Liens rapides'}</h3>
+                    <div className="md:col-span-1 text-start">
+                        <h3 className="font-bold text-white mb-4">{isAr ? 'روابط سريعة' : 'Liens rapides'}</h3>
                         <ul className="space-y-3 text-sm text-slate-300">
                             <li><a href={`/${locale}`} className="hover:text-brand-green transition-colors">{dict.home}</a></li>
-                            <li><a href={`/${locale}/services`} className="hover:text-brand-green transition-colors">{locale === 'ar' ? 'خدماتنا' : 'Nos services'}</a></li>
-                            <li><a href={`/${locale}/news`} className="hover:text-brand-green transition-colors">{locale === 'ar' ? 'آخر الأخبار' : 'Actualités'}</a></li>
-                            <li><a href={`/${locale}/about`} className="hover:text-brand-green transition-colors">{locale === 'ar' ? 'عن المؤسسة' : 'À propos'}</a></li>
-                            <li><a href={`/${locale}/projects`} className="hover:text-brand-green transition-colors">{locale === 'ar' ? 'المشاريع' : 'Projets'}</a></li>
+                            <li><a href={`/${locale}/services`} className="hover:text-brand-green transition-colors">{isAr ? 'خدماتنا' : 'Nos services'}</a></li>
+                            <li><a href={`/${locale}/news`} className="hover:text-brand-green transition-colors">{isAr ? 'آخر الأخبار' : 'Actualités'}</a></li>
+                            <li><a href={`/${locale}/about`} className="hover:text-brand-green transition-colors">{isAr ? 'عن المؤسسة' : 'À propos'}</a></li>
+                            <li><a href={`/${locale}/projects`} className="hover:text-brand-green transition-colors">{isAr ? 'المشاريع' : 'Projets'}</a></li>
                         </ul>
                     </div>
 
-                    <div className="md:col-span-1">
-                        <h3 className="font-bold text-white mb-4">{locale === 'ar' ? 'الدعم الفني' : 'Support technique'}</h3>
+                    <div className="md:col-span-1 text-start">
+                        <h3 className="font-bold text-white mb-4">{isAr ? 'الدعم الفني' : 'Support technique'}</h3>
                         <ul className="space-y-3 text-sm text-slate-300">
-                            <li><a href={`/${locale}/contact`} className="hover:text-brand-green transition-colors">{locale === 'ar' ? 'اتصل بنا' : 'Contactez-nous'}</a></li>
-                            <li><a href={`/${locale}/faq`} className="hover:text-brand-green transition-colors">{locale === 'ar' ? 'الأسئلة الشائعة' : 'FAQ'}</a></li>
+                            <li><a href={`/${locale}/contact`} className="hover:text-brand-green transition-colors">{isAr ? 'اتصل بنا' : 'Contactez-nous'}</a></li>
+                            <li><a href={`/${locale}/faq`} className="hover:text-brand-green transition-colors">{isAr ? 'الأسئلة الشائعة' : 'FAQ'}</a></li>
                         </ul>
                     </div>
 
-                    <div className="md:col-span-1">
-                        <h3 className="font-bold text-white mb-4">{locale === 'ar' ? 'الشروط والأحكام' : 'Termes et conditions'}</h3>
+                    <div className="md:col-span-1 text-start">
+                        <h3 className="font-bold text-white mb-4">{isAr ? 'الشروط والأحكام' : 'Termes et conditions'}</h3>
                         <ul className="space-y-3 text-sm text-slate-300">
-                            <li><a href={`/${locale}/privacy`} className="hover:text-brand-green transition-colors">{locale === 'ar' ? 'سياسة الخصوصية' : 'Politique de confidentialité'}</a></li>
-                            <li><a href={`/${locale}/accessibility`} className="hover:text-brand-green transition-colors">{locale === 'ar' ? 'إمكانية الوصول' : 'Accessibilité'}</a></li>
+                            <li><a href={`/${locale}/privacy`} className="hover:text-brand-green transition-colors">{isAr ? 'سياسة الخصوصية' : 'Politique de confidentialité'}</a></li>
+                            <li><a href={`/${locale}/accessibility`} className="hover:text-brand-green transition-colors">{isAr ? 'إمكانية الوصول' : 'Accessibilité'}</a></li>
                         </ul>
                     </div>
                 </div>
@@ -45,10 +48,10 @@ export function Footer({ locale, dict }: { locale: string; dict: any }) {
                 <div className="mt-12 pt-8 border-t border-white/20 flex flex-col md:flex-row justify-between items-center gap-4">
                     <div className="flex flex-col items-center md:items-start gap-1">
                         <p className="text-sm text-slate-300">
-                            © {currentYear} TDM. {locale === 'ar' ? 'جميع الحقوق محفوظة.' : 'Tous droits réservés.'}
+                            © {currentYear} TDM. {isAr ? 'جميع الحقوق محفوظة.' : 'Tous droits réservés.'}
                         </p>
                         <p className="text-xs text-slate-500 font-medium">
-                            {locale === 'ar' ? 'تصميم وبرمجة' : 'Conçu et développé par'} <a href="https://afrikyia.com" target="_blank" rel="noopener noreferrer" className="text-brand-green hover:underline font-bold transition-all">afrikyia</a>
+                            {isAr ? 'تصميم وبرمجة' : 'Conçu et développé par'} <a href="https://afrikyia.com" target="_blank" rel="noopener noreferrer" className="text-brand-green hover:underline font-bold transition-all">afrikyia</a>
                         </p>
                     </div>
                     <div className="flex items-center gap-4">

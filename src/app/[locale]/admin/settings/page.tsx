@@ -221,7 +221,7 @@ export default function AdminSettingsPage({
                                 <p className="text-[10px] text-slate-500 font-bold uppercase">{settings.emailAlerts ? 'Active' : 'Disabled'}</p>
                             </div>
                             <div className={`w-12 h-6 rounded-full relative transition-all duration-300 ${settings.emailAlerts ? 'bg-brand-green shadow-lg shadow-brand-green/20' : 'bg-slate-300'}`}>
-                                <div className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all duration-300 ${settings.emailAlerts ? 'right-1' : 'right-7'}`}></div>
+                                <div className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all duration-300 ${settings.emailAlerts ? 'end-1' : 'end-7'}`}></div>
                             </div>
                         </div>
                         <div className="space-y-2">

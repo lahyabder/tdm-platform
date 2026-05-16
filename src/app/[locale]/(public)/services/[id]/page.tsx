@@ -3,8 +3,25 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { Tv, Radio, Share2, Database } from 'lucide-react';
 import { ClientLogo } from '@/components/ui/ClientLogo';
+import { constructMetadata } from '@/lib/metadata';
 
+export async function generateMetadata({
+    params,
+}: {
+    params: Promise<{ locale: string; id: string }>;
+}) {
+    const { locale, id } = await params;
+    const content = await getServiceDetailContent(locale, id);
 
+    if (!content) return {};
+
+    return constructMetadata({
+        title: `${content.title} | TDM`,
+        description: content.definition,
+        locale,
+        path: `/services/${id}`,
+    });
+}
 
 export default async function ServiceDetailPage({
     params,
@@ -30,8 +47,8 @@ export default async function ServiceDetailPage({
                 </div>
                 
                 {/* Decorative blobs */}
-                <div className="absolute top-1/4 -right-20 w-96 h-96 bg-brand-green/10 blur-[120px] rounded-full"></div>
-                <div className="absolute bottom-1/4 -left-20 w-96 h-96 bg-brand-yellow/10 blur-[120px] rounded-full"></div>
+                <div className="absolute top-1/4 -end-20 w-96 h-96 bg-brand-green/10 blur-[120px] rounded-full"></div>
+                <div className="absolute bottom-1/4 -start-20 w-96 h-96 bg-brand-yellow/10 blur-[120px] rounded-full"></div>
 
                 <div className="max-w-5xl mx-auto px-6 relative z-10">
                     <Link href={`/${locale}/services`} className="inline-flex items-center gap-2 text-brand-green hover:text-white font-bold mb-12 text-sm transition-all hover:gap-4">
@@ -66,7 +83,7 @@ export default async function ServiceDetailPage({
 
                 {content.audience && content.audience.items && content.audience.items.length > 0 && (
                 <div className="premium-card p-10 border-t-4 border-t-brand-green relative overflow-hidden bg-slate-900/90 shadow-2xl">
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-brand-green/5 blur-3xl rounded-full"></div>
+                    <div className="absolute top-0 end-0 w-32 h-32 bg-brand-green/5 blur-3xl rounded-full"></div>
                     <h2 className="text-3xl font-black text-white mb-10 flex items-center gap-4">
                         <div className="w-12 h-12 bg-brand-green/10 text-brand-green rounded-xl flex items-center justify-center border border-brand-green/20">
                             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
@@ -86,14 +103,14 @@ export default async function ServiceDetailPage({
 
                 {content.steps && content.steps.items && content.steps.items.length > 0 && (
                 <div className="premium-card p-10 border-t-4 border-t-brand-yellow relative overflow-hidden bg-slate-900/90 shadow-2xl">
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-brand-yellow/5 blur-3xl rounded-full"></div>
+                    <div className="absolute top-0 end-0 w-32 h-32 bg-brand-yellow/5 blur-3xl rounded-full"></div>
                     <h2 className="text-3xl font-black text-white mb-12 flex items-center gap-4">
                         <div className="w-12 h-12 bg-brand-yellow/10 text-brand-yellow rounded-xl flex items-center justify-center border border-brand-yellow/20">
                             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg>
                         </div>
                         {content.steps.title}
                     </h2>
-                    <div className="space-y-8 relative before:absolute before:inset-0 before:rtl:right-[1.45rem] before:ltr:left-[1.45rem] before:w-0.5 before:bg-white/10 before:z-0">
+                    <div className="space-y-8 relative before:absolute before:inset-0 before:rtl:end-[1.45rem] before:ltr:start-[1.45rem] before:w-0.5 before:bg-white/10 before:z-0">
                         {content.steps.items.map((step: any, i: number) => (
                             <div key={i} className="relative z-10 flex gap-8">
                                 <div className="shrink-0 w-12 h-12 rounded-full bg-brand-dark border-2 border-brand-yellow flex items-center justify-center font-black text-white shadow-[0_0_15px_rgba(234,179,8,0.3)]">
@@ -161,7 +178,7 @@ export default async function ServiceDetailPage({
                                         {category.items.map((item: any, iIdx: number) => (
                                             <div key={iIdx} className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-6 text-sm border-b border-white/10 pb-4 last:border-0 last:pb-0">
                                                 <span className="font-black text-white leading-relaxed flex-1">{item.label}</span>
-                                                <span className="text-brand-green font-mono font-black bg-brand-green/20 px-4 py-2 rounded text-right w-full sm:w-auto break-words shadow-sm">{item.value}</span>
+                                                <span className="text-brand-green font-mono font-black bg-brand-green/20 px-4 py-2 rounded text-end w-full sm:w-auto break-words shadow-sm">{item.value}</span>
                                             </div>
                                         ))}
                                     </div>
@@ -218,7 +235,7 @@ export default async function ServiceDetailPage({
                                                 {channel.satellite}
                                             </p>
                                         </div>
-                                        <div className="ml-auto flex items-center">
+                                        <div className="ms-auto flex items-center">
                                             <span className="text-[10px] font-black text-brand-red bg-brand-red/5 px-2 py-1 rounded border border-brand-red/10">{channel.format}</span>
                                         </div>
                                     </div>
@@ -266,7 +283,7 @@ export default async function ServiceDetailPage({
                                                 {station.coverage}
                                             </p>
                                         </div>
-                                        <div className="ml-auto flex items-center">
+                                        <div className="ms-auto flex items-center">
                                             <span className="text-[11px] font-mono font-black text-slate-200 bg-brand-card-hover px-2 py-1 rounded border border-white/20">{station.frequency}</span>
                                         </div>
                                     </div>

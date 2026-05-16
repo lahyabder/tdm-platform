@@ -146,7 +146,7 @@ export default function AdminLegalPage({
 
             <div className="bg-white rounded-sm border border-slate-200 shadow-sm overflow-hidden">
                 <div className="overflow-x-auto">
-                    <table className="w-full text-sm text-left rtl:text-right text-slate-600">
+                    <table className="w-full text-sm text-start rtl:text-end text-slate-600">
                         <thead className="text-xs text-slate-700 uppercase bg-slate-50 border-b border-slate-200">
                             <tr>
                                 <th className="px-6 py-4">{t.table.id}</th>

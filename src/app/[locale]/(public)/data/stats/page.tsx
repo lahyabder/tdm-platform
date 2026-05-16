@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useState, use } from 'react';
+import { toArabicNumerals } from '@/lib/utils';
 
 // ─── Data ──────────────────────────────────────────────────────────────────
 const COVERAGE_MONTHLY = [
@@ -31,7 +32,7 @@ const BROADCAST_HOURS = [
 const TOTAL_HOURS = BROADCAST_HOURS.reduce((a, b) => a + b.hours, 0);
 
 // ─── SVG Line Chart ─────────────────────────────────────────────────────────
-function LineChart({ data }: { data: typeof COVERAGE_MONTHLY }) {
+function LineChart({ data, isAr }: { data: typeof COVERAGE_MONTHLY; isAr: boolean }) {
   const W = 800, H = 200, PAD = 40;
   const maxV = 100;
   const xs = data.map((_, i) => PAD + (i / (data.length - 1)) * (W - PAD * 2));
@@ -58,7 +59,7 @@ function LineChart({ data }: { data: typeof COVERAGE_MONTHLY }) {
       {[25, 50, 75, 100].map(v => (
         <g key={v}>
           <line x1={PAD} y1={y(v)} x2={W - PAD} y2={y(v)} stroke="rgba(255,255,255,0.05)" strokeWidth="1" />
-          <text x={PAD - 8} y={y(v) + 4} textAnchor="end" fontSize="10" fill="#64748b" fontWeight="bold">{v}%</text>
+          <text x={PAD - 8} y={y(v) + 4} textAnchor="end" fontSize="10" fill="#64748b" fontWeight="bold">{isAr ? toArabicNumerals(v) : v}%</text>
         </g>
       ))}
       <path d={area('radio')} fill="url(#gR)" />
@@ -77,7 +78,7 @@ function LineChart({ data }: { data: typeof COVERAGE_MONTHLY }) {
 }
 
 // ─── Donut Chart ─────────────────────────────────────────────────────────────
-function DonutChart() {
+function DonutChart({ isAr }: { isAr: boolean }) {
   const R = 70, CX = 100, CY = 100, STROKE = 28;
   let cumulative = 0;
 
@@ -98,15 +99,15 @@ function DonutChart() {
         <path key={i} d={s.d} fill="none" stroke={s.color} strokeWidth={STROKE} className="transition-all hover:scale-105 cursor-pointer origin-center" />
       ))}
       <text x={CX} y={CY - 4} textAnchor="middle" fontSize="22" fontWeight="900" fill="white" tracking-tighter>
-        {TOTAL_HOURS.toLocaleString()}
+        {isAr ? toArabicNumerals(TOTAL_HOURS.toLocaleString()) : TOTAL_HOURS.toLocaleString()}
       </text>
-      <text x={CX} y={CY + 14} textAnchor="middle" fontSize="10" fontWeight="bold" fill="#64748b" className="uppercase tracking-widest">ساعة / سنة</text>
+      <text x={CX} y={CY + 14} textAnchor="middle" fontSize="10" fontWeight="bold" fill="#64748b" className="uppercase tracking-widest">{isAr ? 'ساعة / سنة' : 'Heures / an'}</text>
     </svg>
   );
 }
 
 // ─── Bar Chart (Wilaya) ───────────────────────────────────────────────────────
-function BarChart({ data }: { data: typeof WILAYA_DATA }) {
+function BarChart({ data, isAr }: { data: typeof WILAYA_DATA; isAr: boolean }) {
   const W = 700, H = 220, PAD_L = 90, PAD_B = 30, BAR_W = 22, GAP = 8;
   const groupW = BAR_W * 2 + GAP;
   const totalW = data.length * groupW + (data.length - 1) * 20;
@@ -117,7 +118,7 @@ function BarChart({ data }: { data: typeof WILAYA_DATA }) {
       {[25, 50, 75, 100].map(v => (
         <g key={v}>
           <line x1={PAD_L} y1={H - PAD_B - (v / 100) * (H - PAD_B - 20)} x2={W - 10} y2={H - PAD_B - (v / 100) * (H - PAD_B - 20)} stroke="rgba(255,255,255,0.05)" strokeWidth="1" />
-          <text x={PAD_L - 8} y={H - PAD_B - (v / 100) * (H - PAD_B - 20) + 4} textAnchor="end" fontSize="10" fill="#64748b" fontWeight="bold">{v}%</text>
+          <text x={PAD_L - 8} y={H - PAD_B - (v / 100) * (H - PAD_B - 20) + 4} textAnchor="end" fontSize="10" fill="#64748b" fontWeight="bold">{isAr ? toArabicNumerals(v) : v}%</text>
         </g>
       ))}
       {data.map((d, i) => {
@@ -148,13 +149,13 @@ export default function StatsPage({ params }: { params: Promise<{ locale: string
       back: 'العودة لبوابة البيانات',
       tabs: { coverage: 'تطور التغطية', wilaya: 'التغطية بالولايات', broadcast: 'توزيع البث' },
       metrics: [
-        { label: 'نسبة التغطية الإذاعية', value: '85%', change: '+2%', up: true },
-        { label: 'نسبة التغطية التلفزيونية', value: '78%', change: '+4%', up: true },
-        { label: 'النقاط النشطة', value: '24', change: '+3', up: true },
-        { label: 'وقت البث السنوي', value: '8,760', unit: 'س', change: '99.9%', up: true },
+        { label: 'نسبة التغطية الإذاعية', value: toArabicNumerals('85%'), change: toArabicNumerals('+2%'), up: true },
+        { label: 'نسبة التغطية التلفزيونية', value: toArabicNumerals('78%'), change: toArabicNumerals('+4%'), up: true },
+        { label: 'النقاط النشطة', value: toArabicNumerals('24'), change: toArabicNumerals('+3'), up: true },
+        { label: 'وقت البث السنوي', value: toArabicNumerals('8,760'), unit: 'س', change: toArabicNumerals('99.9%'), up: true },
       ],
       radioLabel: 'إذاعي', tvLabel: 'تلفزيوني',
-      coverageTitle: 'تطور نسبة التغطية الشهرية (2025)',
+      coverageTitle: `تطور نسبة التغطية الشهرية (${toArabicNumerals(2025)})`,
       wilayaTitle: 'التغطية حسب الولايات',
       broadcastTitle: 'توزيع ساعات البث السنوية',
     },
@@ -190,8 +191,8 @@ export default function StatsPage({ params }: { params: Promise<{ locale: string
                 </div>
                 
                 {/* Decorative mesh blobs */}
-                <div className="absolute -top-24 -right-24 w-96 h-96 bg-brand-green/20 blur-[120px] rounded-full"></div>
-                <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-brand-yellow/10 blur-[120px] rounded-full"></div>
+                <div className="absolute -top-24 -end-24 w-96 h-96 bg-brand-green/20 blur-[120px] rounded-full"></div>
+                <div className="absolute -bottom-24 -start-24 w-96 h-96 bg-brand-yellow/10 blur-[120px] rounded-full"></div>
 
                 <div className="max-w-5xl mx-auto px-6 relative z-10 text-center">
                     <Link href={`/${locale}/data`} className="inline-flex items-center gap-2 text-brand-yellow hover:underline mb-8 font-black uppercase tracking-widest text-xs">
@@ -212,7 +213,7 @@ export default function StatsPage({ params }: { params: Promise<{ locale: string
                     {T.metrics.map((m, i) => (
                         <div key={i} className="premium-card p-8 group border-white/5 hover:border-brand-green/30">
                             <div className="flex justify-between items-start mb-6">
-                                <div className={`px-3 py-1 rounded-full text-[10px] font-black flex items-center gap-1 uppercase tracking-wider ${m.up ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-red-500/10 text-red-400 border border-red-500/20'}`}>
+                                <div className={`px-3 py-1 rounded-full text-[10px] font-black flex items-center gap-1 uppercase tracking-wider ${m.up ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-red-500/10 text-red-400 border border-eed-500/20'}`}>
                                     <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d={m.up ? "M5 10l7-7m0 0l7 7m-7-7v18" : "M19 14l-7 7m0 0l-7-7m7 7V3"} />
                                     </svg>
@@ -261,7 +262,7 @@ export default function StatsPage({ params }: { params: Promise<{ locale: string
                                     </div>
                                 </div>
                                 <div className="p-6 bg-brand-dark/30 rounded-3xl border border-white/5">
-                                    <LineChart data={COVERAGE_MONTHLY} />
+                                    <LineChart data={COVERAGE_MONTHLY} isAr={isAr} />
                                 </div>
                             </div>
                         )}
@@ -282,15 +283,15 @@ export default function StatsPage({ params }: { params: Promise<{ locale: string
                                     </div>
                                 </div>
                                 <div className="p-6 bg-brand-dark/30 rounded-3xl border border-white/5 mb-10">
-                                    <BarChart data={WILAYA_DATA} />
+                                    <BarChart data={WILAYA_DATA} isAr={isAr} />
                                 </div>
                                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                                     {WILAYA_DATA.map(w => (
                                         <div key={w.name} className="p-5 bg-white/2 rounded-2xl border border-white/5 hover:border-brand-green/20 transition-all group">
                                             <p className="text-sm font-black text-white mb-3 group-hover:text-brand-green transition-colors">{w.name}</p>
                                             <div className="flex justify-between items-center text-xs font-black">
-                                                <span className="text-emerald-500">{w.radio}%</span>
-                                                <span className="text-blue-500">{w.tv}%</span>
+                                                <span className="text-emerald-500">{isAr ? toArabicNumerals(w.radio) : w.radio}%</span>
+                                                <span className="text-blue-500">{isAr ? toArabicNumerals(w.tv) : w.tv}%</span>
                                             </div>
                                             <div className="mt-3 h-1.5 bg-white/5 rounded-full overflow-hidden flex">
                                                 <div className="h-full bg-emerald-500" style={{ width: `${w.radio}%` }}></div>
@@ -308,7 +309,7 @@ export default function StatsPage({ params }: { params: Promise<{ locale: string
                                     <div className="w-full lg:w-72 shrink-0">
                                         <div className="relative">
                                             <div className="absolute inset-0 bg-brand-green/10 blur-[60px] rounded-full"></div>
-                                            <DonutChart />
+                                            <DonutChart isAr={isAr} />
                                         </div>
                                     </div>
                                     <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
@@ -319,12 +320,12 @@ export default function StatsPage({ params }: { params: Promise<{ locale: string
                                                         <div className="w-3 h-3 rounded-full shadow-lg" style={{ backgroundColor: b.color, boxShadow: `0 0 10px ${b.color}80` }} />
                                                         <p className="text-sm font-black text-white group-hover:text-brand-green transition-colors">{b.label}</p>
                                                     </div>
-                                                    <span className="text-lg font-black text-white/40">{Math.round((b.hours / TOTAL_HOURS) * 100)}%</span>
+                                                    <span className="text-lg font-black text-white/40">{isAr ? toArabicNumerals(Math.round((b.hours / TOTAL_HOURS) * 100)) : Math.round((b.hours / TOTAL_HOURS) * 100)}%</span>
                                                 </div>
                                                 <div className="w-full bg-white/5 rounded-full h-2.5 p-0.5">
                                                     <div className="h-full rounded-full transition-all duration-1000" style={{ width: `${(b.hours / TOTAL_HOURS) * 100}%`, backgroundColor: b.color }} />
                                                 </div>
-                                                <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">{b.hours.toLocaleString()} {isAr ? 'ساعة سنوياً' : 'heures/an'}</p>
+                                                <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">{isAr ? toArabicNumerals(b.hours.toLocaleString()) : b.hours.toLocaleString()} {isAr ? 'ساعة سنوياً' : 'heures/an'}</p>
                                             </div>
                                         ))}
                                     </div>
@@ -342,7 +343,7 @@ export default function StatsPage({ params }: { params: Promise<{ locale: string
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                         </svg>
                     </div>
-                    <div className="text-center lg:text-right">
+                    <div className="text-center lg:text-end">
                         <div className="text-5xl font-black text-emerald-400 mb-3 tracking-tighter leading-none">99.9% UPTIME</div>
                         <p className="text-lg text-slate-400 font-bold max-w-2xl">
                             {isAr ? 'نظام البث الموريتاني يعمل بكفاءة قصوى مع مراقبة حية واستجابة فورية للأعطال على مدار الساعة.' : 'Le réseau de diffusion mauritanien fonctionne à pleine capacité avec une surveillance en temps réel et une réponse immédiate.'}

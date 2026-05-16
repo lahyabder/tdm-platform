@@ -46,11 +46,11 @@ export function Navbar({ locale, dict }: { locale: string; dict: any }) {
     return (
         <>
             {/* Edge-to-Edge Sleek Navbar */}
-            <motion.div
+            <motion.header
                 initial={{ y: -100 }}
                 animate={{ y: 0 }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
-                className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${scrolled ? 'bg-brand-dark/95 backdrop-blur-xl border-b border-white/20 shadow-lg shadow-black/20 py-2' : 'bg-brand-dark/80 backdrop-blur-lg border-b border-white/5 py-4'}`}
+                className={`fixed top-0 start-0 end-0 z-[100] transition-all duration-300 ${scrolled ? 'bg-brand-dark/95 backdrop-blur-xl border-b border-white/20 shadow-lg shadow-black/20 py-2' : 'bg-brand-dark/80 backdrop-blur-lg border-b border-white/5 py-4'}`}
             >
                 <div className="max-w-[1400px] mx-auto px-6 flex items-center justify-between gap-8">
 
@@ -59,10 +59,11 @@ export function Navbar({ locale, dict }: { locale: string; dict: any }) {
                         <div className={`flex items-center justify-center rounded-sm transition-all duration-300 shrink-0 relative overflow-hidden ${scrolled ? 'w-10 h-10' : 'w-14 h-14'}`}>
                             <img src="/logo.png" alt="TDM Logo" className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105" />
                         </div>
-                        <div className={`flex flex-col transition-all duration-500 overflow-hidden whitespace-nowrap ${scrolled ? 'hidden lg:flex opacity-100' : 'flex opacity-100'}`}>
-                            <span className={`font-extrabold tracking-tight text-white leading-none mb-1 transition-all ${scrolled ? 'text-lg' : 'text-xl'}`}>
+                        <div className={`flex flex-col transition-all duration-500 overflow-hidden whitespace-nowrap ${scrolled ? 'hidden lg:flex opacity-100' : 'hidden md:flex opacity-100'}`}>
+                            <span className={`font-extrabold tracking-tight text-white leading-tight mb-1 transition-all ${scrolled ? 'text-lg' : 'text-xl'}`}>
                                 {locale === 'ar' ? 'البث الإذاعي والتلفزي الموريتاني' : 'Télédiffusion de Mauritanie (TDM)'}
                             </span>
+                            <div className="h-px w-full bg-gradient-to-r from-brand-green/50 to-transparent mb-1 opacity-50" />
                             <span className={`font-bold text-brand-green tracking-[0.2em] uppercase transition-all ${scrolled ? 'text-[9px]' : 'text-[11px]'}`}>
                                 {locale === 'ar' ? 'Télédiffusion de Mauritanie (TDM)' : 'Mauritania Broadcasting'}
                             </span>
@@ -70,7 +71,7 @@ export function Navbar({ locale, dict }: { locale: string; dict: any }) {
                     </Link>
 
                     {/* Desktop All Links */}
-                    <div className="hidden xl:flex items-center justify-center gap-1">
+                    <nav className="hidden xl:flex items-center justify-center gap-1">
                         {navLinks.slice(0, 6).map((link) => {
                             const isActive = pathname === link.path;
                             return (
@@ -79,20 +80,27 @@ export function Navbar({ locale, dict }: { locale: string; dict: any }) {
                                 </Link>
                             );
                         })}
-                    </div>
+                    </nav>
 
                     {/* Controls (Lang + Mobile Menu) */}
                     <div className="flex items-center gap-3 relative z-20 shrink-0">
                         <Link
-                            href={toggleLanguage()}
-                            className="flex items-center justify-center w-10 h-10 rounded-sm font-black transition-all hover:bg-brand-card-hover text-slate-100 hover:text-brand-green border border-white/20 shrink-0"
-                            title={dict.switchLang}
+                            href={locale === 'ar' ? toggleLanguage() : '#'}
+                            className={`flex items-center justify-center w-10 h-10 rounded-sm font-black transition-all shrink-0 border ${locale === 'fr' ? 'border-brand-green bg-brand-green/10 text-brand-green pointer-events-none' : 'border-white/20 text-slate-100 hover:text-brand-green hover:bg-brand-card-hover'}`}
                         >
-                            <span className="text-xs tracking-widest leading-none mt-0.5">{locale === 'ar' ? 'FR' : 'AR'}</span>
+                            <span className="text-xs tracking-widest leading-none mt-0.5">FR</span>
+                        </Link>
+                        <Link
+                            href={locale === 'fr' ? toggleLanguage() : '#'}
+                            className={`flex items-center justify-center w-10 h-10 rounded-sm font-black transition-all shrink-0 border ${locale === 'ar' ? 'border-brand-green bg-brand-green/10 text-brand-green pointer-events-none' : 'border-white/20 text-slate-100 hover:text-brand-green hover:bg-brand-card-hover'}`}
+                        >
+                            <span className="text-xs tracking-widest leading-none mt-0.5">AR</span>
                         </Link>
 
                         <button
                             onClick={() => setIsOpen(!isOpen)}
+                            aria-expanded={isOpen}
+                            aria-label={isOpen ? (locale === 'ar' ? 'إغلاق القائمة' : 'Fermer le menu') : (locale === 'ar' ? 'فتح القائمة' : 'Ouvrir le menu')}
                             className="xl:hidden flex items-center justify-center w-10 h-10 rounded-sm bg-brand-green text-white hover:bg-slate-900 transition-colors shrink-0"
                         >
                             <motion.div animate={{ rotate: isOpen ? 90 : 0 }}>
@@ -101,7 +109,7 @@ export function Navbar({ locale, dict }: { locale: string; dict: any }) {
                         </button>
                     </div>
                 </div>
-            </motion.div>
+            </motion.header>
 
             {/* Fullscreen Overlay Menu */}
             <AnimatePresence>
@@ -114,8 +122,8 @@ export function Navbar({ locale, dict }: { locale: string; dict: any }) {
                         className="fixed inset-0 z-[90] bg-slate-950/95 backdrop-blur-3xl overflow-y-auto flex flex-col justify-start lg:justify-center pt-28 pb-12 lg:py-0"
                     >
                         {/* Decorative Background Glows */}
-                        <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-brand-green/20 rounded-full blur-[100px]"></div>
-                        <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-brand-yellow/10 rounded-full blur-[100px]"></div>
+                        <div className="absolute top-1/4 start-1/4 w-[400px] h-[400px] bg-brand-green/20 rounded-full blur-[100px]"></div>
+                        <div className="absolute bottom-1/4 end-1/4 w-[500px] h-[500px] bg-brand-yellow/10 rounded-full blur-[100px]"></div>
 
                         <div className="max-w-7xl w-full mx-auto px-6 grid md:grid-cols-2 lg:grid-cols-3 gap-12 relative z-10">
 
@@ -149,7 +157,7 @@ export function Navbar({ locale, dict }: { locale: string; dict: any }) {
 
                             <motion.div
                                 initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.6, duration: 0.5 }}
-                                className="col-span-1 border-t md:border-t-0 md:border-l border-white/20 pt-12 md:pt-0 pl-0 md:pl-12 flex flex-col justify-center"
+                                className="col-span-1 border-t md:border-t-0 md:border-s border-white/20 pt-12 md:pt-0 ps-0 md:ps-12 flex flex-col justify-center"
                             >
                                 <div className="space-y-6">
                                     <div className="w-28 h-28 flex items-center justify-center mb-8">

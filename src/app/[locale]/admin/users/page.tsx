@@ -99,7 +99,7 @@ export default function AdminUsersPage({
             </div>
 
             <div className="bg-white rounded-sm border border-slate-200 shadow-sm overflow-hidden">
-                <table className="w-full text-sm text-left rtl:text-right text-slate-600">
+                <table className="w-full text-sm text-start rtl:text-end text-slate-600">
                     <thead className="text-[10px] text-slate-400 uppercase bg-slate-50 border-b border-slate-200 tracking-widest">
                         <tr>
                             <th className="px-8 py-5 font-black">{t.table.name}</th>

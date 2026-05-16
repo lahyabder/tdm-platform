@@ -136,7 +136,10 @@ export const useNewsStore = create<NewsState>()(
                             imageUrl: item.image_url || '',
                             tag: { ar: item.tag_ar || '', fr: item.tag_fr || '' }
                         }));
-                        set({ articles: mappedArticles, isLoading: false });
+                        
+                        // Ensure unique articles by ID
+                        const uniqueArticles = Array.from(new Map(mappedArticles.map(a => [a.id, a])).values());
+                        set({ articles: uniqueArticles, isLoading: false });
                     } else {
                         set({ isLoading: false });
                     }
@@ -206,7 +209,7 @@ export const useNewsStore = create<NewsState>()(
             resetArticles: () => set({ articles: initialArticles }),
         }),
         {
-            name: 'tdm-news-storage',
+            name: 'tdm-news-storage-v2',
             storage: createJSONStorage(() => localStorage),
         }
     )

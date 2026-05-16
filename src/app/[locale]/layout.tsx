@@ -13,10 +13,16 @@ const tajawal = Tajawal({
     display: 'swap'
 });
 
-export const metadata: Metadata = {
-    title: 'TDM platform',
-    description: 'Official Demo Platform',
-};
+import { constructMetadata } from '@/lib/metadata';
+
+export async function generateMetadata({
+    params,
+}: {
+    params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+    const { locale } = await params;
+    return constructMetadata({ locale });
+}
 
 export default async function RootLayout({
     children,

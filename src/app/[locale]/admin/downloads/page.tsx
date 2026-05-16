@@ -122,7 +122,7 @@ export default function AdminDownloadsPage({
             )}
 
             <div className="bg-white rounded-[2.5rem] border border-slate-100 shadow-xl overflow-hidden">
-                <table className="w-full text-right">
+                <table className="w-full text-end">
                     <thead>
                         <tr className="bg-slate-50 border-b border-slate-100">
                             <th className="p-6 text-xs font-black text-slate-400 uppercase tracking-widest">{t.table.name}</th>

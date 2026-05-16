@@ -1,5 +1,22 @@
+import { constructMetadata } from '@/lib/metadata';
+import { getDictionary } from '@/dictionaries';
 import { getPageContent } from '@/lib/content';
 import { AnimatedHome } from '@/components/AnimatedHome';
+
+export async function generateMetadata({
+    params,
+}: {
+    params: Promise<{ locale: string }>;
+}) {
+    const { locale } = await params;
+    const dict = await getDictionary(locale as 'ar' | 'fr');
+    return constructMetadata({
+        title: dict.metadata.pages.home.title,
+        description: dict.metadata.pages.home.description,
+        locale,
+        path: '',
+    });
+}
 
 export const dynamic = 'force-dynamic';
 

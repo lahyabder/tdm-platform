@@ -4,7 +4,7 @@ export const Table = ({ children }: { children: React.ReactNode }) => {
     return (
         <div className="w-full overflow-hidden rounded-sm border border-slate-200 bg-white shadow-sm">
             <div className="overflow-x-auto">
-                <table className="w-full text-sm text-left">
+                <table className="w-full text-sm text-start">
                     {children}
                 </table>
             </div>

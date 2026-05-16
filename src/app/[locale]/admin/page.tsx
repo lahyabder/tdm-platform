@@ -85,11 +85,11 @@ export default function AdminDashboardPage({
         <div className="space-y-10 pb-20 max-w-7xl mx-auto px-4 sm:px-6">
             {/* Ultra-Premium Header */}
             <div className="relative bg-[#050B14] rounded-[2.5rem] p-10 md:p-16 overflow-hidden border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
-                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-green/10 blur-[120px] -mr-64 -mt-64 animate-pulse"></div>
-                <div className="absolute bottom-0 left-0 w-64 h-64 bg-brand-yellow/5 blur-[100px] -ml-32 -mb-32"></div>
+                <div className="absolute top-0 end-0 w-[500px] h-[500px] bg-brand-green/10 blur-[120px] -me-64 -mt-64 animate-pulse"></div>
+                <div className="absolute bottom-0 start-0 w-64 h-64 bg-brand-yellow/5 blur-[100px] -ms-32 -mb-32"></div>
                 
                 <div className="relative z-10 flex flex-col lg:flex-row justify-between items-center gap-10">
-                    <div className="text-center lg:text-right space-y-4">
+                    <div className="text-center lg:text-end space-y-4">
                         <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-brand-green/20 rounded-full border border-brand-green/30">
                             <LayoutDashboard className="w-4 h-4 text-brand-green" />
                             <span className="text-[10px] font-black text-brand-green uppercase tracking-[0.3em]">ADMIN PORTAL</span>

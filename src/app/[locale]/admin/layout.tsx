@@ -68,10 +68,13 @@ export default function AdminLayout({
     return (
         <AdminGuard>
             <div className="min-h-screen bg-slate-50 flex" dir={isAr ? 'rtl' : 'ltr'}>
+                <a href="#admin-main" className="skip-link">
+                    {isAr ? 'تخطي إلى المحتوى' : 'Passer au contenu'}
+                </a>
                 {/* Sidebar */}
-                <aside className="w-72 bg-slate-900 border-r border-slate-800 rtl:border-r-0 rtl:border-l shrink-0 hidden lg:flex flex-col">
+                <aside className="w-72 bg-slate-900 border-e border-slate-800 rtl:border-e-0 rtl:border-s shrink-0 hidden lg:flex flex-col">
                     <div className="h-20 flex items-center px-8 bg-slate-950 border-b border-slate-800">
-                        <div className="w-10 h-10 bg-brand-green rounded-sm flex items-center justify-center mr-4 rtl:mr-0 rtl:ml-4 shadow-lg shadow-brand-green/20">
+                        <div className="w-10 h-10 bg-brand-green rounded-sm flex items-center justify-center me-4 rtl:me-0 rtl:ms-4 shadow-lg shadow-brand-green/20">
                             <span className="text-white font-black text-sm italic">TDM</span>
                         </div>
                         <span className="text-white font-black text-lg tracking-tighter uppercase italic">Admin Portal</span>
@@ -110,7 +113,7 @@ export default function AdminLayout({
                     <div className="p-6 border-t border-slate-800">
                         <button
                             onClick={handleLogout}
-                            className="flex items-center gap-4 px-4 py-3 w-full text-slate-500 hover:bg-brand-red/10 hover:text-brand-red font-black rounded-sm transition-all text-left rtl:text-right uppercase text-xs tracking-widest"
+                            className="flex items-center gap-4 px-4 py-3 w-full text-slate-500 hover:bg-brand-red/10 hover:text-brand-red font-black rounded-sm transition-all text-start rtl:text-end uppercase text-xs tracking-widest"
                         >
                             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
                             {isAr ? 'تسجيل الخروج' : 'Logout System'}
@@ -143,7 +146,7 @@ export default function AdminLayout({
                         </div>
                     </header>
 
-                    <main className="flex-1 overflow-y-auto p-8 lg:p-12">
+                    <main id="admin-main" className="flex-1 overflow-y-auto p-8 lg:p-12 outline-none" tabIndex={-1}>
                         <div className="max-w-5xl mx-auto">
                             {children}
                         </div>

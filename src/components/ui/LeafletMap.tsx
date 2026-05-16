@@ -58,6 +58,7 @@ export default function LeafletMap({ locale }: { locale: string }) {
     const [zoomLevel, setZoomLevel] = useState(5.8);
     const [selectedCity, setSelectedCity] = useState<MapMarker | null>(null);
     const [isMounted, setIsMounted] = useState(false);
+    const [viewMode, setViewMode] = useState<'map' | 'table'>('map');
 
     useEffect(() => {
         setIsMounted(true);
@@ -110,66 +111,126 @@ export default function LeafletMap({ locale }: { locale: string }) {
 
     return (
         <div className="w-full h-full rounded-3xl overflow-hidden shadow-2xl relative z-10 border-4 border-slate-800/50" dir="ltr">
-            <MapContainer
-                center={[20.5, -9.5]}
-                zoom={5.8}
-                scrollWheelZoom={false}
-                className="w-full h-[60vh] md:h-[70vh] lg:h-[85vh] min-h-[500px] z-0"
-                style={{ background: '#0a1120' }}
-            >
-                <MapController setZoomLevel={setZoomLevel} />
-                <TileLayer
-                    url="https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}"
-                    attribution='&copy; Google Maps'
-                />
-
-                <GeoJSON 
-                    data={wilayasData as any} 
-                    style={{
-                        color: '#64748b', // slate-500
-                        weight: 2,
-                        fillColor: 'transparent',
-                        fillOpacity: 0,
-                        dashArray: '5, 8'
-                    }}
-                    interactive={false} // Prevents hovering from blocking marker clicks
-                />
-
-                <MarkerClusterGroup
-                    chunkedLoading
-                    maxClusterRadius={40}
-                    showCoverageOnHover={false}
+            {/* View Toggle */}
+            <div className="absolute top-4 end-4 z-[1000] flex gap-2">
+                <button
+                    onClick={() => setViewMode('map')}
+                    aria-label={locale === 'ar' ? 'عرض الخريطة' : 'Voir la carte'}
+                    className={`px-4 py-2 rounded-xl font-black text-[10px] uppercase tracking-widest transition-all ${viewMode === 'map' ? 'bg-brand-green text-white shadow-lg shadow-brand-green/20' : 'bg-slate-900/80 text-slate-400 hover:text-white backdrop-blur-md'}`}
                 >
-                    {markers.map((city, idx) => {
-                        const style = getPointStyle(city.type);
-                        
-                        const iconHtml = `
-                            <div class="tdm-pill-marker ${style.className || ''}" dir="${locale === 'ar' ? 'rtl' : 'ltr'}">
-                                <div class="tdm-pill-dot" style="background-color: ${style.fillColor}; border-color: ${style.color};"></div>
-                                <span class="tdm-pill-text">${city.name[locale as 'ar' | 'fr']}</span>
-                            </div>
-                        `;
+                    {locale === 'ar' ? 'الخريطة' : 'Carte'}
+                </button>
+                <button
+                    onClick={() => setViewMode('table')}
+                    aria-label={locale === 'ar' ? 'عرض الجدول' : 'Voir le tableau'}
+                    className={`px-4 py-2 rounded-xl font-black text-[10px] uppercase tracking-widest transition-all ${viewMode === 'table' ? 'bg-brand-green text-white shadow-lg shadow-brand-green/20' : 'bg-slate-900/80 text-slate-400 hover:text-white backdrop-blur-md'}`}
+                >
+                    {locale === 'ar' ? 'الجدول' : 'Tableau'}
+                </button>
+            </div>
 
-                        const customIcon = L.divIcon({
-                            html: iconHtml,
-                            className: 'tdm-leaflet-wrapper',
-                            iconSize: [0, 0],
-                            iconAnchor: [0, 0],
-                        });
+            {viewMode === 'map' ? (
+                <MapContainer
+                    center={[20.5, -9.5]}
+                    zoom={5.8}
+                    scrollWheelZoom={false}
+                    touchZoom={true}
+                    tap={false}
+                    className="w-full h-[60vh] md:h-[70vh] lg:h-[85vh] min-h-[500px] z-0"
+                    style={{ background: '#0a1120' }}
+                    aria-label={locale === 'ar' ? 'خريطة محطات البث' : 'Carte des stations de diffusion'}
+                >
+                    <MapController setZoomLevel={setZoomLevel} />
+                    <TileLayer
+                        url="https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}"
+                        attribution='&copy; Google Maps'
+                    />
 
-                        return (
-                            <Marker
-                                key={idx}
-                                position={city.coords}
-                                icon={customIcon}
-                                eventHandlers={{
-                                    click: () => setSelectedCity(city)
-                                }}
-                            />
-                        );
-                    })}
-                </MarkerClusterGroup>
-            </MapContainer>
+                    <GeoJSON 
+                        data={wilayasData as any} 
+                        style={{
+                            color: '#64748b', // slate-500
+                            weight: 2,
+                            fillColor: 'transparent',
+                            fillOpacity: 0,
+                            dashArray: '5, 8'
+                        }}
+                        interactive={false} // Prevents hovering from blocking marker clicks
+                    />
+
+                    <MarkerClusterGroup
+                        chunkedLoading
+                        maxClusterRadius={40}
+                        showCoverageOnHover={false}
+                    >
+                        {markers.map((city, idx) => {
+                            const style = getPointStyle(city.type);
+                            
+                            const iconHtml = `
+                                <div 
+                                    class="tdm-pill-marker ${style.className || ''}" 
+                                    dir="${locale === 'ar' ? 'rtl' : 'ltr'}"
+                                    role="img"
+                                    aria-label="${city.name[locale as 'ar' | 'fr']} - ${labels[city.type as keyof typeof labels]}"
+                                >
+                                    <div class="tdm-pill-dot" style="background-color: ${style.fillColor}; border-color: ${style.color};"></div>
+                                    <span class="tdm-pill-text">${city.name[locale as 'ar' | 'fr']}</span>
+                                </div>
+                            `;
+
+                            const customIcon = L.divIcon({
+                                html: iconHtml,
+                                className: 'tdm-leaflet-wrapper',
+                                iconSize: [0, 0],
+                                iconAnchor: [0, 0],
+                            });
+
+                            return (
+                                <Marker
+                                    key={idx}
+                                    position={city.coords}
+                                    icon={customIcon}
+                                    alt={city.name[locale as 'ar' | 'fr']}
+                                    eventHandlers={{
+                                        click: () => setSelectedCity(city)
+                                    }}
+                                />
+                            );
+                        })}
+                    </MarkerClusterGroup>
+                </MapContainer>
+            ) : (
+                <div className="w-full h-[60vh] md:h-[70vh] lg:h-[85vh] min-h-[500px] bg-slate-900 p-8 overflow-y-auto custom-scrollbar" dir={locale === 'ar' ? 'rtl' : 'ltr'}>
+                    <table className="w-full text-start rtl:text-end border-collapse">
+                        <thead>
+                            <tr className="border-b border-white/10">
+                                <th className="py-4 text-slate-500 font-black text-[10px] uppercase tracking-widest">{locale === 'ar' ? 'الموقع' : 'Localisation'}</th>
+                                <th className="py-4 text-slate-500 font-black text-[10px] uppercase tracking-widest">{locale === 'ar' ? 'النوع' : 'Type'}</th>
+                                <th className="py-4 text-slate-500 font-black text-[10px] uppercase tracking-widest">{locale === 'ar' ? 'الإحداثيات' : 'Coordonnées'}</th>
+                            </tr>
+                        </thead>
+                        <tbody className="divide-y divide-white/5">
+                            {markers.map((city) => (
+                                <tr key={city.id} className="hover:bg-white/5 transition-colors group">
+                                    <td className="py-4 font-bold text-white">{city.name[locale as 'ar' | 'fr']}</td>
+                                    <td className="py-4">
+                                        <span className={`px-2 py-1 rounded text-[10px] font-black uppercase ${
+                                            city.type === 'earth_station' ? 'bg-brand-yellow/20 text-brand-yellow' :
+                                            city.type === 'new_broadcast' ? 'bg-brand-red/20 text-brand-red' :
+                                            'bg-brand-green/20 text-brand-green'
+                                        }`}>
+                                            {labels[city.type as keyof typeof labels]}
+                                        </span>
+                                    </td>
+                                    <td className="py-4 font-mono text-[10px] text-slate-400">
+                                        {city.coords[0].toFixed(4)}, {city.coords[1].toFixed(4)}
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            )}
 
             {/* Technical Card Overlay */}
             <AnimatePresence>
@@ -179,7 +240,7 @@ export default function LeafletMap({ locale }: { locale: string }) {
                         animate={{ opacity: 1, x: 0, scale: 1 }}
                         exit={{ opacity: 0, x: locale === 'ar' ? -100 : 100, scale: 0.95 }}
                         transition={{ type: "spring", damping: 20, stiffness: 100 }}
-                        className={`absolute top-4 ${locale === 'ar' ? 'left-4' : 'right-4'} bottom-4 w-full max-w-[320px] md:max-w-[400px] z-[1000] pointer-events-none`}
+                        className={`absolute top-4 ${locale === 'ar' ? 'start-4' : 'end-4'} bottom-4 w-full max-w-[320px] md:max-w-[400px] z-[1000] pointer-events-none`}
                         dir={locale === 'ar' ? 'rtl' : 'ltr'}
                     >
                         <div className="w-full h-full bg-slate-900/80 backdrop-blur-2xl border border-white/20 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] p-6 pointer-events-auto overflow-y-auto custom-scrollbar flex flex-col gap-6">
@@ -193,6 +254,7 @@ export default function LeafletMap({ locale }: { locale: string }) {
                                 </div>
                                 <button
                                     onClick={() => setSelectedCity(null)}
+                                    aria-label={labels.close}
                                     className="p-2 hover:bg-brand-card-hover rounded-full transition-all text-white/40 hover:text-white hover:rotate-90"
                                 >
                                     <X className="w-6 h-6" />
@@ -234,7 +296,7 @@ export default function LeafletMap({ locale }: { locale: string }) {
                                         <div className="space-y-3">
                                             <div className="flex items-center justify-between p-4 bg-brand-card rounded-xl border border-white/5 hover:bg-brand-card-hover transition-all">
                                                 <div className="flex items-center gap-3">
-                                                    <div className="p-2 bg-slate-800 rounded-lg">
+                                                    <div className="p-2 bg-slate-800 rounded-sg">
                                                         <Activity className="w-4 h-4 text-slate-300" />
                                                     </div>
                                                     <span className="text-slate-100 font-bold">{labels.tower}</span>
@@ -243,7 +305,7 @@ export default function LeafletMap({ locale }: { locale: string }) {
                                             </div>
                                             <div className="flex items-center justify-between p-4 bg-brand-card rounded-xl border border-white/5 hover:bg-brand-card-hover transition-all">
                                                 <div className="flex items-center gap-3">
-                                                    <div className="p-2 bg-slate-800 rounded-lg">
+                                                    <div className="p-2 bg-slate-800 rounded-sg">
                                                         <Zap className="w-4 h-4 text-brand-yellow" />
                                                     </div>
                                                     <span className="text-slate-100 font-bold">{labels.power}</span>
@@ -252,7 +314,7 @@ export default function LeafletMap({ locale }: { locale: string }) {
                                             </div>
                                             <div className="flex items-center justify-between p-4 bg-brand-card rounded-xl border border-white/5 hover:bg-brand-card-hover transition-all">
                                                 <div className="flex items-center gap-3">
-                                                    <div className="p-2 bg-slate-800 rounded-lg">
+                                                    <div className="p-2 bg-slate-800 rounded-sg">
                                                         <Activity className="w-4 h-4 text-brand-green" />
                                                     </div>
                                                     <span className="text-slate-100 font-bold">{labels.coverage}</span>
@@ -304,7 +366,7 @@ export default function LeafletMap({ locale }: { locale: string }) {
                     background: #1e293b; /* slate-800 solid */
                     border: 1px solid rgba(255, 255, 255, 0.2);
                     padding: 4px 10px;
-                    border-radius: 30px;
+                    border-eadius: 30px;
                     box-shadow: 0 2px 8px rgba(0,0,0,0.6);
                     white-space: nowrap;
                     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -325,7 +387,7 @@ export default function LeafletMap({ locale }: { locale: string }) {
                 .tdm-pill-dot {
                     width: 10px;
                     height: 10px;
-                    border-radius: 50%;
+                    border-eadius: 50%;
                     border: 2px solid;
                     flex-shrink: 0;
                     transition: all 0.3s ease;
@@ -366,7 +428,7 @@ export default function LeafletMap({ locale }: { locale: string }) {
                 }
                 .custom-scrollbar::-webkit-scrollbar-thumb {
                     background: rgba(255, 255, 255, 0.1);
-                    border-radius: 10px;
+                    border-eadius: 10px;
                 }
                 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
                     background: rgba(255, 255, 255, 0.2);

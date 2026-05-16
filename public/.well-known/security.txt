@@ -1,0 +1,6 @@
+Contact: mailto:security@tdm.mr
+Expires: 2027-12-31T23:59:59.000Z
+Preferred-Languages: ar, fr, en
+Canonical: https://tdm.mr/.well-known/security.txt
+Policy: https://tdm.mr/privacy
+Hiring: https://tdm.mr/about

@@ -86,7 +86,7 @@ export default function AdminNewsPage({
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                         />
-                        <svg className="absolute left-3 top-2.5 w-4 h-4 text-slate-400 rtl:left-auto rtl:right-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg className="absolute start-3 top-2.5 w-4 h-4 text-slate-400 rtl:start-auto rtl:end-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
                     </div>
@@ -109,7 +109,7 @@ export default function AdminNewsPage({
 
             <div className="bg-white rounded-sm border border-slate-200 shadow-sm overflow-hidden">
                 <div className="overflow-x-auto">
-                    <table className="w-full text-sm text-left rtl:text-right text-slate-600">
+                    <table className="w-full text-sm text-start rtl:text-end text-slate-600">
                         <thead className="text-xs text-slate-700 uppercase bg-slate-50 border-b border-slate-200">
                             <tr>
                                 <th className="px-6 py-4 font-black">{t.table.id}</th>

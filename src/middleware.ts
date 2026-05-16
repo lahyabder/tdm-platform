@@ -21,10 +21,34 @@ export function middleware(request: NextRequest) {
         (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
     );
 
-    if (pathnameHasLocale) return;
+    if (pathnameHasLocale) {
+        // Store the locale in a cookie for future visits
+        const locale = locales.find(l => pathname.startsWith(`/${l}`)) || defaultLocale;
+        const response = NextResponse.next();
+        response.cookies.set('NEXT_LOCALE', locale, { path: '/', maxAge: 31536000 });
+        return response;
+    }
 
     // Redirect if there is no locale
-    request.nextUrl.pathname = `/${defaultLocale}${pathname}`;
+    // 1. Check cookie
+    let locale = request.cookies.get('NEXT_LOCALE')?.value;
+
+    // 2. Check Accept-Language header
+    if (!locale) {
+        const acceptLanguage = request.headers.get('accept-language');
+        if (acceptLanguage) {
+            if (acceptLanguage.toLowerCase().includes('fr')) {
+                locale = 'fr';
+            } else if (acceptLanguage.toLowerCase().includes('ar')) {
+                locale = 'ar';
+            }
+        }
+    }
+
+    // 3. Fallback
+    locale = locale && locales.includes(locale) ? locale : defaultLocale;
+
+    request.nextUrl.pathname = `/${locale}${pathname}`;
     return NextResponse.redirect(request.nextUrl);
 }
 

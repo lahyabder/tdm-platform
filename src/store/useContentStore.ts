@@ -109,7 +109,10 @@ export const useContentStore = create<ContentState>((set, get) => ({
             if (data && !error) {
                 const cloudPages: Record<string, PageContent> = {};
                 data.forEach((row: any) => {
-                    cloudPages[row.page_key] = row.content;
+                    // Only use cloud content if it's not empty and has sections
+                    if (row.content && Object.keys(row.content.sections || {}).length > 0) {
+                        cloudPages[row.page_key] = row.content;
+                    }
                 });
                 set({ pages: { ...INITIAL_CONTENT, ...cloudPages }, isLoading: false });
             } else {

@@ -157,7 +157,7 @@ export default function AdminFacilitiesPage({
 
             <div className="bg-white rounded-[2.5rem] border border-slate-100 shadow-2xl overflow-hidden">
                 <div className="overflow-x-auto">
-                    <table className="w-full text-sm text-left rtl:text-right text-slate-600">
+                    <table className="w-full text-sm text-start rtl:text-end text-slate-600">
                         <thead className="text-[10px] text-slate-400 uppercase font-black tracking-[0.2em] bg-slate-50/50 border-b border-slate-100">
                             <tr>
                                 <th className="px-8 py-6">{t.table.ref}</th>

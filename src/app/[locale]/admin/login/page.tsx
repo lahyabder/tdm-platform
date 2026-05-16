@@ -60,7 +60,7 @@ export default function AdminLogin({
 
             <div className="max-w-md w-full mx-auto p-8 bg-white shadow-xl rounded-sm border border-slate-200 z-10 relative">
                 <div className="text-center mb-10">
-                    <div className="w-16 h-16 bg-slate-900 rounded-lg mx-auto mb-4 flex items-center justify-center shadow-inner">
+                    <div className="w-16 h-16 bg-slate-900 rounded-sg mx-auto mb-4 flex items-center justify-center shadow-inner">
                         <span className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-br from-brand-green to-brand-yellow">TDM</span>
                     </div>
                     <h1 className="text-2xl font-extrabold text-slate-800 mb-2">{t.title}</h1>
@@ -68,7 +68,7 @@ export default function AdminLogin({
                 </div>
 
                 {error && (
-                    <div className="mb-6 p-4 bg-brand-red/10 border-l-4 border-brand-red text-brand-red text-sm font-bold flex items-center gap-2">
+                    <div className="mb-6 p-4 bg-brand-red/10 border-s-4 border-brand-red text-brand-red text-sm font-bold flex items-center gap-2">
                         <svg className="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                         {error}
                     </div>
