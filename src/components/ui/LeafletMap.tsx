@@ -135,7 +135,6 @@ export default function LeafletMap({ locale }: { locale: string }) {
                     zoom={5.8}
                     scrollWheelZoom={false}
                     touchZoom={true}
-                    tap={false}
                     className="w-full h-[60vh] md:h-[70vh] lg:h-[85vh] min-h-[500px] z-0"
                     style={{ background: '#0a1120' }}
                     aria-label={locale === 'ar' ? 'خريطة محطات البث' : 'Carte des stations de diffusion'}

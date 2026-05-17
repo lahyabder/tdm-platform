@@ -125,37 +125,43 @@ export const useContentStore = create<ContentState>((set, get) => ({
     },
 
     updatePageContent: async (pageKey, content) => {
+        const res = await fetch('/api/admin/content', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                page_key: pageKey,
+                content
+            })
+        });
+
+        const result = await res.json();
+        if (!res.ok || result.error) {
+            throw new Error(result.error || 'Failed to update page content on server');
+        }
+
         set((state) => ({
             pages: { ...state.pages, [pageKey]: content }
         }));
-
-        try {
-            const { error } = await supabase
-                .from('page_content')
-                .upsert({ 
-                    page_key: pageKey, 
-                    content: content,
-                    updated_at: new Date().toISOString()
-                }, { onConflict: 'page_key' });
-            if (error) throw error;
-        } catch (e: any) {
-            console.error("Cloud Sync Error:", e);
-            throw e;
-        }
     },
 
     syncAllToCloud: async () => {
         set({ isLoading: true });
         try {
             const currentPages = get().pages;
-            const uploadPromises = Object.entries(currentPages).map(([key, content]) => {
-                return supabase.from('page_content').upsert({
-                    page_key: key,
-                    content: content,
-                    updated_at: new Date().toISOString()
-                }, { onConflict: 'page_key' });
-            });
-            await Promise.all(uploadPromises);
+            for (const [key, content] of Object.entries(currentPages)) {
+                const res = await fetch('/api/admin/content', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        page_key: key,
+                        content
+                    })
+                });
+                const result = await res.json();
+                if (!res.ok || result.error) {
+                    throw new Error(result.error || `Failed to sync page ${key} to server`);
+                }
+            }
             set({ isLoading: false });
         } catch (e: any) {
             console.error("Sync All Error:", e);

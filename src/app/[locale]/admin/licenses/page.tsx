@@ -12,8 +12,8 @@ export default function AdminLicensesPage({
     params: Promise<{ locale: string }>;
 }) {
     const { locale } = use(params) as any;
-    const { licenses, deleteLicense } = useLicenseStore();
-    const { facilities } = useFacilityStore();
+    const { licenses, deleteLicense, fetchLicenses } = useLicenseStore();
+    const { facilities, fetchFacilities } = useFacilityStore();
 
     const [filterStatus, setFilterStatus] = useState<LicenseStatus | 'all'>('all');
     const [expiryRange, setExpiryRange] = useState<string>('all');
@@ -21,7 +21,9 @@ export default function AdminLicensesPage({
 
     useEffect(() => {
         setIsClient(true);
-    }, []);
+        fetchLicenses();
+        fetchFacilities();
+    }, [fetchLicenses, fetchFacilities]);
 
     const t = {
         ar: {

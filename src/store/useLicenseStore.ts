@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
+import { supabase } from '@/lib/supabase';
 
 export type LicenseStatus = 'active' | 'expired' | 'pending' | 'suspended';
 
@@ -17,9 +18,11 @@ export interface License {
 
 interface LicenseState {
     licenses: License[];
-    addLicense: (license: License) => void;
-    updateLicense: (id: string, updatedLicense: Partial<License>) => void;
-    deleteLicense: (id: string) => void;
+    isLoading: boolean;
+    fetchLicenses: () => Promise<void>;
+    addLicense: (license: License) => Promise<void>;
+    updateLicense: (id: string, updatedLicense: Partial<License>) => Promise<void>;
+    deleteLicense: (id: string) => Promise<void>;
     getLicenseById: (id: string) => License | undefined;
 }
 
@@ -32,7 +35,7 @@ const initialLicenses: License[] = [
         validityYears: 5,
         renewalThresholdDays: 60,
         status: "active",
-        legislationId: "LOI-045-2010"
+        legislationId: "LOI-2010-045"
     },
     {
         id: "LIC-RAD-045-2022",
@@ -42,7 +45,7 @@ const initialLicenses: License[] = [
         validityYears: 6,
         renewalThresholdDays: 60,
         status: "active",
-        legislationId: "LOI-045-2010"
+        legislationId: "LOI-2010-045"
     },
     {
         id: "LIC-TV-088-2021",
@@ -52,7 +55,7 @@ const initialLicenses: License[] = [
         validityYears: 5,
         renewalThresholdDays: 60,
         status: "pending",
-        legislationId: "LOI-045-2010"
+        legislationId: "LOI-2010-045"
     }
 ];
 
@@ -60,20 +63,87 @@ export const useLicenseStore = create<LicenseState>()(
     persist(
         (set, get) => ({
             licenses: initialLicenses,
-            addLicense: (license) =>
+            isLoading: false,
+
+            fetchLicenses: async () => {
+                try {
+                    set({ isLoading: true });
+                    const { data, error } = await supabase.from('licenses').select('*');
+                    if (!error && data && data.length > 0) {
+                        const mapped = data.map(item => ({
+                            id: item.id,
+                            facilityRef: item.facility_ref,
+                            issueDate: item.issue_date,
+                            expiryDate: item.expiry_date,
+                            validityYears: item.validity_years,
+                            renewalThresholdDays: item.renewal_threshold_days,
+                            status: item.status,
+                            legislationId: item.legislation_id,
+                            notes: item.notes || ''
+                        }));
+                        
+                        const unique = Array.from(new Map(mapped.map(l => [l.id, l])).values());
+                        set({ licenses: unique, isLoading: false });
+                    } else {
+                        set({ isLoading: false });
+                    }
+                } catch (e) {
+                    console.error('Fetch licenses error:', e);
+                    set({ isLoading: false });
+                }
+            },
+
+            addLicense: async (license) => {
+                const res = await fetch('/api/admin/licenses', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(license)
+                });
+                const result = await res.json();
+                if (!res.ok || result.error) {
+                    throw new Error(result.error || 'Failed to add license');
+                }
                 set((state) => ({
                     licenses: [...state.licenses, license]
-                })),
-            updateLicense: (id, updatedLicense) =>
+                }));
+            },
+
+            updateLicense: async (id, updatedLicense) => {
+                const current = get().licenses.find(l => l.id === id);
+                if (!current) return;
+                const full = { ...current, ...updatedLicense };
+                
+                const res = await fetch('/api/admin/licenses', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(full)
+                });
+                const result = await res.json();
+                if (!res.ok || result.error) {
+                    throw new Error(result.error || 'Failed to update license');
+                }
+                
                 set((state) => ({
                     licenses: state.licenses.map((l) =>
-                        l.id === id ? { ...l, ...updatedLicense } : l
+                        l.id === id ? full : l
                     )
-                })),
-            deleteLicense: (id) =>
+                }));
+            },
+
+            deleteLicense: async (id) => {
+                const res = await fetch(`/api/admin/licenses?id=${id}`, {
+                    method: 'DELETE'
+                });
+                const result = await res.json();
+                if (!res.ok || result.error) {
+                    throw new Error(result.error || 'Failed to delete license');
+                }
+                
                 set((state) => ({
                     licenses: state.licenses.filter((l) => l.id !== id)
-                })),
+                }));
+            },
+
             getLicenseById: (id) => {
                 return get().licenses.find((l) => l.id === id);
             },

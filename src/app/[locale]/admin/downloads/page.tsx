@@ -10,7 +10,7 @@ export default function AdminDownloadsPage({
     params: Promise<{ locale: string }>;
 }) {
     const { locale } = use(params) as any;
-    const { files, addFile, updateFile, deleteFile } = useDownloadStore();
+    const { files, addFile, updateFile, deleteFile, fetchFiles } = useDownloadStore();
     const [isClient, setIsClient] = useState(false);
     const [isAdding, setIsAdding] = useState(false);
     const [editingId, setEditingId] = useState<string | null>(null);
@@ -25,7 +25,8 @@ export default function AdminDownloadsPage({
 
     useEffect(() => {
         setIsClient(true);
-    }, []);
+        fetchFiles();
+    }, [fetchFiles]);
 
     const isAr = locale === 'ar';
 

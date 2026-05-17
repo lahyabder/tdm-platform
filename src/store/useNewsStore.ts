@@ -104,22 +104,31 @@ export const useNewsStore = create<NewsState>()(
             
             syncAllToCloud: async () => {
                 set({ isLoading: true });
-                const currentArticles = get().articles;
-                const uploadPromises = currentArticles.map(article => {
-                    return supabase.from('news').upsert({
-                        title_ar: article.title.ar,
-                        title_fr: article.title.fr,
-                        desc_ar: article.description.ar,
-                        desc_fr: article.description.fr,
-                        tag_ar: article.tag.ar,
-                        tag_fr: article.tag.fr,
-                        image_url: article.imageUrl,
-                        date_ar: article.date.ar,
-                        date_fr: article.date.fr
-                    });
-                });
-                await Promise.all(uploadPromises);
-                set({ isLoading: false });
+                try {
+                    const currentArticles = get().articles;
+                    for (const article of currentArticles) {
+                        await fetch('/api/admin/news', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                title_ar: article.title.ar,
+                                title_fr: article.title.fr,
+                                desc_ar: article.description.ar,
+                                desc_fr: article.description.fr,
+                                tag_ar: article.tag.ar,
+                                tag_fr: article.tag.fr,
+                                image_url: article.imageUrl,
+                                date_ar: article.date.ar,
+                                date_fr: article.date.fr
+                            })
+                        });
+                    }
+                    await get().fetchArticles();
+                } catch (err) {
+                    console.error('Sync all error:', err);
+                } finally {
+                    set({ isLoading: false });
+                }
             },
             
             fetchArticles: async () => {
@@ -137,7 +146,6 @@ export const useNewsStore = create<NewsState>()(
                             tag: { ar: item.tag_ar || '', fr: item.tag_fr || '' }
                         }));
                         
-                        // Ensure unique articles by ID
                         const uniqueArticles = Array.from(new Map(mappedArticles.map(a => [a.id, a])).values());
                         set({ articles: uniqueArticles, isLoading: false });
                     } else {
@@ -150,23 +158,30 @@ export const useNewsStore = create<NewsState>()(
             },
 
             addArticle: async (article) => {
-                const { data, error } = await supabase.from('news').insert([{
-                    title_ar: article.title.ar,
-                    title_fr: article.title.fr,
-                    desc_ar: article.description.ar,
-                    desc_fr: article.description.fr,
-                    tag_ar: article.tag.ar,
-                    tag_fr: article.tag.fr,
-                    image_url: article.imageUrl,
-                    date_ar: article.date.ar,
-                    date_fr: article.date.fr
-                }]).select();
+                const res = await fetch('/api/admin/news', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        title_ar: article.title.ar,
+                        title_fr: article.title.fr,
+                        desc_ar: article.description.ar,
+                        desc_fr: article.description.fr,
+                        tag_ar: article.tag.ar,
+                        tag_fr: article.tag.fr,
+                        image_url: article.imageUrl,
+                        date_ar: article.date.ar,
+                        date_fr: article.date.fr
+                    })
+                });
 
-                if (!error && data) {
-                    const newArticle = { ...article, id: data[0].id };
+                const result = await res.json();
+                if (!res.ok || result.error) {
+                    throw new Error(result.error || 'Failed to add article to server');
+                }
+
+                if (result.data && result.data.length > 0) {
+                    const newArticle = { ...article, id: result.data[0].id };
                     set((state) => ({ articles: [newArticle, ...state.articles] }));
-                } else {
-                    set((state) => ({ articles: [article, ...state.articles] }));
                 }
             },
 
@@ -176,17 +191,27 @@ export const useNewsStore = create<NewsState>()(
 
                 const fullArticle = { ...currentArticle, ...updatedArticle };
                 
-                await supabase.from('news').update({
-                    title_ar: fullArticle.title.ar,
-                    title_fr: fullArticle.title.fr,
-                    desc_ar: fullArticle.description.ar,
-                    desc_fr: fullArticle.description.fr,
-                    tag_ar: fullArticle.tag.ar,
-                    tag_fr: fullArticle.tag.fr,
-                    image_url: fullArticle.imageUrl,
-                    date_ar: fullArticle.date.ar,
-                    date_fr: fullArticle.date.fr
-                }).eq('id', id);
+                const res = await fetch('/api/admin/news', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        id,
+                        title_ar: fullArticle.title.ar,
+                        title_fr: fullArticle.title.fr,
+                        desc_ar: fullArticle.description.ar,
+                        desc_fr: fullArticle.description.fr,
+                        tag_ar: fullArticle.tag.ar,
+                        tag_fr: fullArticle.tag.fr,
+                        image_url: fullArticle.imageUrl,
+                        date_ar: fullArticle.date.ar,
+                        date_fr: fullArticle.date.fr
+                    })
+                });
+
+                const result = await res.json();
+                if (!res.ok || result.error) {
+                    throw new Error(result.error || 'Failed to update article on server');
+                }
 
                 set((state) => ({
                     articles: state.articles.map((a) =>
@@ -196,7 +221,15 @@ export const useNewsStore = create<NewsState>()(
             },
 
             deleteArticle: async (id) => {
-                await supabase.from('news').delete().eq('id', id);
+                const res = await fetch(`/api/admin/news?id=${id}`, {
+                    method: 'DELETE'
+                });
+
+                const result = await res.json();
+                if (!res.ok || result.error) {
+                    throw new Error(result.error || 'Failed to delete article on server');
+                }
+
                 set((state) => ({
                     articles: state.articles.filter((a) => a.id !== id)
                 }));

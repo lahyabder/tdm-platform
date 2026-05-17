@@ -12,11 +12,11 @@ Plateforme numérique professionnelle pour la **Télédiffusion de Mauritanie (T
 ---
 
 ## 🚀 Tech Stack | التقنيات المستخدمة | Technologies
-- **Framework:** Next.js 15 (App Router)
+- **Framework:** Next.js 16 (App Router)
 - **Language:** TypeScript
 - **Styling:** Tailwind CSS
-- **Database & Auth:** Supabase
-- **State Management:** Zustand
+- **Database & Auth:** Supabase (with Row Level Security)
+- **State Management:** Zustand (with Server Confirmation)
 - **Icons:** Lucide React
 
 ---
@@ -27,8 +27,8 @@ Plateforme numérique professionnelle pour la **Télédiffusion de Mauritanie (T
 # Clone the repository | استنساخ المشروع
 git clone https://github.com/lahyabder/tdm-platform.git
 
-# Install dependencies | تثبيت المكتبات
-npm install
+# Install dependencies | تثبيت المكتبات (Reproducible clean install)
+npm ci
 
 # Run development server | تشغيل بيئة التطوير
 npm run dev
@@ -37,12 +37,21 @@ npm run dev
 ---
 
 ## 🔑 Environment Variables | متغيرات البيئة | Variables d'environnement
-Create a `.env.local` file in the root directory:
-أنشئ ملف `.env.local` في المجلد الرئيسي:
+Create a `.env.local` file in the root directory with the following variables:
+أنشئ ملف `.env.local` في المجلد الرئيسي يحتوي على المتغيرات التالية:
 
 ```env
+# Supabase Configuration
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_client_anon_key
+SUPABASE_SERVICE_ROLE_KEY=your_supabase_server_service_role_key
+
+# Admin Authentication falling back config
+ADMIN_USER=admin
+ADMIN_PASS=tdm2026secure
+
+# Cryptographic signing secret (for session HMAC)
+ADMIN_JWT_SECRET=your_32_character_hexadecimal_signing_key
 ```
 
 ---

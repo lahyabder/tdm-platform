@@ -54,17 +54,26 @@ export const useFacilityStore = create<FacilityState>()(
             },
 
             addFacility: async (facility) => {
-                await supabase.from('facilities').insert([{
-                    ref: facility.ref,
-                    name_ar: facility.name.ar,
-                    name_fr: facility.name.fr,
-                    type: facility.type,
-                    city_ar: facility.city.ar,
-                    city_fr: facility.city.fr,
-                    status: facility.status,
-                    expiry_date: facility.expiryDate,
-                    legislation_ref: facility.legislationRef
-                }]);
+                const res = await fetch('/api/admin/facilities', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        ref: facility.ref,
+                        name_ar: facility.name.ar,
+                        name_fr: facility.name.fr,
+                        type: facility.type,
+                        city_ar: facility.city.ar,
+                        city_fr: facility.city.fr,
+                        status: facility.status,
+                        expiry_date: facility.expiryDate,
+                        legislation_ref: facility.legislationRef
+                    })
+                });
+
+                const result = await res.json();
+                if (!res.ok || result.error) {
+                    throw new Error(result.error || 'Failed to add facility on server');
+                }
                 
                 set((state) => ({
                     facilities: [...state.facilities, facility]
@@ -77,16 +86,26 @@ export const useFacilityStore = create<FacilityState>()(
 
                 const full = { ...current, ...updatedFacility };
                 
-                await supabase.from('facilities').update({
-                    name_ar: full.name.ar,
-                    name_fr: full.name.fr,
-                    type: full.type,
-                    city_ar: full.city.ar,
-                    city_fr: full.city.fr,
-                    status: full.status,
-                    expiry_date: full.expiryDate,
-                    legislation_ref: full.legislationRef
-                }).eq('ref', ref);
+                const res = await fetch('/api/admin/facilities', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        ref,
+                        name_ar: full.name.ar,
+                        name_fr: full.name.fr,
+                        type: full.type,
+                        city_ar: full.city.ar,
+                        city_fr: full.city.fr,
+                        status: full.status,
+                        expiry_date: full.expiryDate,
+                        legislation_ref: full.legislationRef
+                    })
+                });
+
+                const result = await res.json();
+                if (!res.ok || result.error) {
+                    throw new Error(result.error || 'Failed to update facility on server');
+                }
 
                 set((state) => ({
                     facilities: state.facilities.map((f) =>
@@ -96,7 +115,15 @@ export const useFacilityStore = create<FacilityState>()(
             },
 
             deleteFacility: async (ref) => {
-                await supabase.from('facilities').delete().eq('ref', ref);
+                const res = await fetch(`/api/admin/facilities?ref=${ref}`, {
+                    method: 'DELETE'
+                });
+
+                const result = await res.json();
+                if (!res.ok || result.error) {
+                    throw new Error(result.error || 'Failed to delete facility on server');
+                }
+
                 set((state) => ({
                     facilities: state.facilities.filter((f) => f.ref !== ref)
                 }));

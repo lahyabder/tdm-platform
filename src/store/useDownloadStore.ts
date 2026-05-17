@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
+import { supabase } from '@/lib/supabase';
 
 export interface DownloadableFile {
     id: string;
@@ -12,9 +13,11 @@ export interface DownloadableFile {
 
 interface DownloadState {
     files: DownloadableFile[];
-    addFile: (file: DownloadableFile) => void;
-    updateFile: (id: string, updated: Partial<DownloadableFile>) => void;
-    deleteFile: (id: string) => void;
+    isLoading: boolean;
+    fetchFiles: () => Promise<void>;
+    addFile: (file: DownloadableFile) => Promise<void>;
+    updateFile: (id: string, updated: Partial<DownloadableFile>) => Promise<void>;
+    deleteFile: (id: string) => Promise<void>;
 }
 
 const initialFiles: DownloadableFile[] = [
@@ -46,15 +49,81 @@ const initialFiles: DownloadableFile[] = [
 
 export const useDownloadStore = create<DownloadState>()(
     persist(
-        (set) => ({
+        (set, get) => ({
             files: initialFiles,
-            addFile: (file) => set((state) => ({ files: [file, ...state.files] })),
-            updateFile: (id, updated) => set((state) => ({
-                files: state.files.map((f) => f.id === id ? { ...f, ...updated } : f)
-            })),
-            deleteFile: (id) => set((state) => ({
-                files: state.files.filter((f) => f.id !== id)
-            })),
+            isLoading: false,
+
+            fetchFiles: async () => {
+                try {
+                    set({ isLoading: true });
+                    const { data, error } = await supabase.from('downloads').select('*');
+                    if (!error && data && data.length > 0) {
+                        const mapped = data.map(item => ({
+                            id: item.id,
+                            title: { ar: item.title_ar || '', fr: item.title_fr || '' },
+                            type: item.type || 'pdf',
+                            size: item.size || '',
+                            url: item.url || '',
+                            category: item.category || 'forms'
+                        }));
+                        
+                        const unique = Array.from(new Map(mapped.map(f => [f.id, f])).values());
+                        set({ files: unique, isLoading: false });
+                    } else {
+                        set({ isLoading: false });
+                    }
+                } catch (e) {
+                    console.error('Fetch downloads error:', e);
+                    set({ isLoading: false });
+                }
+            },
+
+            addFile: async (file) => {
+                const res = await fetch('/api/admin/downloads', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(file)
+                });
+                const result = await res.json();
+                if (!res.ok || result.error) {
+                    throw new Error(result.error || 'Failed to add file');
+                }
+                set((state) => ({ files: [file, ...state.files] }));
+            },
+
+            updateFile: async (id, updated) => {
+                const current = get().files.find(f => f.id === id);
+                if (!current) return;
+                const full = { ...current, ...updated };
+                
+                const res = await fetch('/api/admin/downloads', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(full)
+                });
+                const result = await res.json();
+                if (!res.ok || result.error) {
+                    throw new Error(result.error || 'Failed to update file');
+                }
+                
+                set((state) => ({
+                    files: state.files.map((f) => f.id === id ? full : f)
+                }));
+            },
+
+            deleteFile: async (id) => {
+                const res = await fetch(`/api/admin/downloads?id=${id}`, {
+                    method: 'DELETE'
+                });
+                const result = await res.json();
+                if (!res.ok || result.error) {
+                    throw new Error(result.error || 'Failed to delete file');
+                }
+                
+                set((state) => ({
+                    files: state.files.filter((f) => f.id !== id)
+                }));
+            },
         }),
         {
             name: 'tdm-download-storage',

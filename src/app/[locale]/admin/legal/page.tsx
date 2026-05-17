@@ -10,7 +10,7 @@ export default function AdminLegalPage({
     params: Promise<{ locale: string }>;
 }) {
     const { locale } = use(params) as any;
-    const { legislations, addLegislation, updateLegislation, deleteLegislation } = useLegislationStore();
+    const { legislations, addLegislation, updateLegislation, deleteLegislation, fetchLegislations } = useLegislationStore();
     const [isClient, setIsClient] = useState(false);
     const [filterType, setFilterType] = useState<LegislationType | 'all'>('all');
     const [isAdding, setIsAdding] = useState(false);
@@ -27,7 +27,8 @@ export default function AdminLegalPage({
 
     useEffect(() => {
         setIsClient(true);
-    }, []);
+        fetchLegislations();
+    }, [fetchLegislations]);
 
     const t = {
         ar: {

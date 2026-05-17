@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { tendersData, TenderCategory } from '@/mock/tenders';
 import Link from 'next/link';
-import { toArabicNumerals } from '@/lib/utils';
+import { toArabicNumerals, formatDate } from '@/lib/utils';
 
 export function TendersClient({ locale }: { locale: string }) {
     const [activeCategory, setActiveCategory] = useState<TenderCategory>('announcement');

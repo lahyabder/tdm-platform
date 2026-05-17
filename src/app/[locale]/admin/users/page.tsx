@@ -42,32 +42,88 @@ export default function AdminUsersPage({
     }[locale as 'ar' | 'fr'];
 
     const [isClient, setIsClient] = useState(false);
-    const [users, setUsers] = useState([
-        { id: '1', name: "Admin TDM", email: "admin@tdm.gov.mr", role: "admin", status: "active", permissions: ['all'] },
-        { id: '2', name: "Project Manager", email: "pm@tdm.gov.mr", role: "editor", status: "active", permissions: ['content', 'projects'] },
-        { id: '3', name: "Legal Analyst", email: "legal@tdm.gov.mr", role: "editor", status: "inactive", permissions: ['legal'] },
-    ]);
+    const [users, setUsers] = useState<any[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     const [editingUser, setEditingUser] = useState<any>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    useEffect(() => {
-        setIsClient(true);
-    }, []);
-
-    const handleSaveUser = (userData: any) => {
-        if (editingUser?.id) {
-            setUsers(users.map(u => u.id === editingUser.id ? { ...userData, id: u.id } : u));
-        } else {
-            setUsers([...users, { ...userData, id: Date.now().toString() }]);
+    const fetchUsers = async () => {
+        setIsLoading(true);
+        try {
+            const res = await fetch('/api/admin/users');
+            const result = await res.json();
+            if (res.ok && result.success) {
+                setUsers(result.data);
+            }
+        } catch (e) {
+            console.error('Error fetching users:', e);
+        } finally {
+            setIsLoading(false);
         }
-        setIsModalOpen(false);
-        setEditingUser(null);
     };
 
-    const handleDeleteUser = (id: string) => {
+    useEffect(() => {
+        setIsClient(true);
+        fetchUsers();
+    }, []);
+
+    const handleSaveUser = async (userData: any) => {
+        try {
+            if (editingUser?.id) {
+                // UPDATE
+                const res = await fetch('/api/admin/users', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        id: editingUser.id,
+                        name: userData.name,
+                        email: userData.email,
+                        role: userData.role,
+                        status: userData.status,
+                        permissions: userData.permissions,
+                        password: userData.password
+                    })
+                });
+                const result = await res.json();
+                if (!res.ok || result.error) throw new Error(result.error || 'Update failed');
+            } else {
+                // CREATE
+                const res = await fetch('/api/admin/users', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: userData.name,
+                        email: userData.email,
+                        role: userData.role,
+                        status: userData.status,
+                        permissions: userData.permissions,
+                        password: userData.password
+                    })
+                });
+                const result = await res.json();
+                if (!res.ok || result.error) throw new Error(result.error || 'Create failed');
+            }
+            fetchUsers();
+            setIsModalOpen(false);
+            setEditingUser(null);
+        } catch (err: any) {
+            alert(isAr ? `فشل الحفظ: ${err.message}` : `Save failed: ${err.message}`);
+        }
+    };
+
+    const handleDeleteUser = async (id: string) => {
         if (confirm(isAr ? 'هل أنت متأكد من حذف هذا المستخدم؟' : 'Supprimer cet utilisateur ?')) {
-            setUsers(users.filter(u => u.id !== id));
+            try {
+                const res = await fetch(`/api/admin/users?id=${id}`, {
+                    method: 'DELETE'
+                });
+                const result = await res.json();
+                if (!res.ok || result.error) throw new Error(result.error || 'Delete failed');
+                fetchUsers();
+            } catch (err: any) {
+                alert(isAr ? `فشل الحذف: ${err.message}` : `Delete failed: ${err.message}`);
+            }
         }
     };
 

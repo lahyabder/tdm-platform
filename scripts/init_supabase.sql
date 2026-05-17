@@ -41,13 +41,13 @@ ALTER TABLE public.facilities ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.news ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.page_content ENABLE ROW LEVEL SECURITY;
 
--- --- Create policies to allow public access (Simplified for development) ---
+-- --- Create policies to allow public access (Strict Least Privilege) ---
 
--- Facilities Policies
-CREATE POLICY "Allow all on facilities" ON public.facilities FOR ALL USING (true) WITH CHECK (true);
+-- Facilities Policies (Read-Only Public, Writes are Server-Side bypass RLS only)
+CREATE POLICY "Allow public read-only access on facilities" ON public.facilities FOR SELECT TO public USING (true);
 
--- News Policies
-CREATE POLICY "Allow all on news" ON public.news FOR ALL USING (true) WITH CHECK (true);
+-- News Policies (Read-Only Public, Writes are Server-Side bypass RLS only)
+CREATE POLICY "Allow public read-only access on news" ON public.news FOR SELECT TO public USING (true);
 
--- Page Content Policies
-CREATE POLICY "Allow all on page_content" ON public.page_content FOR ALL USING (true) WITH CHECK (true);
+-- Page Content Policies (Read-Only Public, Writes are Server-Side bypass RLS only)
+CREATE POLICY "Allow public read-only access on page_content" ON public.page_content FOR SELECT TO public USING (true);

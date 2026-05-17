@@ -1,21 +1,37 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { verifySession } from '@/lib/auth';
 
 const locales = ['ar', 'fr'];
 const defaultLocale = 'ar';
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl;
 
     // Admin Route Server-Side Protection
     const isAdminRoute = pathname.includes('/admin') && !pathname.endsWith('/admin/login');
     const sessionToken = request.cookies.get('tdm_session')?.value;
 
-    if (isAdminRoute && !sessionToken) {
-        const localeMatch = pathname.match(/^\/([a-z]{2})\//);
-        const locale = localeMatch ? localeMatch[1] : defaultLocale;
-        return NextResponse.redirect(new URL(`/${locale}/admin/login`, request.url));
+    if (isAdminRoute) {
+        let isValid = false;
+        if (sessionToken) {
+            const payload = await verifySession(sessionToken);
+            if (payload) {
+                isValid = true;
+            }
+        }
+        
+        if (!isValid) {
+            const localeMatch = pathname.match(/^\/([a-z]{2})\//);
+            const locale = localeMatch ? localeMatch[1] : defaultLocale;
+            const response = NextResponse.redirect(new URL(`/${locale}/admin/login`, request.url));
+            if (sessionToken) {
+                response.cookies.delete('tdm_session');
+            }
+            return response;
+        }
     }
+
 
     const pathnameHasLocale = locales.some(
         (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
